@@ -1,0 +1,7 @@
+
+*.json
+*.json
+retailer-prototype/package-lock.json
+retailer-prototype/src/components/accountBox/accountContext.js
+retailer-prototype/package.json
+retailer-prototype/package-lock.json
