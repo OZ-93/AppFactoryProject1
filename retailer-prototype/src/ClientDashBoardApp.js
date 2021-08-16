@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import Navbar from './components/navbar/navbar';
+import Sidebar from './components/sidebar/sidebar';
 
 
 const App = () =>
