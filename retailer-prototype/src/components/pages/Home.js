@@ -10,7 +10,7 @@ import Navbar from '../navbar/Navbar';
 
 function Home() {
   return (
-    <>
+    
     
 
     <Router> 
@@ -27,7 +27,7 @@ function Home() {
     </Router>
       
       
-    </>
+    
   );
 }
 
