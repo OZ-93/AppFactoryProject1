@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import Main from "./Assests/main/Main";
-import Navbar from './components/navbar/navbar';
+import Main from "./components/main/DashboardMain";
+import Navbar from './components/navbar/Navbar';
 import Sidebar from './components/sidebar/sidebar';
 
 import { BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';

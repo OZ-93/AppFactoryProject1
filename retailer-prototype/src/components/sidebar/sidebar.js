@@ -1,4 +1,4 @@
-import "./Sidebar.css";
+import "./sidebar.css";
 import logo from "../../Assets/download.jpg";
 
 
