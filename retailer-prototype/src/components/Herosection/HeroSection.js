@@ -1,6 +1,6 @@
 import React from 'react';
 import '../App.css';
-
+import Signup_Login from '../Signup_Login';
 import { Button } from '../Button';
 import './HeroSection.css';
 
@@ -22,7 +22,7 @@ function HeroSection() {
             className='btns'
             buttonStyle='btn--primary'
             buttonSize='btn--large'
-            onClick={console.log('/Signup')}
+            onClick={console.log('/Signup_Login')}
           >
           Sign Up <i className='fas fa-user-plus' />
         </Button>
