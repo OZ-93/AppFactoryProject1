@@ -4,10 +4,11 @@ import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './ClientDashBoardApp';
 import reportWebVitals from './reportWebVitals';
+import ClientDashBoardApp from './ClientDashBoardApp'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ClientDashBoardApp />
   </React.StrictMode>,
   document.getElementById('root')
 );
