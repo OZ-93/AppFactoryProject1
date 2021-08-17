@@ -1,6 +1,9 @@
 import { useState } from 'react';
+import Main from "./Assests/main/Main";
 import Navbar from './components/navbar/navbar';
 import Sidebar from './components/sidebar/sidebar';
+
+import { BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 
 
 const App = () =>
@@ -19,9 +22,20 @@ const App = () =>
   return 
   (
     <div className="container">
+      <>
+      <Router>
       <Navbar sidebarOpen={sidebarOpen} openSidebar={openSidebar}/> 
-     <Main/>
       <Sidebar sidebarOpen={sidebarOpen} closeSidebar={closeSidebar} />
+     
+     <Switch>
+       <Route path = '/' exact component = {Main}/>
+       <Route path = '/main' excat component = {Main}/>
+
+       <Redirect to = '/main' exact component = {Main}/>
+      <Main/>
+      </Switch>
+      </Router>
+    </>
     </div>
   );
 }
