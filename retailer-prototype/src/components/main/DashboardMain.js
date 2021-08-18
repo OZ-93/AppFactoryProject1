@@ -1,4 +1,4 @@
-import "./Main.css";
+import "./DashboardMain.css";
 
 
 const Main=()=>
@@ -33,26 +33,6 @@ const Main=()=>
                         <p className="text-primary-p">Update Requests</p>
                     </div>
                 </div>
-
-        /* charts display 
-        <div className = "charts__left">
-            <div className = "charts__left__title">
-                <div>
-                    <h1>New Bookings made today</h1>
-                </div>
-
-                <div>
-                    <i className = "fa_fa-metric"></i>
-                </div>
-                <Chart />
-            </div>
-
-            <div className = "charts__right">
-
-            </div>
-
-        </div>
-        */
         </main>
     )
 }

@@ -1,11 +1,13 @@
-* {
+* 
+{
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   font-family: 'PT Sans', sans-serif;
 }
 
-.App-logo {
+.App-logo 
+{
   height: 40vmin;
   pointer-events: none;
 }
@@ -22,10 +24,9 @@
 {
   background-color: #282c34;
   min-height: 100vh;
-.home,
-.services,
-.products,
-.sign-up {
+}
+.home
+{
   display: flex;
   height: 90vh;
   align-items: center;
@@ -48,8 +49,9 @@
   {
     transform: rotate(360deg);
   }
-.services {
-  
+}
+.services 
+{
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -57,8 +59,8 @@
   font-size: 100px;
 }
 
-.products {
-  
+.products 
+{  
   background-position: center;
   background-size: fill;
   background-repeat: no-repeat;
@@ -66,8 +68,8 @@
   font-size: 100px;
 }
 
-.sign-up {
-  
+.sign-up 
+{  
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
