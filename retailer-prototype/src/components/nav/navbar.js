@@ -4,6 +4,7 @@ import { Button } from '../Button';
 import '../nav/nav.css';
 import { LoginForm } from '../accountBox/loginForm';
 import avatar from "../../Assets/avatar.jpg"
+import gijima from '../images/gijima.png'
 
 function Navbar() {
   const [click, setClick] = useState(false);
@@ -32,7 +33,7 @@ function Navbar() {
         <div className='navbar-container'>
         
           <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
-           ATA
+          <img width="125" height="60" padding="50px"  src={gijima} alt="gijima"/>
             <i class='' />
           </Link>
           <div className='menu-icon' onClick={handleClick}>
@@ -87,8 +88,7 @@ function Navbar() {
             </li>
           </ul>
           
-          {button && <Button className="btns" buttonStyle='btn--outline'>SIGN IN</Button>}
-          {button && <Button buttonStyle='btn--outline'>Login</Button>}
+          
         </div>
       </nav>
     

@@ -11,7 +11,7 @@ function HeroSection() {
     
     <div className='hero-container'>
     
-      <h1>ASSESSMENT TOOLING APP</h1>
+      <h2>ASSESSMENT TOOLING APP</h2>
       <p></p>
       <div className='hero-btns'>
 

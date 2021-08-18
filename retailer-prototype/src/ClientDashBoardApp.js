@@ -1,7 +1,9 @@
+import React from 'react';
 import { useState } from 'react';
 import Main from "./components/main/DashboardMain";
-import Navbar from './components/navbar/Navbar';
+import Navbar from './Assets/navbar/Navbar';
 import Sidebar from './components/sidebar/sidebar';
+
 
 import { BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 
@@ -22,7 +24,7 @@ const App = () =>
   return 
   (
     <div className="container">
-      <>
+    
       <Router>
       <Navbar sidebarOpen={sidebarOpen} openSidebar={openSidebar}/> 
       <Sidebar sidebarOpen={sidebarOpen} closeSidebar={closeSidebar} />
@@ -35,9 +37,11 @@ const App = () =>
       <Main/>
       </Switch>
       </Router>
-    </>
+    
     </div>
+  
   );
 }
 
 export default App;
+

@@ -1,10 +1,9 @@
+//import React from 'react';
 import React, { useState } from 'react';
 import "./Navbar.css";
-//import * as FaIcons from 'react-icons/fa';
-//import * as AiIcons from 'react-icons/ai';
-//import {Link} from 'react-router-dom';
-import Sidebar from '../sidebar/Sidebar'
-//import { IconContext } from 'react-icons';
+import gijima from '../../components/images/gijima.png';
+import Sidebar from '../sidebar/Sidebar';
+
 
 const Navbar=({sidebarOpen, openSidebar})=>{
   
@@ -15,7 +14,7 @@ const Navbar=({sidebarOpen, openSidebar})=>{
             </div>
            
             <div className="navbar__right">
-                <a href="#">Gijima Logo</a>
+                <img width="125" height="60" padding="50px"  src={gijima} alt="gijima"/>
             </div>
         </nav>
         
