@@ -1,6 +1,8 @@
 .navbar 
 {
-  background: linear-gradient(90deg, rgb(13, 81, 104) 0%, rgb(86, 93, 192) 100%);
+  /*background: linear-gradient(90deg, rgb(13, 81, 104) 0%, rgb(42, 45, 80) 100%);*/
+  background: black;
+  background-color: black;
   height: 80px;
   display: flex;
   justify-content: center;
@@ -68,13 +70,13 @@
 
 .nav-links:hover 
 {
-  border-bottom: 4px solid #fff;
+  border-bottom: 4px solid rgb(87, 52, 52);
   transition: all 0.2s ease-out;
 }
 
 .fa-bars 
 {
-  color: #fff;
+  color: rgb(37, 22, 22);
 }
 
 .nav-links-mobile 

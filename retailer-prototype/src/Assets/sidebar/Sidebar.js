@@ -1,8 +1,9 @@
+import React from 'react'
 import "./Sidebar.css";
 import logo from "../../Assets/download.jpg";
 //import "./App.css";
-import Update from "../../pages/Updateprofile";
-import Reports from "../../pages/Reports";
+import Update from "../../components/pages/Updateprofile";
+import Reports from '../../components/pages/Reports';
 
 
 const Sidebar=({sidebarOpen, closeSidebar})=>{

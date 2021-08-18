@@ -1,5 +1,6 @@
 import { Field, useFormik } from "formik";
 import React, { useContext, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Marginer } from "../marginer";
 import {
   BoldLink,
@@ -15,6 +16,8 @@ import {
 import { AccountContext } from "../accountBox/accountContext";
 import * as yup from "yup";
 import axios from "axios";
+import { Redirect } from "react-router-dom";
+import Main from "../../Assets/main/Main";
 
 const validationSchema = yup.object({
   email: yup.string().required(),
@@ -24,19 +27,29 @@ const validationSchema = yup.object({
 export function LoginForm(props) {
   const { switchToSignup } = useContext(AccountContext);
   const [error, setError] = useState(null);
+  const location = {
+    pathname: '/Dash',
+    state: {fromDashboard: true}
+  } 
 
-  const onSubmit = async (values) => {
-    setError(null);
-    const response = await axios
-      .post("http://localhost:5000/api/v1/login", values)
+  const history = useHistory();
+
+  
+
+  const onSubmit =  (values) => {
+    history.push(location);
+  };
+ /* const response = await axios
+      ( values)
       .catch((err) => {
         if (err && err.response) setError(err.response.data.message);
       });
+      
 
     if (response) {
-      alert("Welcome back in. Authenticating...");
+      alert("Welcome back in. Authenticating...") ;
     }
-  };
+  };*/
 
   const formik = useFormik({
     initialValues: { email: "", password: "" },

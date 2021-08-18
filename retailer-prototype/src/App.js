@@ -1,24 +1,39 @@
+import React from 'react'
 
-import './App.css';
+//import './App.css';
 import Home from './components/pages/Home';
 import Signup_Login from './components/Signup_Login';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import HeroSection from './components/Herosection/HeroSection';
+import { LoginForm } from './components/accountBox/loginForm';
+import route from 'color-convert/route';
+import Main from './Assets/main/Main';
+import Dash from './components/Dash';
+import Update from "./components/pages/Updateprofile";
+import Reports from "./components/pages/Reports";
+import View from "./components/pages/viewreports";
+import Assessment from "./components/pages/updateAss";
 
 function App() {
   return (
-    <div >
+    
       <Router> 
       <Switch>
               
         <Route path="/" exact component={Home} />
         <Route path="/Signup_Login" component={Signup_Login} />
+        <Route path="/Dash" component={Dash}/>
+        <Route path='/Update' component={Update}/>
+    <Route path='/Reports' component={Reports}/>
+    <Route path='/View' component={View}/>
+    <Route path='/Assessment' component={Assessment}/>
        
+      
         
       </Switch>
     </Router>
      
-    </div>
+  
   );
 }
 

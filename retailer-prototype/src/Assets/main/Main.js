@@ -1,7 +1,9 @@
-import "./Main.css";
-import View from "../../pages/viewreports";
-import Assessment from "../../pages/updateAss";
+import React from 'react'
 
+import "./Main.css";
+import View from '../../components/pages/viewreports';
+
+import Assessment from '../../components/pages/updateAss'
 
 const Main=()=>{
     return(

@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 
 import HeroSection from '../Herosection/HeroSection';
 
-import Navbar from '../navbar/Navbar';
+import Navbar from '../nav/navbar';
 
 
 
@@ -17,7 +17,7 @@ function Home() {
     <Navbar/>
       <Switch>
        
-      <HeroSection/>
+    <HeroSection/>
         
         
         

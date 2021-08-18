@@ -1,7 +1,8 @@
 import React,{useEffect,useState} from 'react'
 import { BrowserRouter, Link } from 'react-router-dom';
 import { Button } from '../Button';
-import "./Navbar.css";
+import '../nav/nav.css';
+import { LoginForm } from '../accountBox/loginForm';
 import avatar from "../../Assets/avatar.jpg"
 
 function Navbar() {
@@ -26,7 +27,7 @@ function Navbar() {
   window.addEventListener('resize', showButton);
 
   return (
-    <>
+    
       <nav className='navbar'>
         <div className='navbar-container'>
         
@@ -76,7 +77,7 @@ function Navbar() {
             </li>
             <li>
               <Link
-                to='/Login'
+                to='/loginForm'
                 className='nav-links-mobile'
                 onClick={closeMobileMenu}
               >
@@ -86,11 +87,11 @@ function Navbar() {
             </li>
           </ul>
           
-          {button && <Button className="btns" buttonStyle='btn--outline'>SIGN UP</Button>}
+          {button && <Button className="btns" buttonStyle='btn--outline'>SIGN IN</Button>}
           {button && <Button buttonStyle='btn--outline'>Login</Button>}
         </div>
       </nav>
-    </>
+    
   );
 }
 

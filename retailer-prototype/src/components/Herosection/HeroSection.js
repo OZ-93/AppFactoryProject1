@@ -7,6 +7,8 @@ import './HeroSection.css';
 
 function HeroSection() {
   return (
+   
+    
     <div className='hero-container'>
     
       <h1>ASSESSMENT TOOLING APP</h1>
@@ -34,7 +36,7 @@ function HeroSection() {
           className='btns'
           buttonStyle='btn--primary'
           buttonSize='btn--large'
-          onClick={console.log('/Signup')}
+          onClick={console.log('/Signup_Login')}
         >
         Login <i className='fas fa-sign-in-alt' />
       </Button>
