@@ -4,8 +4,7 @@ import "./DashboardMain.css";
 
 const Main=()=>
 {
-    return
-    (
+    return(
         <main>
             <div className = "main__container">
                 <div className = "main__title">

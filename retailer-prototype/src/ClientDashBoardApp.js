@@ -8,7 +8,7 @@ import Sidebar from './components/sidebar/sidebar';
 import { BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 
 
-const App = () =>
+const ClientDashBoardApp = () =>
 {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -21,8 +21,7 @@ const App = () =>
   {
     setSidebarOpen(false);
   }
-  return 
-  (
+  return (
     <div className="container">
     
       <Router>
@@ -43,5 +42,5 @@ const App = () =>
   );
 }
 
-export default App;
+export default ClientDashBoardApp;
 

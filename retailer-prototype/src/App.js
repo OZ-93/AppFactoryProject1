@@ -7,12 +7,13 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import HeroSection from './components/Herosection/HeroSection';
 import { LoginForm } from './components/accountBox/loginForm';
 import route from 'color-convert/route';
-import Main from './Assets/main/Main';
+import Main from './Assets/main/Main'
 import Dash from './components/Dash';
 import Update from "./components/pages/Updateprofile";
 import Reports from "./components/pages/Reports";
 import View from "./components/pages/viewreports";
 import Assessment from "./components/pages/updateAss";
+import Client from './ClientDashBoardApp';
 
 function App() {
   return (
@@ -27,6 +28,9 @@ function App() {
     <Route path='/Reports' component={Reports}/>
     <Route path='/View' component={View}/>
     <Route path='/Assessment' component={Assessment}/>
+    <Route path='/Client' component={Client}/>
+    <Route path = '/main' excat component = {Main}/>
+
        
       
         
