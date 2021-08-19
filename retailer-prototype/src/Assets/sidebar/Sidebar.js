@@ -11,11 +11,12 @@ const Sidebar=({sidebarOpen, closeSidebar})=>{
         <div className={sidebarOpen ? "sidebar-responsive": ""} id="sidebar">
             <div className="sidebar__title">
                 <div className="sidebar__img">
-                    <img src={logo} alt="download"/>
+                <a href="/main">DASHBOARD</a>
+                
                 </div>
                 <div className="sidebar__link">
                         <i className="fa fa-files-o"></i>
-                        <a href="/main">Dashboard</a>
+                        
                     </div>
                 </div>
 

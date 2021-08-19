@@ -14,7 +14,7 @@ const Navbar=({sidebarOpen, openSidebar})=>{
             </div>
            
             <div className="navbar__right">
-                <img width="125" height="60" padding="50px"  src={gijima} alt="gijima"/>
+              <img width="125" src={gijima} alt="gijima"/>  
             </div>
         </nav>
         

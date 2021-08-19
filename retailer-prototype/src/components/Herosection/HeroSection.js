@@ -12,7 +12,7 @@ function HeroSection() {
     <div className='hero-container'>
     
       <h2>ASSESSMENT TOOLING APP</h2>
-      <p></p>
+      <p>ghjgfhjgjhkjhkhkhj</p>
       <div className='hero-btns'>
 
       

@@ -3,7 +3,7 @@ import React from 'react'
 //import './App.css';
 import Home from './components/pages/Home';
 import Signup_Login from './components/Signup_Login';
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom"
 import HeroSection from './components/Herosection/HeroSection';
 import { LoginForm } from './components/accountBox/loginForm';
 import route from 'color-convert/route';

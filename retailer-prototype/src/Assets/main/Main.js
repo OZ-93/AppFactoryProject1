@@ -12,7 +12,7 @@ const Main=()=>{
                 <div className="card">
                  <div className="sidebar__link">
                     <div className="card_inner">
-                     <i className="fa fa-user-o fa-2x text-lightblue"></i>
+                     <i className="fa  fa-list fa-5px"></i>
                         <a href="/Reports">View Reports</a>
                         <span className="font-bold text-title">  578</span>
 
@@ -21,7 +21,7 @@ const Main=()=>{
                     
                 </div>
                 <div className="card">
-                 <i className="fa fa-files-o"></i>
+                 <i className="fa  fa-list fa-5px"></i>
                  <a href="/Update">Update Requests</a>
                     
                 </div>
