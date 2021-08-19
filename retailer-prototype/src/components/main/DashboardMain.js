@@ -10,7 +10,7 @@ const Main=()=>
                 <div className = "main__title">
 
                     <div className = "main__greeting">
-                        <h1>BMW Bookins</h1>
+                        <h1>BMW Bookings</h1>
                         <p>Welcome to the clientside Dashboard</p>
                     </div>
 
