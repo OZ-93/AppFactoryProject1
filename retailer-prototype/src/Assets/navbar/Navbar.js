@@ -1,11 +1,11 @@
 //import React from 'react';
 import React, { useState } from 'react';
-import "./Navbar.css";
+import "./navbar.css";
 import gijima from '../../components/images/gijima.png';
 import Sidebar from '../sidebar/Sidebar';
 
 
-const Navbar=({sidebarOpen, openSidebar})=>{
+const navbar=({sidebarOpen, openSidebar})=>{
   
     return(
         <nav className="navbar">
@@ -20,4 +20,4 @@ const Navbar=({sidebarOpen, openSidebar})=>{
         
     )
 }
-export default Navbar;
+export default navbar;
