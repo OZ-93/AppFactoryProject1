@@ -1,6 +1,6 @@
 //import React from 'react';
 import React, { useState } from 'react';
-import "./navbar.css";
+import '../../Assets/navbar/Navbar.css';
 import gijima from '../../components/images/gijima.png';
 import Sidebar from '../sidebar/Sidebar';
 

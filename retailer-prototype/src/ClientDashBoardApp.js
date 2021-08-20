@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import Main from "./components/main/DashboardMain";
-import Navbar from './Assets/navbar/navbar';
+import Navbar from './Assets/navbar/Navbar';
 import Sidebar from './components/sidebar/sidebar';
 
 import Schedule from "./components/ScheduleNew/ScheduleNew";
