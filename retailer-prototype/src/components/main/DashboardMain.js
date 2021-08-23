@@ -1,4 +1,6 @@
 import React from 'react';
+//import Card from "@material-ui/core/Card";
+import CardHeader from 'react-bootstrap/esm/CardHeader';
 import "./DashboardMain.css";
 
 
@@ -16,14 +18,18 @@ const Main=()=>
 
                 </div>
             </div>
-
+            
             <div className="main__cards">
                 <div className="card">
                     <i className="fa fa-user-o fa-2x text-lightblue"></i>
                     <div className="card_inner">
+                        
+                        <CardHeader> LIASONS </CardHeader>
                         <p className="text-primary-p">Total Bookings</p>
                         <span className="font-bold text-title">578</span>
+                        
                     </div>
+                    
                 </div>
 
                 <div className="card">
@@ -33,6 +39,7 @@ const Main=()=>
                         <p className="text-primary-p">Update Requests</p>
                     </div>
                 </div>
+
         </main>
     )
 }
