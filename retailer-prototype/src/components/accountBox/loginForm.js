@@ -1,6 +1,7 @@
 import { Field, useFormik } from "formik";
 import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
+import routes from "../../routes";
 import { Marginer } from "../marginer";
 import {
   BoldLink,
@@ -12,6 +13,7 @@ import {
   Input,
   MutedLink,
   SubmitButton,
+  Input2
 } from "./common";
 import { AccountContext } from "../accountBox/accountContext";
 import * as yup from "yup";
@@ -28,7 +30,7 @@ export function LoginForm(props) {
   const { switchToSignup } = useContext(AccountContext);
   const [error, setError] = useState(null);
   const location = {
-    pathname: '/Dash',
+    pathname: '/dashboard',
     state: {fromDashboard: true}
   } 
 
@@ -38,6 +40,7 @@ export function LoginForm(props) {
 
   const onSubmit =  (values) => {
     history.push(location);
+    //props.history.push(routes.dashboard);
   };
  /* const response = await axios
       ( values)

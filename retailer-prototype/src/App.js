@@ -4,47 +4,77 @@ import React from 'react'
 import Home from './components/pages/Home';
 import Signup_Login from './components/Signup_Login';
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom"
-import HeroSection from './components/Herosection/HeroSection';
-import { LoginForm } from './components/accountBox/loginForm';
-import route from 'color-convert/route';
-import Main from './Assets/main/Main'
-import Dash from './components/Dash';
-import Update from "./components/pages/Updateprofile";
-import Reports from "./components/pages/Reports";
-import View from "./components/pages/viewreports";
-import Assessment from "./components/pages/updateAss";
-import Client from "./ClientDashBoardApp";
-import Schedule from "./components/ScheduleNew/ScheduleNew";
-import UpdateBookings from "./components/UpdateBookings/UpdateBooking";
-import Logs from "./components/ViewLogged/ViewLogged";
+import AuthLayout from './Shared/Layout/AuthLayout';
+import routes from './routes';
+import ClientLayout from './Shared/Layout/ClientLayout';
+import ClientDashboard from './components/pages/ClientDashboard/Index';
+import { createBrowserHistory } from "history";
+import AdminDashboard from './components/pages/AdminDashboard/index';
+import Main from './components/pages/AdminDashboard/Main';
+import AdminLayout from './Shared/Layout/AdminLayout';
 
-function App() {
+//calling all pages involved
+const pages = [
+  // Public pages
+  {
+    exact:true,
+    path: routes.home,
+    component:Home,
+    layout: AuthLayout
+  },
+  {
+    exact: false,
+    path: routes.Signup_Login,
+    component: Signup_Login,
+    layout: AuthLayout
+    
+  },
+
+
+  
+  // Authenticated pages
+ {
+    exact: false,
+    path: routes.Dashboard,
+    component:ClientDashboard,
+    layout: ClientLayout
+  },
+
+  {
+    exact: false,
+    path: routes.Main,
+    component:AdminDashboard,
+    layout: AdminLayout
+  }
+];
+
+
+const App =()=> {
+  const history=createBrowserHistory();
   return (
     
-      <Router> 
-      <Switch>
-              
-        <Route path="/" exact component = {Home} />
-        <Route path="/Signup_Login" component = {Signup_Login} />
-        <Route path="/Dash" component = {Dash}/>
-        <Route path='/Update' component = {Update}/>
+    <Router history={history}>
 
-    <Route path='/Reports' component = {Reports}/>
-    <Route path='/View' component = {View}/>
-    <Route path='/Assessment' component = {Assessment}/>
-
-    <Route path='/Client' component = {Client}/>
-    <Route path = '/main' excat component = {Main}/>
-
-    <Route path = '/Schedule' component = {Schedule}/>
-    <Route path = ' /UpdateBookings' component = {UpdateBookings}/>
-    <Route path = '/Logs' component = {Logs}/>
-
-       
-      
-        
-      </Switch>
-    </Router>
+    <Switch>
+      {pages.map(
+        ({ exact, path, component: Component, layout: Layout }, index) => (
+          <Route
+            key={index}
+            exact={exact}
+            path={path}
+            render={props => (
+              <Layout history={props.history}>
+                <Component {...props} />
+              </Layout>
+            )}
+          />
+        )
+      )}
+      <Redirect to={routes.Dashboard} />
+      {/* Or Uncomment below to use a custom 404 page */}
+      {/* <Route component={NotFoundPage} /> */}
+    </Switch>
+  </Router>
      
   
   );

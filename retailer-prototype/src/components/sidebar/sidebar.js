@@ -1,6 +1,7 @@
 import React from 'react';
 import "./sidebar.css";
 import logo from "../../Assets/download.jpg";
+import routes from '../../routes';
 
 
 const Sidebar=({sidebarOpen, closeSidebar})=>{
@@ -23,16 +24,16 @@ const Sidebar=({sidebarOpen, closeSidebar})=>{
                 <div className = "sidebar__menu">
                     <div className = "sidebar__link active_menu_link">
                         <i className = "fa fa-home"></i>
-                        <a href = "#">Dashboard</a>
+                        <a href ={routes.dashboard}>Dashboard</a>
                     </div>
 
                     <div className = "sidebar__link">
-                        <a href = "#">Schedule New Booking</a>
+                        <a href = {routes.Schedule}>Schedule New Booking</a>
                     </div>
 
                     <div className = "sidebar__link">
                         <i className = "fa fa-files-o"></i>
-                        <a href = "#">Update Booking</a>
+                        <a href = {routes.Update}>Update Booking</a>
                     </div>
 
                     <div className = "sidebar__link">

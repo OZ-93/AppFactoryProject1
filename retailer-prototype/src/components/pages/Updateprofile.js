@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Update() {
+function Updateprofile() {
   return (
     <div className='Update'>
       <h1>Update profile here</h1>
@@ -8,4 +8,4 @@ function Update() {
   );
 }
 
-export default Update
+export default Updateprofile;

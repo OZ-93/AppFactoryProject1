@@ -3,16 +3,22 @@ import '../App.css';
 import Signup_Login from '../Signup_Login';
 import { Button } from '../Button';
 import './HeroSection.css';
+import routes from '../../routes';
 
 
-function HeroSection() {
+const HeroSection=props=> {
+  const gotoSignupLogin = () => {
+    props.history.push(routes.Signup_Login);
+  }
   return (
    
     
-    <div className='hero-container'>
+  
+   <div className='hero-container'>
+    
     
       <h2>ASSESSMENT TOOLING APP</h2>
-      <p>ghjgfhjgjhkjhkhkhj</p>
+      <p>gghjgjhgjgjghj</p>
       <div className='hero-btns'>
 
       
@@ -24,7 +30,7 @@ function HeroSection() {
             className='btns'
             buttonStyle='btn--primary'
             buttonSize='btn--large'
-            onClick={console.log('/Signup_Login')}
+            onClick={gotoSignupLogin}
           >
           Sign Up <i className='fas fa-user-plus' />
         </Button>
@@ -36,7 +42,7 @@ function HeroSection() {
           className='btns'
           buttonStyle='btn--primary'
           buttonSize='btn--large'
-          onClick={console.log('/Signup_Login')}
+          onClick={gotoSignupLogin}
         >
         Login <i className='fas fa-sign-in-alt' />
       </Button>

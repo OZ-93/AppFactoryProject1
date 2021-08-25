@@ -18,6 +18,8 @@ import * as yup from "yup";
 import axios from "axios";
 import { Marginer } from "../marginer";
 import PhoneInput from 'react-phone-number-input';
+import routes from "../../routes";
+import { useHistory } from "react-router-dom";
 
 
 
@@ -64,10 +66,16 @@ export function SignupForm(props) {
   const { switchToSignin } = useContext(AccountContext);
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
+  const location = {
+    pathname: '/Main',
+    state: {fromDashboard: true}
+  } 
 
+  const history = useHistory();
 
   const onSubmit= (values)=>{
-    alert(JSON.stringify(values));
+   // alert(JSON.stringify(values));
+    history.push(location);
   }
 
  /* const onSubmit = async (values) => {
