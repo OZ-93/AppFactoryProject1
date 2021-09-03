@@ -67,14 +67,14 @@ export function SignupForm(props) {
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
   const location = {
-    pathname: '/Main',
+    pathname: '/Dashboard',
     state: {fromDashboard: true}
   } 
 
   const history = useHistory();
 
   const onSubmit= (values)=>{
-   // alert(JSON.stringify(values));
+    alert(JSON.stringify(values));
     history.push(location);
   }
 

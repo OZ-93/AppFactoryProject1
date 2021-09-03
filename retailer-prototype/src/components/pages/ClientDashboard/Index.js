@@ -3,7 +3,7 @@ import { Switch } from "react-router-dom";
 import RouteWithProps from "../../../Shared/routes/RouteWithProps";
 import routes from '../../../routes'
 import DashboardMain from '../../pages/ClientDashboard/DashboardMain'
-import ScheduleNew from '../../pages/ClientDashboard/ScheduleNew'
+import ScheduleBooking from '../../pages/ScheduleBooking/ScheduleNew'
 import Updateprofile from "../Updateprofile";
 
 const ClientDashboard=()=>{
@@ -13,7 +13,7 @@ const ClientDashboard=()=>{
     return(
         <Switch>
             <RouteWithProps exact path={routes.dashboard} component={DashboardMain}/>
-            <RouteWithProps exact path={routes.Schedule}  component={ScheduleNew}/>
+            <RouteWithProps exact path={routes.Schedule}  component={ScheduleBooking}/>
             
             <RouteWithProps exact path={routes.Update}   component={Updateprofile}/>
         </Switch>

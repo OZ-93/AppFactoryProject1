@@ -6,7 +6,7 @@ const ScheduleNew=props=>{
     }
     return(
         <div>
-            asdasd
+        dsdfsdfs
         </div>
     )
 }
