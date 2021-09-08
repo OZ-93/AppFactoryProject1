@@ -10,9 +10,9 @@ const Sidebar=({sidebarOpen, closeSidebar})=>{
             <div className = "sidebar__title">
                 <div className = "sidebar__img">
                     <img src = {logo} alt = "download"/>
-                    <h1>Administrator</h1>
+                    <h1>CLIENT</h1>
                 </div>
-
+                
                 <i 
                 className = "fa fa-times" 
                 id = "sidebarIcon" 
@@ -38,7 +38,7 @@ const Sidebar=({sidebarOpen, closeSidebar})=>{
 
                     <div className = "sidebar__link">
                         <i className = "fa fa-archive"></i>
-                        <a href = "#">View Logged Bookings</a>
+                        <a href = {routes.View}>View Logged Bookings</a>
                     </div>
 
                     <h2>LEAVE</h2>

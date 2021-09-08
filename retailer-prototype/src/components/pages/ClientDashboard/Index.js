@@ -5,6 +5,7 @@ import routes from '../../../routes'
 import DashboardMain from '../../pages/ClientDashboard/DashboardMain'
 import ScheduleBooking from '../../pages/ScheduleBooking/ScheduleNew'
 import Updateprofile from "../Updateprofile";
+import ViewReports from "./ViewReports";
 
 const ClientDashboard=()=>{
 
@@ -14,7 +15,7 @@ const ClientDashboard=()=>{
         <Switch>
             <RouteWithProps exact path={routes.dashboard} component={DashboardMain}/>
             <RouteWithProps exact path={routes.Schedule}  component={ScheduleBooking}/>
-            
+            <RouteWithProps exact path={routes.View}  component={ViewReports}/>
             <RouteWithProps exact path={routes.Update}   component={Updateprofile}/>
         </Switch>
 

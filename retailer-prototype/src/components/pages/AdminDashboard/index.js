@@ -12,7 +12,7 @@ const AdminDashboard = ()=>{
     return(
 
         <Switch>
-            <RouteWithProps exact path={routes.Main} component={Main}/>
+            <RouteWithProps exact path={routes.main} component={Main}/>
             <RouteWithProps exact path={routes.Report} component={Reports}/>
             <RouteWithProps exact path={routes.AdminUpdate} component={Updateprofile}/>
         </Switch>

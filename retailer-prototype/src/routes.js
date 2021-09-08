@@ -11,11 +11,13 @@ export default {
     //client routing
     Schedule:"/Dashboard/Schedule",
     Update:"/Dashboard/Update",
+    View: "/Dashboard/ViewReports",
 
     //Admin routing
-    Main:"/AdminDash",
+    main:"/AdminDash",
     AdminUpdate:"/AdminDash/UpdateReport",
     Report:"/Admin/report"
+   
 
     
   };

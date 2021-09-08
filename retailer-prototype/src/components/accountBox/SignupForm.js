@@ -67,7 +67,7 @@ export function SignupForm(props) {
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
   const location = {
-    pathname: '/Dashboard',
+    pathname: '/Main',
     state: {fromDashboard: true}
   } 
 

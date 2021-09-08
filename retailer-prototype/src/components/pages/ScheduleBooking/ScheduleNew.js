@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { Grid, } from '@material-ui/core';
 import Controls from "../../../controls/Controls";
 import { useForm, Form } from './useForm';
-import * as employeeService from "./employeeService";
+import * as employeeService from "../ClientDashboard/BookingService";
 import PageHeader from '../../../controls/PageHeader';
 import PeopleOutlineTwoToneIcon from '@material-ui/icons/PeopleOutlineTwoTone';
 import { Paper,makeStyles } from '@material-ui/core';
+import { Alert } from 'react-st-modal';
 
 
 const genderItems = [
@@ -19,12 +20,12 @@ const initialFValues = {
     fullName: '',
     Surname:'',
     IdNumber:'',
-    email: '',
+    Email: '',
     mobile: '',
     RetailerName: '',
     gender: 'male',
-    CandidatePosition: '',
-    
+    PositionId: '',
+    UploadCv:'',
     CandidateBrand:'',
     hireDate: new Date(),
     isPermanent: false,
@@ -38,19 +39,18 @@ export default function ScheduleBooking() {
             temp.fullName = fieldValues.fullName ? "" : "This field is required."
         if ('Surname' in fieldValues)
             temp.Surname = fieldValues.Surname ? "" : "This field is required."
-        if ('email' in fieldValues)
-            temp.email = (/$^|.+@.+..+/).test(fieldValues.email) ? "" : "Email is not valid."
+        if ('Email' in fieldValues)
+            temp.Email = (/$^|.+@.+..+/).test(fieldValues.Email) ? "" : "Email is not valid."
         if ('mobile' in fieldValues)
             temp.mobile = fieldValues.mobile.length > 9 ? "" : "Minimum 10 numbers required."
         if ('IdNumber' in fieldValues)
-            temp.IdNumber = fieldValues.IdNumber.length >12 ? "" : "invalid Id."
+            temp.IdNumber = fieldValues.IdNumber.length >13 ? "" : "invalid Id."
         if ('RetailerName' in fieldValues)
             temp.RetailerName = fieldValues.RetailerName? "" : "This field is required."
         if ('CandidateBrand' in fieldValues)
             temp.CandidateBrand = fieldValues.CandidateBrand.length != 0 ? "" : "This field is required."
-        if ('CandidatePosition' in fieldValues)
-            temp.CandidatePosition = fieldValues.CandidatePosition.length != 0 ? "" : "This field is required."
-        
+        if ('PositionId' in fieldValues)
+            temp.PositionId = fieldValues.PositionId.length != 0 ? "" : "This field is required."
         setErrors({
             ...temp
         })
@@ -71,8 +71,8 @@ export default function ScheduleBooking() {
     const handleSubmit = e => {
         e.preventDefault()
         if (validate()){
+            Alert('Successfully Captured');
             employeeService.insertEmployee(values)
-            
             resetForm()
         }
     }
@@ -87,8 +87,6 @@ export default function ScheduleBooking() {
     return (
         
        <main>
-
-      
         <Paper className={classes.pageContent}>
        <Form onSubmit={handleSubmit}>
            <PageHeader
@@ -120,10 +118,10 @@ export default function ScheduleBooking() {
                     />
                     <Controls.Input
                         label="Email"
-                        name="email"
-                        value={values.email}
+                        name="Email"
+                        value={values.Email}
                         onChange={handleInputChange}
-                        error={errors.email}
+                        error={errors.Email}
                     />
                     <Controls.Input
                         label="Mobile"
@@ -150,12 +148,13 @@ export default function ScheduleBooking() {
                         items={genderItems}
                     />
                     <Controls.Select
-                        name="CandidatePosition"
+                        name="PositionId"
                         label="Canditate Position"
-                        value={values.CandidatePosition}
+                        value={values.PositionId}
                         onChange={handleInputChange}
-                        options={employeeService.Position()}
-                        error={errors.CandidatePosition}
+                        options={employeeService.getPosition()}
+                        error={errors.PositionId}
+                        items={employeeService.getPosition}
                     />
 
                      <Controls.Select
@@ -163,8 +162,9 @@ export default function ScheduleBooking() {
                         label="Candidate Brand"
                         value={values.CandidateBrand}
                         onChange={handleInputChange}
-                        options={employeeService.Brand()}
+                        options={employeeService.getBrand()}
                         error={errors.CandidateBrand}
+                        items={employeeService.getBrand}
                     />
                     <Controls.DatePicker
                         name="hireDate"
@@ -173,15 +173,18 @@ export default function ScheduleBooking() {
                         onChange={handleInputChange}
                     />
 
-                   
+                    <Controls.Input
+                        Name="UploadCv"
+                        Label="Upload Cv"
+                        Value={values.UploadCv}
+                        type="file"
+                        />
                     <div>
                         <input 
 
                         aria-label="Insert CV"
-                        
                         type="file"
                         name="File"
-                      
                         />
                     </div>
 
@@ -206,7 +209,7 @@ export default function ScheduleBooking() {
                 </Grid>
             </Grid>
         </Form>
-        </Paper> 
+        </Paper>
         </main>
     )
 }
