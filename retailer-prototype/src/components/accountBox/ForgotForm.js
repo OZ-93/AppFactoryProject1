@@ -20,16 +20,16 @@ import * as yup from "yup";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 import Main from "../../Assets/main/Main";
-import ForgotForm from "./ForgotForm";
 
 const validationSchema = yup.object({
-  email: yup.string().required(),
-  password: yup.string().required(),
+  email: yup.string().email("Please enter a valid email address").required(),
+  
+ 
 });
 
-export function LoginForm(props) {
-  const { switchToSignup } = useContext(AccountContext);
-  const { switchToForgot } = useContext(AccountContext);
+export function ForgotForm(props) {
+
+  const { switchToSignin } = useContext(AccountContext);
   const [error, setError] = useState(null);
   const location = {
     pathname: '/dashboard',
@@ -83,40 +83,13 @@ export function LoginForm(props) {
             </FieldError>
           }
         </FieldContainer>
-        <FieldContainer>
-          <Input
-            name="password"
-            type="password"
-            placeholder="Password"
-            value={formik.values.password}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
-          {
-            <FieldError>
-              {formik.touched.password && formik.errors.password
-                ? formik.errors.password
-                : ""}
-            </FieldError>
-          }
-        </FieldContainer>
-        <MutedLink href="#">Forgot Password?
-          <BoldLink href="#" onClick={switchToForgot}>
-            click here
-          </BoldLink>
-        </MutedLink>
+        
+        
         <Marginer direction="vertical" margin="1em" />
-        <SubmitButton type="submit" disabled={!formik.isValid}>
-          Login
+        <SubmitButton type="submit" href="#" onClick={ switchToSignin} disabled={!formik.isValid}>
+          Reset
         </SubmitButton>
       </FormContainer>
-      <Marginer direction="vertical" margin={5} />
-      <MutedLink href="#">
-        Dont have an Account?
-        <BoldLink href="#" onClick={switchToSignup}>
-          sign up
-        </BoldLink>
-      </MutedLink>
     </BoxContainer>
   );
 }

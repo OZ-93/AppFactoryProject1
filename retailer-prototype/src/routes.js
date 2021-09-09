@@ -12,6 +12,7 @@ export default {
     Schedule:"/Dashboard/Schedule",
     Update:"/Dashboard/Update",
     View: "/Dashboard/ViewReports",
+    updateinfo: "/Dashboard/UpdateInfo",
 
     //Admin routing
     main:"/AdminDash",

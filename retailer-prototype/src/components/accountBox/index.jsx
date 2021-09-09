@@ -4,6 +4,7 @@ import { LoginForm } from "./loginForm";
 import { motion } from "framer-motion";
 import { AccountContext } from "./accountContext";
 import { SignupForm } from "./SignupForm";
+import { ForgotForm }  from "./ForgotForm";
 
 const BoxContainer = styled.div`
   width: 280px;
@@ -37,11 +38,7 @@ const BackDrop = styled(motion.div)`
   transform: rotate(60deg);
   top: -290px;
   left: -70px;
-  background: rgb(241, 196, 15);
-  background: linear-gradient(
-    58deg,
-    rgba(241, 196, 15, 1) 20%,
-    rgba(243, 172, 18, 1) 100%
+  background:  rgb(159, 205, 231);
   );
 `;
 
@@ -122,7 +119,14 @@ export function AccountBox(props) {
     }, 400);
   };
 
-  const contextValue = { switchToSignup, switchToSignin };
+  const switchToForgot = () => {
+    playExpandingAnimation();
+    setTimeout(() => {
+      setActive("forgot");
+    }, 400);
+  };
+
+  const contextValue = { switchToSignup, switchToSignin, switchToForgot };
 
   return (
     <AccountContext.Provider value={contextValue}>
@@ -148,10 +152,18 @@ export function AccountBox(props) {
               <SmallText>Please sign-up to continue!</SmallText>
             </HeaderContainer>
           )}
+          {active === "forgot" && (
+            <HeaderContainer>
+              <HeaderText>Forgot</HeaderText>
+              <HeaderText>Password</HeaderText>
+              <SmallText>Please enter email to reset Password!</SmallText>
+            </HeaderContainer>
+          )}
         </TopContainer>
         <InnerContainer>
           {active === "signin" && <LoginForm />}
           {active === "signup" && <SignupForm />}
+          {active === "forgot" && <ForgotForm />}
         </InnerContainer>
       </BoxContainer>
     </AccountContext.Provider>

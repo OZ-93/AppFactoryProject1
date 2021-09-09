@@ -23,7 +23,7 @@ const navbar=({sidebarOpen, openSidebar})=>{
 export default navbar; */
 
 
-import React from "react";
+import React, { useContext, useState } from "react"; //added by paul
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -49,6 +49,9 @@ import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 import routes from '../../routes'
+//import { AccountContext } from "../accountBox/accountContext";
+//import { useContext } from "react";
+//import { UpdateInfo } from "../../components/accountBox/UpdateInfo";
 
 const drawerWidth = 240;
 
@@ -123,6 +126,8 @@ export default function PersistentDrawerLeft() {
   const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const view = Boolean(anchorEl);
+ /* const { switchToUpdate } = useContext(AccountContext);//added swicthToUpdate*/
+
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -138,6 +143,30 @@ export default function PersistentDrawerLeft() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const expandingTransition = {
+    type: "spring",
+    duration: 2.3,
+    stiffness: 30,
+  };
+
+  /*const [isExpanded, setExpanded] = useState(false);
+  const [active, setActive] = useState("signin");*/
+
+  /* playExpandingAnimation = () => {
+    setExpanded(true);
+    setTimeout(() => {
+      setExpanded(false);
+    }, expandingTransition.duration * 1000 - 1500);
+  };*/
+
+
+  /*const switchToUpdate = () => {
+    playExpandingAnimation();
+    setTimeout(() => {
+      setActive("updateinfo");
+    }, 400);
+  };*/
 
   return (
     <div className={classes.root}>
@@ -178,8 +207,9 @@ export default function PersistentDrawerLeft() {
               open={view}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
-              <MenuItem onClick={handleClose}>My account</MenuItem>
+              <ListItemLink href={routes.updateinfo}>
+              <MenuItem >Profile</MenuItem>
+              </ListItemLink>
             </Menu>
           </div>
           <Grid item xs />
