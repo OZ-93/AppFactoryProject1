@@ -7,7 +7,7 @@ const AdminLayout = props=>{
 
 
     return(
-    <div className="container">
+    <div>
             
             <Sidebar/>
             {props.children}

@@ -267,7 +267,7 @@ export default function Sidebar() {
         </div>
         <Divider />
         <List>
-        <ListItemLink href={routes.Main}>
+        <ListItemLink href={routes.main}>
         <ListItemIcon>
             <InboxIcon />
           </ListItemIcon>

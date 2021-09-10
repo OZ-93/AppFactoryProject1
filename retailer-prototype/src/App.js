@@ -30,22 +30,22 @@ const pages = [
     
   },
 
-
+{
+    exact: false,
+    path: routes.main,
+    component:AdminDashboard,
+    layout: AdminLayout
+  },
   
   // Authenticated pages
  {
     exact: false,
     path: routes.Dashboard,
     component:ClientDashboard,
-    layout: ClientLayout
-  },
-
-  {
-    exact: false,
-    path: routes.Main,
-    component:AdminDashboard,
-    layout: AdminLayout
+    layout:ClientLayout
   }
+
+  
 ];
 
 
@@ -70,7 +70,7 @@ const App =()=> {
           />
         )
       )}
-      <Redirect to={routes.Dashboard} />
+      
       {/* Or Uncomment below to use a custom 404 page */}
       {/* <Route component={NotFoundPage} /> */}
     </Switch>
