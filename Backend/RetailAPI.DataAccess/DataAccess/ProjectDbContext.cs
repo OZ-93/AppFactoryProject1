@@ -11,7 +11,7 @@ namespace RetailAPI.DataAccess.DataAccess
     public class ProjectDbContext:DbContext
     {
         //Create constructor
-        public ProjectDbContext(DbContextOptions options) : base(options) { }
+        public ProjectDbContext(DbContextOptions<ProjectDbContext> options) : base(options) { }
 
         //Map the tables
         public DbSet<Assessment> Assessments { get; set; }

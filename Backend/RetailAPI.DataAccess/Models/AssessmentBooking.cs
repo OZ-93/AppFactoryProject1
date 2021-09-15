@@ -11,13 +11,22 @@ namespace RetailAPI.DataAccess.Models
     {
         [Key]
         public int BookingID { get; set; }
-        public int AssessmentID { get; set; }
-        public int CandidateID { get; set; }
+
+        [Required]
+        public Assessment Assessment { get; set; }
+        [Required]
+        public Candidate Candidate { get; set; }
+        [Required]
         public DateTime CreationDate { get; set; } = DateTime.Now;
+        [Required]
         public DateTime PrefferedDated { get; set; }
-        public int UserID { get; set; }
+        [Required]
+        public User User { get; set; }
+        [Required]
         public int PaymentDetailiD { get; set; }
+        [Required]
         public int ResultDetailiD { get; set; }
+        [Required]
         public string BookingStatus { get; set; }
 
 

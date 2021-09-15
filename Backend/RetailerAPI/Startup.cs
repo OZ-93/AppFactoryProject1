@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Serialization;
 
 namespace RetailerAPI
 {
@@ -35,6 +36,15 @@ namespace RetailerAPI
             //Enable COR == To enable requests coming from different domains
             services.AddCors(c =>
             c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyMethod()));
+
+            //JSON Serializer
+            services.AddControllersWithViews().AddNewtonsoftJson(
+                options => options.SerializerSettings.ReferenceLoopHandling =
+                Newtonsoft.Json.ReferenceLoopHandling.Ignore).AddNewtonsoftJson(
+                options => options.SerializerSettings.ContractResolver =
+                new DefaultContractResolver()
+                );
+
 
             services.AddControllers();
         }
