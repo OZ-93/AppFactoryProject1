@@ -21,3 +21,4 @@ C:\Users\User\OneDrive\Desktop\AppFactory\AssessementToolingSystem\AppFactoryPro
 C:\Users\User\OneDrive\Desktop\AppFactory\AssessementToolingSystem\AppFactoryProject1\Backend\RetailAPI.DataAccess\obj\Debug\net5.0\RetailAPI.DataAccess.dll
 C:\Users\User\OneDrive\Desktop\AppFactory\AssessementToolingSystem\AppFactoryProject1\Backend\RetailAPI.DataAccess\obj\Debug\net5.0\ref\RetailAPI.DataAccess.dll
 C:\Users\User\OneDrive\Desktop\AppFactory\AssessementToolingSystem\AppFactoryProject1\Backend\RetailAPI.DataAccess\obj\Debug\net5.0\RetailAPI.DataAccess.pdb
+C:\Users\User\OneDrive\Desktop\AppFactory\AssessementToolingSystem\AppFactoryProject1\Backend\RetailAPI.DataAccess\obj\Debug\net5.0\RetailAPI.DataAccess.csproj.AssemblyReference.cache
