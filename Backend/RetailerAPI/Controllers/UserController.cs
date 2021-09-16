@@ -117,6 +117,7 @@ namespace RetailerAPI.Controllers
             await _context.SaveChangesAsync();
 
             return user;
+            //Comment
         }
     }
 }

@@ -15,6 +15,7 @@ namespace RetailerAPI.Controllers
     [ApiController]
     public class UserTypeController : ControllerBase
     {
+        //Comment
         private readonly IConfiguration _config;
         private readonly ProjectDbContext _context;
 
