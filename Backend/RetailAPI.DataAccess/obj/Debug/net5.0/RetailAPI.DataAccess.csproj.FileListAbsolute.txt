@@ -22,3 +22,15 @@ C:\Users\User\OneDrive\Desktop\AppFactory\AssessementToolingSystem\AppFactoryPro
 C:\Users\User\OneDrive\Desktop\AppFactory\AssessementToolingSystem\AppFactoryProject1\Backend\RetailAPI.DataAccess\obj\Debug\net5.0\ref\RetailAPI.DataAccess.dll
 C:\Users\User\OneDrive\Desktop\AppFactory\AssessementToolingSystem\AppFactoryProject1\Backend\RetailAPI.DataAccess\obj\Debug\net5.0\RetailAPI.DataAccess.pdb
 C:\Users\User\OneDrive\Desktop\AppFactory\AssessementToolingSystem\AppFactoryProject1\Backend\RetailAPI.DataAccess\obj\Debug\net5.0\RetailAPI.DataAccess.csproj.AssemblyReference.cache
+C:\Users\User\Documents\GitHub\AppFactoryProject1\Backend\RetailAPI.DataAccess\bin\Debug\net5.0\RetailAPI.DataAccess.deps.json
+C:\Users\User\Documents\GitHub\AppFactoryProject1\Backend\RetailAPI.DataAccess\bin\Debug\net5.0\RetailAPI.DataAccess.dll
+C:\Users\User\Documents\GitHub\AppFactoryProject1\Backend\RetailAPI.DataAccess\bin\Debug\net5.0\ref\RetailAPI.DataAccess.dll
+C:\Users\User\Documents\GitHub\AppFactoryProject1\Backend\RetailAPI.DataAccess\bin\Debug\net5.0\RetailAPI.DataAccess.pdb
+C:\Users\User\Documents\GitHub\AppFactoryProject1\Backend\RetailAPI.DataAccess\obj\Debug\net5.0\RetailAPI.DataAccess.csproj.AssemblyReference.cache
+C:\Users\User\Documents\GitHub\AppFactoryProject1\Backend\RetailAPI.DataAccess\obj\Debug\net5.0\RetailAPI.DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Documents\GitHub\AppFactoryProject1\Backend\RetailAPI.DataAccess\obj\Debug\net5.0\RetailAPI.DataAccess.AssemblyInfoInputs.cache
+C:\Users\User\Documents\GitHub\AppFactoryProject1\Backend\RetailAPI.DataAccess\obj\Debug\net5.0\RetailAPI.DataAccess.AssemblyInfo.cs
+C:\Users\User\Documents\GitHub\AppFactoryProject1\Backend\RetailAPI.DataAccess\obj\Debug\net5.0\RetailAPI.DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\User\Documents\GitHub\AppFactoryProject1\Backend\RetailAPI.DataAccess\obj\Debug\net5.0\RetailAPI.DataAccess.dll
+C:\Users\User\Documents\GitHub\AppFactoryProject1\Backend\RetailAPI.DataAccess\obj\Debug\net5.0\ref\RetailAPI.DataAccess.dll
+C:\Users\User\Documents\GitHub\AppFactoryProject1\Backend\RetailAPI.DataAccess\obj\Debug\net5.0\RetailAPI.DataAccess.pdb
