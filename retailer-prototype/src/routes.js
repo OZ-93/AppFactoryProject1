@@ -17,7 +17,8 @@ export default {
     //Admin routing
     main:"/AdminDash",
     AdminUpdate:"/AdminDash/UpdateReport",
-    Report:"/Admin/report"
+    Report:"/Admin/report",
+    UpdateRequest:"/AdminDash/updateAss"
    
 
     

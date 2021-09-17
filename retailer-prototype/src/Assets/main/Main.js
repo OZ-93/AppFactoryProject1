@@ -1,4 +1,5 @@
 import React from 'react'
+import routes from '../../routes';
 
 import "./Main.css";
 import View from '../../components/pages/viewreports';
@@ -22,7 +23,7 @@ const Main=()=>{
                 </div>
                 <div className="card">
                  <i className="fa  fa-list fa-5px"></i>
-                 <a href="/Update">Update Requests</a>
+                 <a href={routes.UpdateRequest}>Update Requests</a>
                     
                 </div>
             </div>
