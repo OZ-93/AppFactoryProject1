@@ -17,9 +17,16 @@ import { AccountContext } from "../accountBox/accountContext";
 import * as yup from "yup";
 import axios from "axios";
 import { Marginer } from "../marginer";
-import PhoneInput from 'react-phone-number-input';
+import PhoneInput, { isSupportedCountry } from 'react-phone-number-input';
 import routes from "../../routes";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
+import { render } from "@testing-library/react";
+
 
 
 
@@ -64,14 +71,21 @@ const validationSchema = yup.object({
 
 export function SignupForm(props) {
   const { switchToSignin } = useContext(AccountContext);
+  const { switchToForgot } = useContext(AccountContext); 
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
   const location = {
-    pathname: '/AdminDash',
+    pathname: '/Dashboard',
     state: {fromDashboard: true}
   } 
 
   const history = useHistory();
+
+  const [value, setValue] = React.useState('female');//radio buttons
+
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
 
   const onSubmit= (values)=>{
     alert(JSON.stringify(values));
@@ -102,6 +116,7 @@ export function SignupForm(props) {
       phone:"",
       email: "",
       retailer:'',
+      position:"",
       password: "",
       confirmPassword: "",
     },
@@ -112,11 +127,36 @@ export function SignupForm(props) {
 
   console.log("Error", error);
 
+  fuction UserType(props){
+    const isUser = props.isUser;
+    if (isUser){
+      return<SignupForm/>;
+    }
+    return<SignupForm2/>
+  };
+
+}
+  
 
   return (
     <BoxContainer>
       {!error && <FormSuccess>{success ? success : ""}</FormSuccess>}
       {!success && <FormError>{error ? error : ""}</FormError>}
+
+      
+
+      <FormControl component="fieldset">
+      <FormLabel component="User">User</FormLabel>
+      
+      <RadioGroup aria-label="Admin" name="Client" value={value} onChange={handleChange}>
+        <FormControlLabel value="Admin"  control={<Radio />} label="Client" />
+        <FormControlLabel value="Client" control={<Radio />} label="Client" />
+       
+      </RadioGroup>
+    </FormControl>
+
+
+
       <FormContainer onSubmit={formik.handleSubmit}>
         <FieldContainer>
           <Input
@@ -173,8 +213,9 @@ export function SignupForm(props) {
           </FieldError>
         </FieldContainer>
 
-        <FieldContainer>
+         <FieldContainer>
           <Input
+            
             name="retailer"
             placeholder="Retailer"
             value={formik.values.retailer}
@@ -234,4 +275,153 @@ export function SignupForm(props) {
       </MutedLink>
     </BoxContainer>
   );
-}
+
+  function SignupForm2(props) {
+    const { switchToSignin } = useContext(AccountContext);
+    const { switchToForgot } = useContext(AccountContext); 
+    const [success, setSuccess] = useState(null);
+    const [error, setError] = useState(null);
+    const location = {
+      pathname: '/Dashboard',
+      state: {fromDashboard: true}
+    } 
+
+    return (
+      <BoxContainer>
+        {!error && <FormSuccess>{success ? success : ""}</FormSuccess>}
+        {!success && <FormError>{error ? error : ""}</FormError>}
+  
+        
+  
+        <FormControl component="fieldset">
+        <FormLabel component="legend">User</FormLabel>
+        
+        <RadioGroup aria-label="Admin" name="Client" value={value} onChange={handleChange}>
+          <FormControlLabel value="Admin"  control={<Radio />} label="Client" />
+          <FormControlLabel value="Client" control={<Radio />} label="Client" />
+         
+        </RadioGroup>
+      </FormControl>
+  
+  
+  
+        <FormContainer onSubmit={formik.handleSubmit}>
+          <FieldContainer>
+            <Input
+              name="firstName"
+              placeholder="Full Name"
+              value={formik.values.firstName}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            <FieldError>
+              {formik.touched.firstName && formik.errors.firstName
+                ? formik.errors.firstName
+                : ""}
+            </FieldError>
+          </FieldContainer>
+  
+          <FieldContainer>
+            <Input
+              name="lastName"
+              placeholder="last Name"
+              value={formik.values.lastName}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            <FieldError>
+              {formik.touched.lastName && formik.errors.lastName
+                ? formik.errors.lastName
+                : ""}
+            </FieldError>
+          </FieldContainer>
+          <FieldContainer>
+          <Input
+              name="phone"
+              type="number"
+              placeholder="Phone"
+              value={formik.values.phone}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+          </FieldContainer>
+  
+          <FieldContainer>
+            <Input
+              name="email"
+              placeholder="Email"
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            <FieldError>
+              {formik.touched.email && formik.errors.email
+                ? formik.errors.email
+                : ""}
+            </FieldError>
+          </FieldContainer>
+  
+           <FieldContainer>
+            <Input
+              
+              name="position"
+              placeholder="Position"
+              value={formik.values.position}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            <FieldError>
+              {formik.touched.position && formik.errors.position
+                ? formik.errors.position
+                : ""}
+            </FieldError>
+          </FieldContainer>
+  
+          <FieldContainer>
+            <Input
+              name="password"
+              type="password"
+              placeholder="Password"
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            <FieldError>
+              {formik.touched.password && formik.errors.password
+                ? formik.errors.password
+                : ""}
+            </FieldError>
+          </FieldContainer>
+  
+          <FieldContainer>
+            <Input
+              name="confirmPassword"
+              type="password"
+              placeholder="Confirm Password"
+              value={formik.values.confirmPassword}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            <FieldError>
+              {formik.touched.confirmPassword && formik.errors.confirmPassword
+                ? formik.errors.confirmPassword
+                : ""}
+            </FieldError>
+          </FieldContainer>
+  
+          <Marginer direction="vertical" margin="1em" />
+          <SubmitButton type="submit" disabled={!formik.isValid}>
+            Signup
+          </SubmitButton>
+        </FormContainer>
+        <Marginer direction="vertical" margin={5} />
+        <MutedLink href="#">
+          Already have an account?
+          <BoldLink href="#" onClick={switchToSignin}>
+            sign in
+          </BoldLink>
+        </MutedLink>
+      </BoxContainer>
+    );  
+
+   

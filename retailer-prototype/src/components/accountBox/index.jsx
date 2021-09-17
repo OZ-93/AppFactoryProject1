@@ -7,8 +7,8 @@ import { SignupForm } from "./SignupForm";
 import { ForgotForm }  from "./ForgotForm";
 
 const BoxContainer = styled.div`
-  width: 280px;
-  min-height: 550px;
+  width: 550px;
+  min-height: 350px;
   display: flex;
   flex-direction: column;
   border-radius: 19px;
@@ -29,15 +29,15 @@ const TopContainer = styled.div`
 `;
 
 const BackDrop = styled(motion.div)`
-  width: 160%;
-  height: 550px;
+  width: 210%;
+  height: 350px;
   position: absolute;
   display: flex;
   flex-direction: column;
   border-radius: 50%;
   transform: rotate(60deg);
   top: -290px;
-  left: -70px;
+  left: -210px;
   background:  rgb(159, 205, 231);
   );
 `;
