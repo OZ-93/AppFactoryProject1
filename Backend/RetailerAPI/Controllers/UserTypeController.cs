@@ -15,7 +15,6 @@ namespace RetailerAPI.Controllers
     [ApiController]
     public class UserTypeController : ControllerBase
     {
-        //Comment
         private readonly IConfiguration _config;
         private readonly ProjectDbContext _context;
 
@@ -34,13 +33,19 @@ namespace RetailerAPI.Controllers
         }
 
 
+        //check for the existing userType
+        private bool userTypeExists(int id)
+        {
+            return _context.UserTypes.Any(e => e.UserTypeID == id);
+        }
+
+
+
         //This method will get UserType records using ID
-        //[Route("api/GetUserTypes")]
-        [HttpGet("{UserTypeId}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<UserType>> GetUserType(int id)
         {
             var userType = await _context.UserTypes.FindAsync(id);
-            // int x = 1;
 
             if (userType == null)
             {
@@ -53,13 +58,10 @@ namespace RetailerAPI.Controllers
 
         //This method will PUT or Update UserType records
         // [Route("api/UserType/PutUserTypes")]
-        [HttpPut("{UserTypeID}")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> PutUserTypes(int id, UserType userType)
         {
-            if (id != userType.UserTypeID)
-            {
-                return BadRequest();
-            }
+            userType.UserTypeID = id;
 
             _context.Entry(userType).State = EntityState.Modified;
 
@@ -70,7 +72,7 @@ namespace RetailerAPI.Controllers
             catch (DbUpdateConcurrencyException)
             {
                 //if (userType == null)   not working
-                if (!userTypeExists(id))
+                if (userTypeExists(id))
                 {
                     return NotFound();
                 }
@@ -82,6 +84,7 @@ namespace RetailerAPI.Controllers
 
             return NoContent();
         }
+
 
 
         //Add new UserType
@@ -97,7 +100,6 @@ namespace RetailerAPI.Controllers
 
 
         //This method will DELETE UserType records
-        //[Route("api/people/DeleteUserTypes")]
         [HttpDelete("{id}")]
         public async Task<ActionResult<UserType>> DeleteUserType(int id)
         {
@@ -114,9 +116,6 @@ namespace RetailerAPI.Controllers
             return userType;
         }
 
-        private bool userTypeExists(int id)
-        {
-            return _context.UserTypes.Any(e => e.UserTypeID == id);
-        }
+        
     }
 }

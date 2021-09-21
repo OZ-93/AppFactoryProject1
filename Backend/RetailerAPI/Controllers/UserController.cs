@@ -26,23 +26,22 @@ namespace RetailerAPI.Controllers
         }
 
 
-        //This fmethod will get all Users records
+        //This method will get all Users records
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> Get()
         {
             return await _context.Users.ToListAsync();
         }
 
-
-        private bool userTypeExists(int id)
+        //check for the existing user
+        private bool userExists(int id)
         {
             return _context.Users.Any(e => e.UserID == id);
         }
 
 
         //This method will get Users records using ID
-        //[Route("api/people/GetUsers")]
-        [HttpGet("{UserTypeId}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
             var user = await _context.Users.FindAsync(id);
@@ -57,14 +56,10 @@ namespace RetailerAPI.Controllers
 
 
         //This method will PUT or Update User records
-        //[Route("api/PutUsers")]
-        [HttpPut("{UserTID}")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> PutUsers(int id, User user)
         {
-            if (id != user.UserID)
-            {
-                return BadRequest();
-            }
+            user.UserID = id;
 
             _context.Entry(user).State = EntityState.Modified;
 
@@ -74,8 +69,7 @@ namespace RetailerAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (user == null)
-                //if(!UsersExists(id))
+                if(userExists(id))
                 {
                     return NotFound();
                 }
@@ -87,6 +81,7 @@ namespace RetailerAPI.Controllers
 
             return NoContent();
         }
+
 
 
         //Add new Users
@@ -102,7 +97,6 @@ namespace RetailerAPI.Controllers
 
 
         //This method will DELETE User records
-        [Route("api/people/DeleteUsers")]
         [HttpDelete("{id}")]
         public async Task<ActionResult<User>> DeleteUsers(int id)
         {
@@ -117,7 +111,6 @@ namespace RetailerAPI.Controllers
             await _context.SaveChangesAsync();
 
             return user;
-            //Comment
         }
     }
 }
