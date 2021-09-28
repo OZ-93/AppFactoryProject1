@@ -29,6 +29,14 @@ const initialFValues = {
     CandidateBrand:'',
     hireDate: new Date(),
     isPermanent: false,
+    IName:'',
+    IMobile:'',
+    IEmail:'',
+    IDesignation:'',
+    RName:'',
+    RMobile:'',
+    REmail:'',
+    RDesignation:''
 }
 
 export default function ScheduleBooking() {
@@ -51,6 +59,22 @@ export default function ScheduleBooking() {
             temp.CandidateBrand = fieldValues.CandidateBrand.length != 0 ? "" : "This field is required."
         if ('PositionId' in fieldValues)
             temp.PositionId = fieldValues.PositionId.length != 0 ? "" : "This field is required."
+        if ('IName' in fieldValues)
+            temp.IName = fieldValues.IName? "" : "This field is required."
+        if ('IMobile' in fieldValues)
+            temp.IMobile = fieldValues.IMobile? "" : "This field is required."
+         if ('IEmail' in fieldValues)
+            temp.IEmail = fieldValues.IEmail? "" : "This field is required."
+         if ('IDesignation' in fieldValues)
+            temp.IDesignation = fieldValues.IDesignation? "" : "This field is required."
+         if ('RName' in fieldValues)
+            temp.RName = fieldValues.RName? "" : "This field is required."
+         if ('RMobile' in fieldValues)
+            temp.RMobile = fieldValues.RMobile? "" : "This field is required."
+        if ('REmail' in fieldValues)
+            temp.REmail = fieldValues.REmail? "" : "This field is required."
+            if ('RDesignation' in fieldValues)
+            temp.RDesignation = fieldValues.RDesignation? "" : "This field is required."
         setErrors({
             ...temp
         })
@@ -127,7 +151,7 @@ export default function ScheduleBooking() {
                         label="Mobile"
                         name="mobile"
                         value={values.mobile}
-                        onChange={handleInputChange}
+                        onChange={handleInputChange }
                         error={errors.mobile}
                     />
                     <Controls.Input
@@ -196,6 +220,84 @@ export default function ScheduleBooking() {
                         value={values.isPermanent}
                         onChange={handleInputChange}
                     />
+
+                    
+                </Grid>
+            </Grid>
+       
+         <h2 > </h2>
+            <Grid container>
+                <Grid item xs={6}>
+                <PageHeader
+        title="Schedule"
+        subTitle="Person Responsible for Payment"
+        icon={<PeopleOutlineTwoToneIcon fontSize="large" />}/>
+                    <Controls.Input
+                        name="IName"
+                        label="Full Name"
+                        value={values.IName}
+                        onChange={handleInputChange}
+                        error={errors.IName}
+                    />
+                    
+                    <Controls.Input
+                        label="Email"
+                        name="IEmail"
+                        value={values.IEmail}
+                        onChange={handleInputChange}
+                        error={errors.IEmail}
+                    />
+                    <Controls.Input
+                        label="Mobile"
+                        name="IMobile"
+                        value={values.IMobile}
+                        onChange={handleInputChange}
+                        error={errors.IMobile}
+                    />
+                    <Controls.Input
+                        label="Designation"
+                        name="IDesgnation"
+                        value={values.IDesignation}
+                        onChange={handleInputChange}
+                        error={errors.IDesignation}
+                    />
+
+                </Grid>
+                <Grid item xs={6}>
+                    <PageHeader
+            title="Schedule"
+            subTitle="Schedule New Booking"
+             icon={<PeopleOutlineTwoToneIcon fontSize="large" />}/>
+                    <Controls.Input
+                        name="RName"
+                        label="Full Name"
+                        value={values.RName}
+                        onChange={handleInputChange}
+                        error={errors.RName}
+                    />
+                    
+                    <Controls.Input
+                        label="Email"
+                        name="REmail"
+                        value={values.REmail}
+                        onChange={handleInputChange}
+                        error={errors.REmail}
+                    />
+                    <Controls.Input
+                        label="Mobile"
+                        name="RMobile"
+                        value={values.RMobile}
+                        onChange={handleInputChange}
+                        error={errors.RMobile}
+                    />
+                    <Controls.Input
+                        label="Designation"
+                        name="RDesgnation"
+                        value={values.RDesignation}
+                        onChange={handleInputChange}
+                        error={errors.RDesignation}
+                    />
+                  
 
                     <div>
                         <Controls.Button
