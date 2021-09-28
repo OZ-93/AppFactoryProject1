@@ -64,7 +64,6 @@ function createData(name, retailer, brand, date, position, price) {
       price,
       status: [
         { date: '2020-01-05', },
-        { date: '2020-01-02', },
       ],
     };
 }
