@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import Box from '@material-ui/core/Box';
@@ -21,6 +21,10 @@ import MenuItem from '@material-ui/core/MenuItem';
 //import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import { Search } from "@material-ui/icons";
+import Controls from "../../controls/Controls";
+import {Toolbar, InputAdornment } from '@material-ui/core';
+//import Paper from '@mui/material/Paper';
 //import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 //import Button from '@restart/ui/esm/Button';
 
@@ -33,18 +37,21 @@ const useRowStyles = makeStyles({
         borderBottom: 'unset',
       },
     },
+      searchInput: {
+        width: '75%'
+    }
   });
 
   
-const useStyles = makeStyles((theme) => ({
-  formControl: {
+const useStyles = makeStyles({})
+  /*formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
   },
-}));
+}));*/
 
 
 function createData(name, retailer, brand, date, position, price) {
@@ -67,6 +74,7 @@ function Row(props) {
     const [open, setOpen] = React.useState(false);
     const classes = useRowStyles();
     const [anchorEl, setAnchorEl] = React.useState('');
+    const [filterFn, setFilterFn] = useState({ fn: rows => { return rows; } })
     const Open = Boolean(anchorEl);
   
     const handleClick = (event) => {
@@ -79,10 +87,26 @@ function Row(props) {
     const handleClose = () => {
       setAnchorEl(null);
     };
+
+   /* const handleSearch = e => {
+      let target = e.target;
+      setFilterFn({
+          fn: rows => {
+              if (target.value == "")
+                  return rows;
+              else
+                  return rows.filter(x => x.fullName.toLowerCase().includes(target.value))
+          }
+      })
+   }*/
+
+  
   
     return (
+
       <React.Fragment>
         <TableRow className={classes.formControl}>
+          
           <TableCell>
             <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
               {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
@@ -174,14 +198,41 @@ function Row(props) {
   ];
   
   export default function CollapsibleTable() {
+    const classes = useStyles();
+    const [filterFn, setFilterFn] = useState({ fn: rows => { return rows; } })
+
+    const handleSearch = e => {
+      let target = e.target;
+      setFilterFn({
+          fn: rows => {
+              if (target.value == "")
+                  return rows;
+              else
+                  return rows.filter(x => x.fullName.toLowerCase().includes(target.value))
+          }
+      })
+  }
     
     return (
+    <Paper>
       <TableContainer component={Paper}>
-        <Table aria-label="collapsible table">
+        <Toolbar>
+          <Controls.Input
+              label="Search"
+              className={classes.searchInput}
+              InputProps={{
+                  startAdornment: (<InputAdornment position="start">
+                      <Search />
+                  </InputAdornment>)
+              }}
+              onChange={handleSearch}
+          />
+        </Toolbar>
+        <Table aria-label="updateRequest table">
           <TableHead>
             <TableRow>
-              <TableCell />
-              <TableCell>CandidateInfo</TableCell>
+              <TableCell/>
+              <TableCell>CandidateInfo </TableCell>
               <TableCell align="right">Retailer</TableCell>
               <TableCell align="right">Brand</TableCell>
               <TableCell align="right">Date</TableCell>
@@ -195,5 +246,6 @@ function Row(props) {
           </TableBody>
         </Table>
       </TableContainer>
+      </Paper>
     );
   }
