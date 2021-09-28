@@ -281,7 +281,7 @@ export default function Sidebar() {
           <ListItemText primary="Update Profile" />
         </ListItemLink>
 
-        <ListItemLink href={routes.View}>
+        <ListItemLink href={routes.Report}>
         <ListItemIcon>
             <InboxIcon />
           </ListItemIcon>

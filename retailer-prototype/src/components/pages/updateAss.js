@@ -70,7 +70,8 @@ function createData(name, retailer, brand, date, position, price) {
 }
 
 function Row(props) {
-    const { row } = props;
+    const { row } = props
+      alert(JSON.stringify(props));
     const [open, setOpen] = React.useState(false);
     const classes = useRowStyles();
     const [anchorEl, setAnchorEl] = React.useState('');

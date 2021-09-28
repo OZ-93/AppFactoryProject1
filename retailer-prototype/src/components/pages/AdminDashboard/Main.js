@@ -12,7 +12,7 @@ const Main=()=>{
                  <div className="sidebar__link">
                     <div className="card_inner">
                      <i className="fa  fa-list fa-5px"></i>
-                        <a href="/Reports">View Reports</a>
+                        <a href={routes.Report}>View Reports</a>
                         <span className="font-bold text-title">  578</span>
 
                     </div>
