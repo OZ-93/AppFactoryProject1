@@ -1,17 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RetailAPI.DataAccess.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+
 
 namespace RetailAPI.DataAccess.DataAccess
 {
-    public class ProjectDbContext:DbContext
+    public class ProjectDbContext: IdentityDbContext<User>
     {
         //Create constructor
         public ProjectDbContext(DbContextOptions<ProjectDbContext> options) : base(options) { }
+
+       /* protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.Seed();
+        }*/
 
         //Map the tables
         public DbSet<Assessment> Assessments { get; set; }

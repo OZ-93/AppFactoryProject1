@@ -1,7 +1,9 @@
+using Microsoft.AspNetCore.Authorization;
 using System;
 
 namespace RetailerAPI
 {
+    [Authorize]
     public class WeatherForecast
     {
         public DateTime Date { get; set; }

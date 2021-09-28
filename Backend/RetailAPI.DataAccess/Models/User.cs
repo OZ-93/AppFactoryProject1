@@ -5,11 +5,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace RetailAPI.DataAccess.Models
 {
-    public class User
+    public class User : IdentityUser
     {
         [Key]
         public int UserID { get; set; }
@@ -18,22 +19,28 @@ namespace RetailAPI.DataAccess.Models
         [Column(TypeName = "varchar(100)")]
         public string FirstName { get; set; }
 
+
         [Required]
         [Column(TypeName = "varchar(100)")]
         public string LastName { get; set; }
+
+
         [Required]
         [Column(TypeName = "varchar(100)")]
         public string ContactNo { get; set; }
 
-        [Required]
-        [Column(TypeName = "varchar(100)")]
-        [DataType(DataType.EmailAddress)]
-        public string Email { get; set; }
+        //[Required]
+        //[Column(TypeName = "varchar(100)")]
+        //[DataType(DataType.EmailAddress)]
+        //public string Email { get; set; }
+
+
         [Required]
         [Column(TypeName = "varchar(100)")]
         public string Password { get; set; }
 
         //Foreing Key
-        public UserType UserType { get; set; }
+        [ForeignKey("UserTypeID")]
+        public int UserType { get; set; }
     }
 }
