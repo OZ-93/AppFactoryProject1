@@ -10,8 +10,8 @@ using RetailAPI.DataAccess.DataAccess;
 namespace RetailAPI.DataAccess.Migrations
 {
     [DbContext(typeof(ProjectDbContext))]
-    [Migration("20210928060141_InitialMig")]
-    partial class InitialMig
+    [Migration("20211004114949_DatabaseCreation")]
+    partial class DatabaseCreation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -291,9 +291,9 @@ namespace RetailAPI.DataAccess.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ContactNo")
+                    b.Property<string>("Discriminator")
                         .IsRequired()
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -343,9 +343,6 @@ namespace RetailAPI.DataAccess.Migrations
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
-                    b.Property<int>("UserID")
-                        .HasColumnType("int");
-
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -364,6 +361,8 @@ namespace RetailAPI.DataAccess.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("User");
                 });
 
             modelBuilder.Entity("RetailAPI.DataAccess.Models.UserType", b =>
@@ -380,6 +379,17 @@ namespace RetailAPI.DataAccess.Migrations
                     b.HasKey("UserTypeID");
 
                     b.ToTable("UserTypes");
+                });
+
+            modelBuilder.Entity("RetailAPI.DataAccess.Models.ClientUser", b =>
+                {
+                    b.HasBaseType("RetailAPI.DataAccess.Models.User");
+
+                    b.Property<string>("RetailerName")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.HasDiscriminator().HasValue("ClientUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -20,10 +20,11 @@ namespace RetailAPI.DataAccess.DataAccess
         public DbSet<Assessment> Assessments { get; set; }
         public DbSet<AssessmentBooking> AssessmentBookings { get; set; }
         public DbSet<Candidate> Candidates { get; set; }
-        public DbSet<User> Users { get; set; }
+        public DbSet<User> UserTables { get; set; }
         public DbSet<UserType> UserTypes { get; set; }
         
         public DbSet<AssessmentBookingDetail> AssessmentBookingDetails { get; set; }
+        public DbSet<ClientUser> ClientUsers { get; set; }
 
     }
 }

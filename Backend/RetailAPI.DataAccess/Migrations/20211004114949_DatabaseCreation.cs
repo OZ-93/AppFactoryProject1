@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RetailAPI.DataAccess.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class DatabaseCreation : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -26,12 +26,12 @@ namespace RetailAPI.DataAccess.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    UserID = table.Column<int>(type: "int", nullable: false),
                     FirstName = table.Column<string>(type: "varchar(100)", nullable: false),
                     LastName = table.Column<string>(type: "varchar(100)", nullable: false),
-                    ContactNo = table.Column<string>(type: "varchar(100)", nullable: false),
                     Password = table.Column<string>(type: "varchar(100)", nullable: false),
                     UserType = table.Column<int>(type: "int", nullable: false),
+                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RetailerName = table.Column<string>(type: "varchar(100)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),

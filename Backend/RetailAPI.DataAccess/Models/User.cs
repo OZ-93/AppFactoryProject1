@@ -12,8 +12,8 @@ namespace RetailAPI.DataAccess.Models
 {
     public class User : IdentityUser
     {
-        [Key]
-        public int UserID { get; set; }
+        //[Key]
+        //public int UserID { get; set; }
 
         [Required]
         [Column(TypeName = "varchar(100)")]
@@ -25,14 +25,10 @@ namespace RetailAPI.DataAccess.Models
         public string LastName { get; set; }
 
 
-        [Required]
-        [Column(TypeName = "varchar(100)")]
-        public string ContactNo { get; set; }
-
         //[Required]
         //[Column(TypeName = "varchar(100)")]
-        //[DataType(DataType.EmailAddress)]
-        //public string Email { get; set; }
+        //public string ContactNo { get; set; }
+
 
 
         [Required]
@@ -42,5 +38,9 @@ namespace RetailAPI.DataAccess.Models
         //Foreing Key
         [ForeignKey("UserTypeID")]
         public int UserType { get; set; }
+        
+       
+
+        
     }
 }

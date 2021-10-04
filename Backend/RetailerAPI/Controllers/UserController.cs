@@ -38,9 +38,9 @@ namespace RetailerAPI.Controllers
         }
 
         //check for the existing user
-        private bool userExists(int id)
+        private bool userExists(string id)
         {
-            return _context.Users.Any(e => e.UserID == id);
+            return _context.Users.Any(e => e.Id == id);
         }
 
 
@@ -61,9 +61,9 @@ namespace RetailerAPI.Controllers
 
         //This method will PUT or Update User records
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUsers(int id, User user)
+        public async Task<IActionResult> PutUsers(string id, User user)
         {
-            user.UserID = id;
+            user.Id = id;
 
             _context.Entry(user).State = EntityState.Modified;
 
@@ -95,7 +95,7 @@ namespace RetailerAPI.Controllers
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUser", new { id = user.UserID }, user);
+            return CreatedAtAction("GetUser", new { id = user.Id }, user);
 
         }
 
