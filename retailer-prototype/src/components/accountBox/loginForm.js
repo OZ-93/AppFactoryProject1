@@ -23,8 +23,8 @@ import Main from "../../Assets/main/Main";
 import ForgotForm from "./ForgotForm";
 
 const validationSchema = yup.object({
-  email: yup.string().required(),
-  password: yup.string().required(),
+  UserName: yup.string().required(),
+  Password: yup.string().required(),
 });
 
 export function LoginForm(props) {
@@ -40,10 +40,10 @@ export function LoginForm(props) {
 
   
 
-  const onSubmit =  (values) => {
-    history.push(location);
+ // const onSubmit =  (values) => {
+    
     //props.history.push(routes.dashboard);
-  };
+ // };
  /* const response = await axios
       ( values)
       .catch((err) => {
@@ -56,8 +56,23 @@ export function LoginForm(props) {
     }
   };*/
 
+  const onSubmit = async (values) => {
+    setError(null);
+    const response = await axios
+      .post("https://localhost:44359/api/Authenticate/login", values)
+      .catch((err) => {
+        if (err && err.response) setError(err.response.data.message);
+        alert("err")
+      });
+
+    if (response) {
+      alert("Welcome back in. Authenticating...");
+      history.push(location);
+    }
+  };
+
   const formik = useFormik({
-    initialValues: { email: "", password: "" },
+    initialValues: { UserName: "", Password: "" },
     validateOnBlur: true,
     onSubmit,
     validationSchema: validationSchema,
@@ -69,33 +84,33 @@ export function LoginForm(props) {
       <FormContainer onSubmit={formik.handleSubmit}>
         <FieldContainer>
           <Input
-            name="email"
+            name="UserName"
             placeholder="Email"
-            value={formik.values.email}
+            value={formik.values.UserName}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
           {
             <FieldError>
-              {formik.touched.email && formik.errors.email
-                ? formik.errors.email
+              {formik.touched.UserName && formik.errors.UserName
+                ? formik.errors.UserName
                 : ""}
             </FieldError>
           }
         </FieldContainer>
         <FieldContainer>
           <Input
-            name="password"
+            name="Password"
             type="password"
             placeholder="Password"
-            value={formik.values.password}
+            value={formik.values.Password}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
           {
             <FieldError>
-              {formik.touched.password && formik.errors.password
-                ? formik.errors.password
+              {formik.touched.Password && formik.errors.Password
+                ? formik.errors.Password
                 : ""}
             </FieldError>
           }
