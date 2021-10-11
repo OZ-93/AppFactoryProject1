@@ -379,13 +379,6 @@ namespace RetailAPI.DataAccess.Migrations
                     b.ToTable("UserTypes");
                 });
 
-            modelBuilder.Entity("RetailAPI.DataAccess.Models.AdminUser", b =>
-                {
-                    b.HasBaseType("RetailAPI.DataAccess.Models.User");
-
-                    b.HasDiscriminator().HasValue("AdminUser");
-                });
-
             modelBuilder.Entity("RetailAPI.DataAccess.Models.ClientUser", b =>
                 {
                     b.HasBaseType("RetailAPI.DataAccess.Models.User");

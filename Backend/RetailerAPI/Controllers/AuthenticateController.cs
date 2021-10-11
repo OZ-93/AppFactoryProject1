@@ -123,46 +123,33 @@ namespace RetailerAPI.Controllers
 
         [HttpPost]
         //[Route("register-admin")]
-        public async Task<IActionResult> RegisterAdmin([FromBody] AdminUser model)
+        public async Task<IActionResult> RegisterAdmin([FromBody] User model)
         {
             var userExists = await userManager.FindByNameAsync(model.Email);
             if (userExists != null)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
 
-            AdminUser user = new AdminUser()
+            User user = new User()
             {
                 Email = model.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                PhoneNumber = model.PhoneNumber,
-                Password = model.Password,
-                //PasswordHash = model.Password,
-                UserType = 2,
-                
-                UserName = model.Email,
-                NormalizedEmail = model.Email.ToUpper(),
-                NormalizedUserName = model.Email.ToUpper()
-
-
-
+                UserName = model.Email
             };
-
+            var result = await userManager.CreateAsync(user, model.Password);
+            if (!result.Succeeded)
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
 
             if (!await roleManager.RoleExistsAsync(UserRoles.Admin))
                 await roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
+            if (!await roleManager.RoleExistsAsync(UserRoles.Client))
+                await roleManager.CreateAsync(new IdentityRole(UserRoles.Client));
 
-
-            var result = await userManager.CreateAsync(user, model.Password);
-            if (!result.Succeeded)
+            if (await roleManager.RoleExistsAsync(UserRoles.Admin))
             {
-                _context.AdminUsers.Add(user);
-                _context.SaveChanges();
-                return Ok(new Response { Status = "Success", Message = "User created successfully!" });
-
+                await userManager.AddToRoleAsync(user, UserRoles.Admin);
             }
-            return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
 
+            return Ok(new Response { Status = "Success", Message = "User created successfully!" });
         }
 
 

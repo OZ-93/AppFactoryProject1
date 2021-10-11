@@ -10,8 +10,8 @@ using RetailAPI.DataAccess.DataAccess;
 namespace RetailAPI.DataAccess.Migrations
 {
     [DbContext(typeof(ProjectDbContext))]
-    [Migration("20211005131100_CreateDatabase")]
-    partial class CreateDatabase
+    [Migration("20211004114949_DatabaseCreation")]
+    partial class DatabaseCreation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -379,13 +379,6 @@ namespace RetailAPI.DataAccess.Migrations
                     b.HasKey("UserTypeID");
 
                     b.ToTable("UserTypes");
-                });
-
-            modelBuilder.Entity("RetailAPI.DataAccess.Models.AdminUser", b =>
-                {
-                    b.HasBaseType("RetailAPI.DataAccess.Models.User");
-
-                    b.HasDiscriminator().HasValue("AdminUser");
                 });
 
             modelBuilder.Entity("RetailAPI.DataAccess.Models.ClientUser", b =>

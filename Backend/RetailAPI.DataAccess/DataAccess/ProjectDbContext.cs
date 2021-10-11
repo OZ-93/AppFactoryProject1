@@ -25,7 +25,6 @@ namespace RetailAPI.DataAccess.DataAccess
         
         public DbSet<AssessmentBookingDetail> AssessmentBookingDetails { get; set; }
         public DbSet<ClientUser> ClientUsers { get; set; }
-        public DbSet<AdminUser> AdminUsers { get; set; }
 
     }
 }
