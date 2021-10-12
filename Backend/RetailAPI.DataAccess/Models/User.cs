@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace RetailAPI.DataAccess.Models
 {
+    [Authorize]
     public class User : IdentityUser
     {
         //[Key]

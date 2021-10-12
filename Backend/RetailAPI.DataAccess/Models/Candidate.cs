@@ -32,6 +32,10 @@ namespace RetailAPI.DataAccess.Models
         [Required]
         [Column(TypeName = "varchar(100)")]
         public string IdentityNumber { get; set; }
-        
+
+        [Required]
+        [Column(TypeName = "varchar(100)")]
+        public string ShortListedPosition { get; set; }
+
     }
 }

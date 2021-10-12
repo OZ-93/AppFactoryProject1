@@ -3,7 +3,7 @@ using System;
 
 namespace RetailerAPI
 {
-    [Authorize]
+    //[Authorize]
     public class WeatherForecast
     {
         public DateTime Date { get; set; }

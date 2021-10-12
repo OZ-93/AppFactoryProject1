@@ -10,8 +10,8 @@ using RetailAPI.DataAccess.DataAccess;
 namespace RetailAPI.DataAccess.Migrations
 {
     [DbContext(typeof(ProjectDbContext))]
-    [Migration("20211004114949_DatabaseCreation")]
-    partial class DatabaseCreation
+    [Migration("20211012112846_initialDBCreation")]
+    partial class initialDBCreation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -163,10 +163,6 @@ namespace RetailAPI.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(100)");
 
-                    b.Property<string>("ShortListedPosition")
-                        .IsRequired()
-                        .HasColumnType("varchar(100)");
-
                     b.HasKey("AssessmentID");
 
                     b.ToTable("Assessments");
@@ -200,6 +196,9 @@ namespace RetailAPI.DataAccess.Migrations
 
                     b.Property<int>("ResultDetailiD")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("ScheduledDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
@@ -271,6 +270,10 @@ namespace RetailAPI.DataAccess.Migrations
                         .HasColumnType("varchar(100)");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("ShortListedPosition")
                         .IsRequired()
                         .HasColumnType("varchar(100)");
 
@@ -379,6 +382,13 @@ namespace RetailAPI.DataAccess.Migrations
                     b.HasKey("UserTypeID");
 
                     b.ToTable("UserTypes");
+                });
+
+            modelBuilder.Entity("RetailAPI.DataAccess.Models.AdminUser", b =>
+                {
+                    b.HasBaseType("RetailAPI.DataAccess.Models.User");
+
+                    b.HasDiscriminator().HasValue("AdminUser");
                 });
 
             modelBuilder.Entity("RetailAPI.DataAccess.Models.ClientUser", b =>
