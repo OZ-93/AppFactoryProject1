@@ -120,7 +120,9 @@ namespace RetailerAPI.Controllers
         }
 
         [HttpPost]
+
         [Route("register-admin")]
+
         public async Task<IActionResult> RegisterAdmin([FromBody] AdminUser model)
         {
 
@@ -138,11 +140,22 @@ namespace RetailerAPI.Controllers
                 Password = model.Password,
                 //PasswordHash = model.Password,
                 UserType = 2,
+
                 UserName = model.Email,
                 NormalizedEmail = model.Email.ToUpper(),
                 NormalizedUserName = model.Email.ToUpper()
 
+            
+
+
+
+
             };
+
+
+            if (!await roleManager.RoleExistsAsync(UserRoles.Admin))
+                await roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
+
 
             var result = await userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
@@ -152,8 +165,8 @@ namespace RetailerAPI.Controllers
                 return Ok(new Response { Status = "Success", Message = "User created successfully!" });
 
             }
+            return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
 
-            return Ok(new Response { Status = "Success", Message = "User created successfully!" });
         }
 
 

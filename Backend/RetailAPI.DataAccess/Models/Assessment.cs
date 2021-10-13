@@ -16,7 +16,7 @@ namespace RetailAPI.DataAccess.Models
         [Required]
         [Column(TypeName = "varchar(100)")]
         public string AssessmentType { get; set; }
-        
+        //Assessment
         
     }
 }

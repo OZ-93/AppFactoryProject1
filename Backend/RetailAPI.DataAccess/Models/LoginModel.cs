@@ -9,6 +9,7 @@ namespace RetailAPI.DataAccess.Models
 {
     public class LoginModel
     {
+        //changed
         [Required(ErrorMessage = "User Name is required")]
         public string Username { get; set; }
 
