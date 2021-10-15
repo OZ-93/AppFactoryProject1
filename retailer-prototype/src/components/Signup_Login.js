@@ -1,10 +1,14 @@
 import React, { Component }  from 'react';
 import styled from "styled-components";
 import { AccountBox } from "./accountBox";
+import { AccountBox2 } from './accountBox2';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import route from 'color-convert/route';
 import { LoginForm } from './accountBox/loginForm';
 import { SignupForm } from './accountBox/SignupForm';
+import RouteWithProps from '../Shared/routes/RouteWithProps'
+import routes from '../routes';
+
 
 
 const AppContainer = styled.div`
@@ -18,8 +22,16 @@ const AppContainer = styled.div`
 
 function Signup_Login() {
   return (
+
+   
+    
     <AppContainer>
-      <AccountBox />
+       <Switch>
+            <RouteWithProps exact path={routes.Signup_Login} component={AccountBox}/>
+            <RouteWithProps exact path={routes.AdminSignup} component={AccountBox2}/>
+      
+
+        </Switch>
   </AppContainer>
       
 

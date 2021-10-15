@@ -72,9 +72,8 @@ const validationSchema = yup.object({
     }),
 });
 
-export function SignupForm(props) {
-  const { switchToSignin } = useContext(AccountContext);
-  const { switchToForgot } = useContext(AccountContext); 
+export function Register(props) {
+  
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
   const location = {
@@ -257,7 +256,7 @@ export function SignupForm(props) {
       <Marginer direction="vertical" margin={5} />
       <MutedLink href="#">
         Already have an account?
-        <BoldLink href="#" onClick={switchToSignin}>
+        <BoldLink href="#" >
           sign in
         </BoldLink>
       </MutedLink>

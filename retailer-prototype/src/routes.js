@@ -3,8 +3,10 @@ import DashboardMain from "./components/pages/ClientDashboard/DashboardMain";
 export default {
     // Roots
     home:"/",
-    Signup_Login:"/Signup_Login",
+    Signup_Login:"/SignupLogin",
+    AdminSignup:"/SignupLogin/Adminsignup",
     dashboard:"/Dashboard",
+    
 
 
     // Nested Dashboard pages
