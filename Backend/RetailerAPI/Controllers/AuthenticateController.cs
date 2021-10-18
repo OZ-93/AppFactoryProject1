@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.JsonWebTokens;
 using RetailAPI.DataAccess.DataAccess;
 
+
 namespace RetailerAPI.Controllers
 {
     [Route("api/[controller]")]
@@ -38,25 +39,26 @@ namespace RetailerAPI.Controllers
 
         }
 
+
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> Login([FromBody] User model)
+        public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
-            var user = await userManager.FindByNameAsync(model.UserName);
+            var user = await userManager.FindByNameAsync(model.Username);
             if (user != null && await userManager.CheckPasswordAsync(user, model.Password))
             {
-               // var userRoles = await userManager.GetRolesAsync(user);
+                var userRoles = await userManager.GetRolesAsync(user);
 
                 var authClaims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Name, user.UserName),
-                    new Claim(System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                    new Claim(Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 };
 
-                //foreach (var userRole in userRoles)
-                //{
-                //    authClaims.Add(new Claim(ClaimTypes.Role, userRole));
-                //}
+                foreach (var userRole in userRoles)
+                {
+                    authClaims.Add(new Claim(ClaimTypes.Role, userRole));
+                }
 
                 var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
 
@@ -76,6 +78,9 @@ namespace RetailerAPI.Controllers
             }
             return Unauthorized();
         }
+
+
+         
         //Register Client
         [HttpPost]
         [Route("register")]
@@ -100,13 +105,7 @@ namespace RetailerAPI.Controllers
                 NormalizedEmail = model.Email.ToUpper(),
                 NormalizedUserName = model.Email.ToUpper()
 
-
-
         };
-            
-            
-            
-
 
             var result = await userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
@@ -116,15 +115,17 @@ namespace RetailerAPI.Controllers
                 return Ok(new Response { Status = "Success", Message = "User created successfully!" });
                 
             }
-            return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
 
-
+            return Ok(new Response { Status = "Success", Message = "User created successfully!" });
         }
 
         [HttpPost]
-        //[Route("register-admin")]
+
+        [Route("register-admin")]
+
         public async Task<IActionResult> RegisterAdmin([FromBody] AdminUser model)
         {
+
             var userExists = await userManager.FindByNameAsync(model.Email);
             if (userExists != null)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
@@ -139,10 +140,13 @@ namespace RetailerAPI.Controllers
                 Password = model.Password,
                 //PasswordHash = model.Password,
                 UserType = 2,
-                
+
                 UserName = model.Email,
                 NormalizedEmail = model.Email.ToUpper(),
                 NormalizedUserName = model.Email.ToUpper()
+
+            
+
 
 
 
@@ -166,9 +170,10 @@ namespace RetailerAPI.Controllers
         }
 
 
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
-    }
+            //    
+            //public IActionResult Index()
+            //{
+            //    return View();
+            //}
+        }
 }

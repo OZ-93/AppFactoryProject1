@@ -37,7 +37,7 @@ namespace RetailerAPI.Controllers
             return await _context.Candidates.ToListAsync();
         }
 
-        //Get existing Assesment by ID
+        //Get existing candidate by ID
         [HttpGet("{id}")]
         public async Task<ActionResult<Candidate>> CandidateByID(int id)
         {

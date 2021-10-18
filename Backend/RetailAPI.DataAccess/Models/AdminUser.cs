@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace RetailAPI.DataAccess.Models
 {
-    public class AdminUser:User
-    {
+
+    public class AdminUser : User
+    { 
+       
     }
+
 }

@@ -10,11 +10,12 @@ namespace RetailAPI.DataAccess.DataAccess
         //Create constructor
         public ProjectDbContext(DbContextOptions<ProjectDbContext> options) : base(options) { }
 
-       /* protected override void OnModelCreating(ModelBuilder builder)
+
+        protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            builder.Seed();
-        }*/
+        }
+
 
         //Map the tables
         public DbSet<Assessment> Assessments { get; set; }
@@ -27,5 +28,6 @@ namespace RetailAPI.DataAccess.DataAccess
         public DbSet<ClientUser> ClientUsers { get; set; }
         public DbSet<AdminUser> AdminUsers { get; set; }
 
+        //public DbSet<LoginModel> LoginModels { get; set; }
     }
 }

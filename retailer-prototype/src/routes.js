@@ -21,7 +21,7 @@ export default {
     AdminUpdate:"/AdminDash/UpdateReport",
     Report:"/Admin/report",
     UpdateRequest:"/AdminDash/updateAss"
-   ///ghfhgdgfdfg
+   
 
     
   };

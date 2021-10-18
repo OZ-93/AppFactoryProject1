@@ -16,9 +16,7 @@ namespace RetailAPI.DataAccess.Models
         [Required]
         [Column(TypeName = "varchar(100)")]
         public string AssessmentType { get; set; }
+        //Assessment
         
-        [Required]
-        [Column(TypeName = "varchar(100)")]
-        public string ShortListedPosition { get; set; }
     }
 }

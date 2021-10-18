@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RetailAPI.DataAccess.Migrations
 {
-    public partial class CreateDatabase : Migration
+    public partial class initialDBCreation : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -75,8 +75,7 @@ namespace RetailAPI.DataAccess.Migrations
                 {
                     AssessmentID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    AssessmentType = table.Column<string>(type: "varchar(100)", nullable: false),
-                    ShortListedPosition = table.Column<string>(type: "varchar(100)", nullable: false)
+                    AssessmentType = table.Column<string>(type: "varchar(100)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -93,7 +92,8 @@ namespace RetailAPI.DataAccess.Migrations
                     LastName = table.Column<string>(type: "varchar(100)", nullable: false),
                     ContactNo = table.Column<string>(type: "varchar(100)", nullable: false),
                     Email = table.Column<string>(type: "varchar(100)", nullable: false),
-                    IdentityNumber = table.Column<string>(type: "varchar(100)", nullable: false)
+                    IdentityNumber = table.Column<string>(type: "varchar(100)", nullable: false),
+                    ShortListedPosition = table.Column<string>(type: "varchar(100)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -229,6 +229,7 @@ namespace RetailAPI.DataAccess.Migrations
                     CandidateID = table.Column<int>(type: "int", nullable: true),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PrefferedDated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ScheduledDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     PaymentDetailiD = table.Column<int>(type: "int", nullable: false),
                     ResultDetailiD = table.Column<int>(type: "int", nullable: false),

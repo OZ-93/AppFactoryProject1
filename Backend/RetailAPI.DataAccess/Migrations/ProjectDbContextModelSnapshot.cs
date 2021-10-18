@@ -161,10 +161,6 @@ namespace RetailAPI.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(100)");
 
-                    b.Property<string>("ShortListedPosition")
-                        .IsRequired()
-                        .HasColumnType("varchar(100)");
-
                     b.HasKey("AssessmentID");
 
                     b.ToTable("Assessments");
@@ -198,6 +194,9 @@ namespace RetailAPI.DataAccess.Migrations
 
                     b.Property<int>("ResultDetailiD")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("ScheduledDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
@@ -269,6 +268,10 @@ namespace RetailAPI.DataAccess.Migrations
                         .HasColumnType("varchar(100)");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("ShortListedPosition")
                         .IsRequired()
                         .HasColumnType("varchar(100)");
 
