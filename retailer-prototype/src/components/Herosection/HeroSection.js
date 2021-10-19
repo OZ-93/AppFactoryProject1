@@ -44,13 +44,13 @@ const HeroSection=props=> {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-        <Link to='/SignupLogin' >
+        <Link to=  '/SignupLogin/Adminsignup'>
         <Button onClick={routes.AdminSignup} 
                   color="primary" autoFocus>
             Admin
           </Button>
           </Link>
-          <Link to='/SignupLogin/Adminsignup'>
+          <Link to= '/SignupLogin'>
           <Button onClick={routes.AdminSignup} 
                   color="primary" autoFocus>
             Retailer

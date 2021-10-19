@@ -10,7 +10,7 @@ using RetailAPI.DataAccess.DataAccess;
 namespace RetailAPI.DataAccess.Migrations
 {
     [DbContext(typeof(ProjectDbContext))]
-    [Migration("20211012112846_initialDBCreation")]
+    [Migration("20211019083752_initialDBCreation")]
     partial class initialDBCreation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

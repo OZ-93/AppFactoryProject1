@@ -456,3 +456,11 @@ C:\Users\User\Music\New folder\Day1\AppFactoryProject1\Backend\RetailerAPI\bin\D
 C:\Users\User\Music\New folder\Day1\AppFactoryProject1\Backend\RetailerAPI\bin\Debug\netcoreapp5.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
 C:\Users\User\Music\New folder\Day1\AppFactoryProject1\Backend\RetailerAPI\bin\Debug\netcoreapp5.0\Microsoft.Extensions.Identity.Core.dll
 C:\Users\User\Music\New folder\Day1\AppFactoryProject1\Backend\RetailerAPI\bin\Debug\netcoreapp5.0\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\User\Documents\GitHub\AppFactoryProject1\Backend\RetailerAPI\bin\Debug\netcoreapp5.0\Castle.Core.dll
+C:\Users\User\Documents\GitHub\AppFactoryProject1\Backend\RetailerAPI\bin\Debug\netcoreapp5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\User\Documents\GitHub\AppFactoryProject1\Backend\RetailerAPI\bin\Debug\netcoreapp5.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\User\Documents\GitHub\AppFactoryProject1\Backend\RetailerAPI\bin\Debug\netcoreapp5.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\User\Documents\GitHub\AppFactoryProject1\Backend\RetailerAPI\bin\Debug\netcoreapp5.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\User\Documents\GitHub\AppFactoryProject1\Backend\RetailerAPI\bin\Debug\netcoreapp5.0\Microsoft.EntityFrameworkCore.Proxies.dll
+C:\Users\User\Documents\GitHub\AppFactoryProject1\Backend\RetailerAPI\bin\Debug\netcoreapp5.0\Microsoft.Extensions.Identity.Core.dll
+C:\Users\User\Documents\GitHub\AppFactoryProject1\Backend\RetailerAPI\bin\Debug\netcoreapp5.0\Microsoft.Extensions.Identity.Stores.dll

@@ -52,10 +52,7 @@ const validationSchema = yup.object({
   
   Email: yup.string().email("Please enter a valid Email address").required(),
   
-  RetailerName: yup
-    .string()
-    .max(15,"Please enter valid RetailerName")
-    .required("Please enter RetailerName"),
+ 
 
   Password: yup
     .string()
@@ -99,7 +96,7 @@ export function Register(props) {
     const { confirmPassword, ...data } = values;
 
     const response = await axios
-      .post("https://localhost:44359/api/Authenticate/register", data)
+      .post("https://localhost:44365/api/Authenticate/register/admin", data)
       .catch((err) => {
         if (err && err.response) setError(err.response.data.message);
         alert(err.response.data.message);
@@ -120,7 +117,7 @@ export function Register(props) {
       LastName:"",
       PhoneNumber:"",
       Email: "",
-      RetailerName:'',
+     
      
       Password: "",
       ConfirmPassword: "",
@@ -201,14 +198,7 @@ export function Register(props) {
         </FieldContainer>
 
          <FieldContainer>
-          <Input
-            
-            name="RetailerName"
-            placeholder="RetailerName"
-            value={formik.values.RetailerName}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
+        
           <FieldError>
             {formik.touched.RetailerName && formik.errors.RetailerName
               ? formik.errors.RetailerName

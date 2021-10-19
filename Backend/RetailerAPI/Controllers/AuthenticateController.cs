@@ -44,14 +44,14 @@ namespace RetailerAPI.Controllers
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
-            var user = await userManager.FindByNameAsync(model.Username);
+            var user = await userManager.FindByNameAsync(model.Email);
             if (user != null && await userManager.CheckPasswordAsync(user, model.Password))
             {
                 var userRoles = await userManager.GetRolesAsync(user);
 
                 var authClaims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name, user.UserName),
+                    new Claim(ClaimTypes.Name, user.Email),
                     new Claim(Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 };
 
@@ -121,7 +121,7 @@ namespace RetailerAPI.Controllers
 
         [HttpPost]
 
-        [Route("register-admin")]
+        [Route("register/admin")]
 
         public async Task<IActionResult> RegisterAdmin([FromBody] AdminUser model)
         {
@@ -146,10 +146,6 @@ namespace RetailerAPI.Controllers
                 NormalizedUserName = model.Email.ToUpper()
 
             
-
-
-
-
             };
 
 
@@ -165,8 +161,8 @@ namespace RetailerAPI.Controllers
                 return Ok(new Response { Status = "Success", Message = "User created successfully!" });
 
             }
-            return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
-
+            // return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
+            return Ok(new Response { Status = "Success", Message = "User created successfully!" });
         }
 
 

@@ -6,7 +6,7 @@ import {
   BoxContainer,
   FieldContainer,
   FieldError,
-  FormContainer,
+  FormContainer, 
   FormSuccess,
   Input,
   MutedLink,
@@ -17,7 +17,7 @@ import { AccountContext } from "../accountBox/accountContext";
 import * as yup from "yup";
 import axios from "axios";
 import { Marginer } from "../marginer";
-import PhoneInput, { isSupportedCountry } from 'react-phone-number-input';
+//import ContactNoInput, { isSupportedCountry } from 'react-PhoneNumber-number-input';
 import routes from "../../routes";
 import { useHistory, Link } from "react-router-dom";
 import Radio from '@material-ui/core/Radio';
@@ -25,47 +25,50 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-import { render } from "@testing-library/react";
+import { RadioButtonChecked } from "@material-ui/icons";
 
 
 
 
 
-const PASSWORD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+
+
+const Password_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+
 
 const validationSchema = yup.object({
-  firstName: yup
+  FirstName: yup
     .string()
     .min(3, "Please enter you real name")
     .required("Full name is required!"),
   
-  lastName: yup
+  LastName: yup
     .string()
     .required("Last Name is required"),
   
-  phone: yup
+  PhoneNumber: yup
     .string()
-    .required("Phone number is required"),
+    .required("PhoneNumber number is required"),
   
-  email: yup.string().email("Please enter a valid email address").required(),
+  Email: yup.string().email("Please enter a valid Email address").required(),
   
-  retailer: yup
+  RetailerName: yup
     .string()
-    .max(15,"Please enter valid retailer")
-    .required("Please enter retailer"),
+    .max(15,"Please enter valid RetailerName")
+    .required("Please enter RetailerName"),
 
-  password: yup
+  Password: yup
     .string()
-    .matches(PASSWORD_REGEX, "Please enter a strong password")
+    .matches(Password_REGEX, "Please enter a strong Password")
     .required(),
   confirmPassword: yup
     .string()
-    .required("Please confirm your password")
-    .when("password", {
+    .required("Please confirm your Password")
+    .when("Password", {
       is: (val) => (val && val.length > 0 ? true : false),
       then: yup
         .string()
-        .oneOf([yup.ref("password")], "Password does not match"),
+        .oneOf([yup.ref("Password")], "Password does not match"),
     }),
 });
 
@@ -81,54 +84,54 @@ export function SignupForm(props) {
 
   const history = useHistory();
 
-  const [value, setValue] = React.useState('female');//radio buttons
+ 
 
-  const handleChange = (event) => {
-    setValue(event.target.value);
-  };
+  
 
-  const onSubmit= (values)=>{
+  /*const onSubmit= (values)=>{
     alert(JSON.stringify(values));
     history.push(location);
-  }
+  }*/
 
- /* const onSubmit = async (values) => {
+  //fadsadasdasdsadsafafasfasfsa
+
+  const onSubmit = async (values) => {
+  
     const { confirmPassword, ...data } = values;
 
     const response = await axios
-      .post("http://localhost:5000/api/v1/register", data)
+      .post("https://localhost:44365/api/Authenticate/register", data)
       .catch((err) => {
         if (err && err.response) setError(err.response.data.message);
+        alert(err.response.data.message);
         setSuccess(null);
       });
 
     if (response && response.data) {
       setError(null);
       setSuccess(response.data.message);
+      alert('successful', response.data.message)
       formik.resetForm();
     }
-  };*/
+  };
 
   const formik = useFormik({
     initialValues: {
-      firstName: "",
-      lastName:"",
-      phone:"",
-      email: "",
-      retailer:'',
-      position:"",
-      password: "",
-      confirmPassword: "",
+      FirstName: "",
+      LastName:"",
+      PhoneNumber:"",
+      Email: "",
+      RetailerName:'',
+     
+      Password: "",
+      ConfirmPassword: "",
     },
     validateOnBlur: true,
     onSubmit,
     validationSchema: validationSchema,
   });
-
-  console.log("Error", error);
-
-  
  
+  console.log("Error", error);
   
 
   return (
@@ -138,54 +141,46 @@ export function SignupForm(props) {
 
       
 
-      <FormControl component="fieldset">
-      <FormLabel component="User">User</FormLabel>
-      
-      <RadioGroup aria-label="Admin" name="Client" value={value} onChange={handleChange}>
-        <FormControlLabel value="Admin"  control={<Radio />} label="Client" />
-        <FormControlLabel value="Client" control={<Radio />} label="Client" />
-       
-      </RadioGroup>
-    </FormControl>
+     
 
 
 
       <FormContainer onSubmit={formik.handleSubmit}>
         <FieldContainer>
           <Input
-            name="firstName"
+            name="FirstName"
             placeholder="Full Name"
-            value={formik.values.firstName}
+            value={formik.values.FirstName}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
           <FieldError>
-            {formik.touched.firstName && formik.errors.firstName
-              ? formik.errors.firstName
+            {formik.touched.FirstName && formik.errors.FirstName
+              ? formik.errors.FirstName
               : ""}
           </FieldError>
         </FieldContainer>
 
         <FieldContainer>
           <Input
-            name="lastName"
-            placeholder="last Name"
-            value={formik.values.lastName}
+            name="LastName"
+            placeholder="Last Name"
+            value={formik.values.LastName}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
           <FieldError>
-            {formik.touched.lastName && formik.errors.lastName
-              ? formik.errors.lastName
+            {formik.touched.LastName && formik.errors.LastName
+              ? formik.errors.LastName
               : ""}
           </FieldError>
         </FieldContainer>
         <FieldContainer>
         <Input
-            name="phone"
+            name="PhoneNumber"
             type="number"
-            placeholder="Phone"
-            value={formik.values.phone}
+            placeholder="PhoneNumber"
+            value={formik.values.PhoneNumber}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
@@ -193,15 +188,15 @@ export function SignupForm(props) {
 
         <FieldContainer>
           <Input
-            name="email"
+            name="Email"
             placeholder="Email"
-            value={formik.values.email}
+            value={formik.values.Email}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
           <FieldError>
-            {formik.touched.email && formik.errors.email
-              ? formik.errors.email
+            {formik.touched.Email && formik.errors.Email
+              ? formik.errors.Email
               : ""}
           </FieldError>
         </FieldContainer>
@@ -209,31 +204,31 @@ export function SignupForm(props) {
          <FieldContainer>
           <Input
             
-            name="retailer"
-            placeholder="Retailer"
-            value={formik.values.retailer}
+            name="RetailerName"
+            placeholder="RetailerName"
+            value={formik.values.RetailerName}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
           <FieldError>
-            {formik.touched.retailer && formik.errors.retailer
-              ? formik.errors.retailer
+            {formik.touched.RetailerName && formik.errors.RetailerName
+              ? formik.errors.RetailerName
               : ""}
           </FieldError>
         </FieldContainer>
 
         <FieldContainer>
           <Input
-            name="password"
-            type="password"
+            name="Password"
+            type="Password"
             placeholder="Password"
-            value={formik.values.password}
+            value={formik.values.Password}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
           <FieldError>
-            {formik.touched.password && formik.errors.password
-              ? formik.errors.password
+            {formik.touched.Password && formik.errors.Password
+              ? formik.errors.Password
               : ""}
           </FieldError>
         </FieldContainer>
@@ -241,7 +236,7 @@ export function SignupForm(props) {
         <FieldContainer>
           <Input
             name="confirmPassword"
-            type="password"
+            type="Password"
             placeholder="Confirm Password"
             value={formik.values.confirmPassword}
             onChange={formik.handleChange}

@@ -29,7 +29,7 @@ main{
     height: 300px;
     padding: 25px;
     border-radius: 5px;
-    background: rgb(159, 205, 231);
+    background:  url('../../../Assets/Five-Features-of-a-Good-Monthly-Employee-Work-Schedule-Template-896x518.jpg') center center/cover no-repeat;;
     box-shadow: 5px 5px 13px #ededed, -5px -5px 13px #ffffff;
 
 }
@@ -49,9 +49,9 @@ i.fa-list {
 
 .card:hover,
 .card.active{
-    color: white;
-    background: rgb(159, 205, 231);
-    border-right: 2px solid rgb(5,68,104);
+    color: rgb(255, 255, 255);
+    background: url('../../../Assets/Five-Features-of-a-Good-Monthly-Employee-Work-Schedule-Template-896x518.jpg') center center/cover no-repeat;;
+    border-right: 2px solid rgb(247, 247, 247);
 }
 
 .card_inner{
