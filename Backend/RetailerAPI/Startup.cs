@@ -33,6 +33,8 @@ namespace RetailerAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();  //adding this for Cookies
+
             services.AddDbContext<ProjectDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("Default"));
@@ -49,18 +51,18 @@ namespace RetailerAPI
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            })  
+            })
             // install bearer packages
-
-
-            // Adding Jwt Bearer  
+            // Adding Jwt
+            // JWTs are a convenient way to encode and verify claims.
+            // A Bearer token is just string, potentially arbitrary, that is used for authorization
             .AddJwtBearer(options =>
              {
                  options.SaveToken = true;
                  options.RequireHttpsMetadata = false;
                  options.TokenValidationParameters = new TokenValidationParameters()
                  {
-                     //Changed
+                     
                      ValidateIssuer = true,
                      ValidateAudience = true,
                      ValidAudience = Configuration["JWT:ValidAudience"],
@@ -72,8 +74,10 @@ namespace RetailerAPI
             //following methods from previous
 
             //Enable COR == To enable requests coming from different domains
-            services.AddCors(c =>
-            c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyMethod()));
+            //services.AddCors(c =>
+            //c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyMethod()));
+            //from KB
+
 
             //JSON Serializer
             services.AddControllersWithViews().AddNewtonsoftJson(
@@ -85,13 +89,19 @@ namespace RetailerAPI
 
 
             services.AddControllers();
-        }
+        }   //end here
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-
+            // For Cors to uses different methods
+            app.UseCors(options => options
+            .WithOrigins(new[] { "https://localhost:3000", "https://localhost:8080", "https://localhost:4200" })
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials()
+            );
+            
 
             if (env.IsDevelopment())
             {
@@ -112,5 +122,6 @@ namespace RetailerAPI
                 endpoints.MapControllers();
             });
         }
+
     }
 }

@@ -10,8 +10,8 @@ using RetailAPI.DataAccess.DataAccess;
 namespace RetailAPI.DataAccess.Migrations
 {
     [DbContext(typeof(ProjectDbContext))]
-    [Migration("20211019083752_initialDBCreation")]
-    partial class initialDBCreation
+    [Migration("20211020073607_Step1")]
+    partial class Step1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -175,41 +175,10 @@ namespace RetailAPI.DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AssessmentID")
+                    b.Property<int>("AssessmentID")
                         .HasColumnType("int");
-
-                    b.Property<string>("BookingStatus")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("CandidateID")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("PaymentDetailiD")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("PrefferedDated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("ResultDetailiD")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("ScheduledDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("BookingID");
-
-                    b.HasIndex("AssessmentID");
-
-                    b.HasIndex("CandidateID");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("AssessmentBookings");
                 });
@@ -451,27 +420,6 @@ namespace RetailAPI.DataAccess.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("RetailAPI.DataAccess.Models.AssessmentBooking", b =>
-                {
-                    b.HasOne("RetailAPI.DataAccess.Models.Assessment", "Assessment")
-                        .WithMany()
-                        .HasForeignKey("AssessmentID");
-
-                    b.HasOne("RetailAPI.DataAccess.Models.Candidate", "Candidate")
-                        .WithMany()
-                        .HasForeignKey("CandidateID");
-
-                    b.HasOne("RetailAPI.DataAccess.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("Assessment");
-
-                    b.Navigation("Candidate");
-
-                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

@@ -58,6 +58,12 @@ namespace RetailerAPI.Controllers
             return user;
         }
 
+        //for cookies
+        //public User GetById(int id)
+        //{
+        //    return _context.Users.FirstOrDefault(u: User => u.Id == id);
+        //}
+
 
         //This method will PUT or Update User records
         [HttpPut("{id}")]

@@ -9,11 +9,7 @@ import { Paper,makeStyles } from '@material-ui/core';
 import { Alert } from 'react-st-modal';
 
 
-const genderItems = [
-    { id: 'male', title: 'Male' },
-    { id: 'female', title: 'Female' },
-    { id: 'other', title: 'Other' },
-]
+
 
 const initialFValues = {
     id: 0,
@@ -23,13 +19,11 @@ const initialFValues = {
     Email: '',
     mobile: '',
     RetailerName: '',
-    gender: 'male',
-    PositionId: '',
-    UploadCv:'',
-    CandidateBrand:'',
-    hireDate: new Date(),
-    isPermanent: false,
+    ShortListedPosition: '',
+    BranchName:'',
+    PreferredDate: new Date(),
     IName:'',
+    AssessmentType:'',
     IMobile:'',
     IEmail:'',
     IDesignation:'',
@@ -52,13 +46,15 @@ export default function ScheduleBooking() {
         if ('mobile' in fieldValues)
             temp.mobile = fieldValues.mobile.length > 9 ? "" : "Minimum 10 numbers required."
         if ('IdNumber' in fieldValues)
-            temp.IdNumber = fieldValues.IdNumber.length >13 ? "" : "invalid Id."
+            temp.IdNumber = fieldValues.IdNumber.length >=13 ? "" : "invalid Id."
         if ('RetailerName' in fieldValues)
             temp.RetailerName = fieldValues.RetailerName? "" : "This field is required."
-        if ('CandidateBrand' in fieldValues)
-            temp.CandidateBrand = fieldValues.CandidateBrand.length != 0 ? "" : "This field is required."
-        if ('PositionId' in fieldValues)
-            temp.PositionId = fieldValues.PositionId.length != 0 ? "" : "This field is required."
+        if ('BranchName' in fieldValues)
+            temp.BranchName = fieldValues.BranchName.length != 0 ? "" : "This field is required."
+        if ('ShortListedPosition' in fieldValues)
+            temp.ShortListedPosition = fieldValues.ShortListedPosition.length != 0 ? "" : "This field is required."
+        if ('AssessmentType' in fieldValues)
+            temp.AssessmentType = fieldValues.AssessmentType.length != 0 ? "" : "This field is required."
         if ('IName' in fieldValues)
             temp.IName = fieldValues.IName? "" : "This field is required."
         if ('IMobile' in fieldValues)
@@ -164,45 +160,42 @@ export default function ScheduleBooking() {
 
                 </Grid>
                 <Grid item xs={6}>
-                    <Controls.RadioGroup
-                        name="gender"
-                        label="Gender"
-                        value={values.gender}
-                        onChange={handleInputChange}
-                        items={genderItems}
-                    />
-                    <Controls.Select
-                        name="PositionId"
+                  
+                    <Controls.Input
+                        name="ShortListedPosition"
                         label="Canditate Position"
-                        value={values.PositionId}
+                        value={values.ShortListedPosition}
+                        onChange={handleInputChange}
+                        error={errors.ShortListedPosition}
+                    
+                    />
+
+                    <Controls.Select
+                        name="AssessmentType"
+                        label="Assessment Type"
+                        value={values.AssessmentType}
                         onChange={handleInputChange}
                         options={employeeService.getPosition()}
                         error={errors.PositionId}
-                        items={employeeService.getPosition}
+                        items={employeeService}
                     />
 
-                     <Controls.Select
-                        name="CandidateBrand"
-                        label="Candidate Brand"
-                        value={values.CandidateBrand}
+                     <Controls.Input
+                        name="BranchName"
+                        label="Brand Name"
+                        value={values.BranchName}
                         onChange={handleInputChange}
-                        options={employeeService.getBrand()}
-                        error={errors.CandidateBrand}
-                        items={employeeService.getBrand}
+                        error={errors.BranchName}
+                   
                     />
                     <Controls.DatePicker
-                        name="hireDate"
-                        label="Hire Date"
-                        value={values.hireDate}
+                        name="PreferredDate"
+                        label="Preferred Date"
+                        value={values.PreferredDate}
                         onChange={handleInputChange}
                     />
 
-                    <Controls.Input
-                        Name="UploadCv"
-                        Label="Upload Cv"
-                        Value={values.UploadCv}
-                        type="file"
-                        />
+                    
                     <div>
                         <input 
 
@@ -214,12 +207,7 @@ export default function ScheduleBooking() {
 
             
 
-                    <Controls.Checkbox
-                        name="isPermanent"
-                        label="Permanent Employee"
-                        value={values.isPermanent}
-                        onChange={handleInputChange}
-                    />
+                   
 
                     
                 </Grid>

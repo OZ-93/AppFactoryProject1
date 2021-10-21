@@ -173,7 +173,7 @@ namespace RetailAPI.DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AssessmentID")
+                    b.Property<int>("AssessmentID")
                         .HasColumnType("int");
 
                     b.Property<string>("BookingStatus")
@@ -186,28 +186,25 @@ namespace RetailAPI.DataAccess.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("PaymentDetailiD")
+                    b.Property<int?>("PaymentDetailDetailID")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("PrefferedDated")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ResultDetailiD")
+                    b.Property<int?>("ResultDetailDetailID")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("ScheduledDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("BookingID");
-
-                    b.HasIndex("AssessmentID");
 
                     b.HasIndex("CandidateID");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("PaymentDetailDetailID");
+
+                    b.HasIndex("ResultDetailDetailID");
 
                     b.ToTable("AssessmentBookings");
                 });
@@ -453,23 +450,23 @@ namespace RetailAPI.DataAccess.Migrations
 
             modelBuilder.Entity("RetailAPI.DataAccess.Models.AssessmentBooking", b =>
                 {
-                    b.HasOne("RetailAPI.DataAccess.Models.Assessment", "Assessment")
-                        .WithMany()
-                        .HasForeignKey("AssessmentID");
-
                     b.HasOne("RetailAPI.DataAccess.Models.Candidate", "Candidate")
                         .WithMany()
                         .HasForeignKey("CandidateID");
 
-                    b.HasOne("RetailAPI.DataAccess.Models.User", "User")
+                    b.HasOne("RetailAPI.DataAccess.Models.AssessmentBookingDetail", "PaymentDetail")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("PaymentDetailDetailID");
 
-                    b.Navigation("Assessment");
+                    b.HasOne("RetailAPI.DataAccess.Models.AssessmentBookingDetail", "ResultDetail")
+                        .WithMany()
+                        .HasForeignKey("ResultDetailDetailID");
 
                     b.Navigation("Candidate");
 
-                    b.Navigation("User");
+                    b.Navigation("PaymentDetail");
+
+                    b.Navigation("ResultDetail");
                 });
 #pragma warning restore 612, 618
         }

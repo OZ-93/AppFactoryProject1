@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,8 +13,9 @@ namespace RetailAPI.DataAccess.Models
         [Key]
         public int BookingID { get; set; }
 
+        [ForeignKey("AsessmentID")]
         [Required]
-        public Assessment Assessment { get; set; }
+        public int AssessmentID { get; set; }
 
         [Required]
         public Candidate Candidate { get; set; }
@@ -28,14 +30,14 @@ namespace RetailAPI.DataAccess.Models
         [Required]
         public DateTime ScheduledDate { get; set; }
 
-        [Required]
-        public User User { get; set; }
+        //[Required]
+        //public User User { get; set; }
 
         [Required]
-        public int PaymentDetailiD { get; set; }
+        public AssessmentBookingDetail PaymentDetail { get; set; }
 
         [Required]
-        public int ResultDetailiD { get; set; }
+        public AssessmentBookingDetail ResultDetail { get; set; }
 
         [Required]
         public string BookingStatus { get; set; }

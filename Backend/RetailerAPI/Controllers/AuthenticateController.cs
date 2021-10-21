@@ -14,7 +14,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.JsonWebTokens;
 using RetailAPI.DataAccess.DataAccess;
-
+using Microsoft.EntityFrameworkCore;
 
 namespace RetailerAPI.Controllers
 {
@@ -26,7 +26,7 @@ namespace RetailerAPI.Controllers
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly IConfiguration _configuration;
         private readonly ProjectDbContext _context;
-
+        internal DbSet<User> _dbSet;
         public AuthenticateController(UserManager<User> userManager,
             RoleManager<IdentityRole> roleManager, 
             IConfiguration configuration,
@@ -37,6 +37,15 @@ namespace RetailerAPI.Controllers
             _configuration = configuration;
             _context = context;
 
+        }
+
+
+        [HttpPost]
+        [Route("GetUserById")]
+        public User GetUserById(string id)
+        {
+            //User vm = new User();
+            return _dbSet.Find(id);
         }
 
 
@@ -70,13 +79,63 @@ namespace RetailerAPI.Controllers
                     signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
                     );
 
-                return Ok(new
+
+                string jwt = new JwtSecurityTokenHandler().WriteToken(token);
+                   
+
+                Response.Cookies.Append("JWT", jwt, new CookieOptions
+                {
+                    HttpOnly = true
+                });
+                
+                 return Ok(new 
+                {
+                    Message ="Success"
+                });
+                 
+                //used to return these before we create cookies
+               /* return Ok(new
                 {
                     token = new JwtSecurityTokenHandler().WriteToken(token),
                     expiration = token.ValidTo
-                });
+                });*/
             }
             return Unauthorized();
+        }
+
+
+        [HttpGet("id")]
+        [Route("GetUser")]
+        public IActionResult  GetUser(string userID)
+        {
+            try
+            {
+                //var jwt = Request.Cookies["jwt"];
+                //var token = jwtServiceVerify(jwt);
+                //int userId = int.Parse(token.Issuer);
+                //var user = _context.GetById(userId);
+
+                //return Ok(user);
+                var User = GetUserById("userID");
+                return Ok(User);
+            }
+            catch (Exception)
+            {
+                return Unauthorized();
+            }
+        }
+
+
+
+        [HttpPost("logout")]
+        public IActionResult Logout()
+        {
+            Response.Cookies.Delete("JWT");
+
+            return Ok(new
+            {
+                Message = "Successfully Logout"
+            });
         }
 
 

@@ -96,7 +96,7 @@ export function Register(props) {
     const { confirmPassword, ...data } = values;
 
     const response = await axios
-      .post("https://localhost:44365/api/Authenticate/register/admin", data)
+      .post("https://localhost:44345/api/Authenticate/register/admin", data)
       .catch((err) => {
         if (err && err.response) setError(err.response.data.message);
         alert(err.response.data.message);

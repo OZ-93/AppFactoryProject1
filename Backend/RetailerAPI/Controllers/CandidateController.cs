@@ -19,12 +19,14 @@ namespace RetailerAPI.Controllers
         private readonly IConfiguration _config;
         private readonly ProjectDbContext _context;
         //Overload constructor with configuration
+
+
         public CandidateController(IConfiguration config, ProjectDbContext context)
         {
             _config = config;
             _context = context;
         }
-        //Create Http methods aka action methods
+        //Create Http methods AKA action methods
 
         /*
          * This method will get all assessment records
@@ -50,6 +52,7 @@ namespace RetailerAPI.Controllers
 
             return Candidate;
         }
+
         //Add new Candidate
         [HttpPost]
         public async Task<ActionResult<Candidate>> AddCandidate(Candidate Candidate)
@@ -57,7 +60,7 @@ namespace RetailerAPI.Controllers
             _context.Candidates.Add(Candidate);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCandidateById", new { id = Candidate.CandidateID }, Candidate);
+            return CreatedAtAction("GetCandidate", new { id = Candidate.CandidateID }, Candidate);
 
         }
 
@@ -91,16 +94,19 @@ namespace RetailerAPI.Controllers
             return NoContent();
         }
 
+
+        //Check for existance
         private bool CandidateExists(int id)
         {
-            throw new NotImplementedException();
+            return _context.Candidates.Any(e => e.CandidateID == id);
+            //throw new NotImplementedException();
         }
 
         //Check for existance
-        private bool CandidateExist(int id)
-        {
-            return _context.Candidates.Any(e => e.CandidateID == id);
-        }
+        //private bool CandidateExist(int id)
+        //{
+          //  return _context.Candidates.Any(e => e.CandidateID == id);
+        //}
 
         //DELETE
         // DELETE: api/DCandidates/5

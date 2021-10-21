@@ -100,7 +100,7 @@ export function SignupForm(props) {
     const { confirmPassword, ...data } = values;
 
     const response = await axios
-      .post("https://localhost:44365/api/Authenticate/register", data)
+      .post("https://localhost:44345/api/Authenticate/register", data)
       .catch((err) => {
         if (err && err.response) setError(err.response.data.message);
         alert(err.response.data.message);

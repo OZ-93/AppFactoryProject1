@@ -39,9 +39,9 @@ namespace RetailAPI.DataAccess.Models
         //Foreing Key
         [ForeignKey("UserTypeID")]
         public int UserType { get; set; }
-        
+
        
 
-        
+
     }
 }

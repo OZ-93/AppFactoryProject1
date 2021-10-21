@@ -3,11 +3,10 @@ const KEYS ={
     employeeId:'employeeId'
 }
 
-export const getPosition = ()=>([
-    { id: 'Tester', title: 'Tester' },
-    { id: 'Sales Person', title: 'Sales Person' },
-    { id: 'Accounting', title: 'Accounting' },
-    { id: 'Human Resource', title: 'HR' },
+export const Assessment = ()=>([
+    { id: 'Development', title: 'Development' },
+    { id: 'Recruitment', title: 'Recruitment' },
+    
 ])
 
 export const getBrand = ()=>([
