@@ -12,8 +12,8 @@ const DashboardMain=()=>{
                 <div className = "main__title">
 
                     <div className = "main__greeting">
-                        <h1>BMW Bookings</h1>
-                        <p>Welcome to the clientside Dashboard</p>
+                        <h1>Welcome To The Assessment Tooling Application </h1>
+                        <h1>Schedule a Booking</h1>
                     </div>
 
                 </div>

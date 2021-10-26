@@ -19,7 +19,7 @@ const Main=()=>{
                  </div>
                     
                 </div>
-                <div className="card">
+                <div className="cardd">
                  <i className="fa  fa-list fa-5px"></i>
                  <a href={routes.UpdateRequest}>Update Requests</a>
                     

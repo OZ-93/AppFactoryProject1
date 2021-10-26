@@ -34,6 +34,18 @@ main{
 
 }
 
+.cardd{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 300px;
+    padding: 25px;
+    border-radius: 5px;
+    background:  url('../../../Assets/schedule.png') center center/cover no-repeat;;
+    box-shadow: 5px 5px 13px #ededed, -5px -5px 13px #ffffff;
+
+}
+
 
 i.fa-list {
     width:50px;

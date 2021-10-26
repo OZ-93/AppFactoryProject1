@@ -175,8 +175,8 @@ export default function ScheduleBooking() {
                         label="Assessment Type"
                         value={values.AssessmentType}
                         onChange={handleInputChange}
-                        options={employeeService.getPosition()}
-                        error={errors.PositionId}
+                        options={employeeService.Assessment()}
+                        error={errors.AssessmentType}
                         items={employeeService}
                     />
 

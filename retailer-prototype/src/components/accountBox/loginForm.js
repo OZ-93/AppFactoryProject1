@@ -21,6 +21,7 @@ import axios from "axios";
 import { Redirect } from "react-router-dom";
 import Main from "../../Assets/main/Main";
 import ForgotForm from "./ForgotForm";
+axios.defaults.withCredentials=true
 
 const validationSchema = yup.object({
   email: yup.string().required(),
@@ -31,6 +32,7 @@ export function LoginForm(props) {
   const { switchToSignup } = useContext(AccountContext);
   const { switchToForgot } = useContext(AccountContext);
   const [error, setError] = useState(null);
+  const [User, setUser] =useState(null);
   const location = {
     pathname: '/dashboard',
     state: {fromDashboard: true}
@@ -42,17 +44,46 @@ export function LoginForm(props) {
 
   const onSubmit = async (values) => {
     setError(null);
+
+    const response = await axios.post(
+      "https://localhost:44365/api/Authenticate/login",
+      values, {withCredentials:true}
+    );
+    // set the state of the user
+    setUser(response.data)
+    // store the user in localStorage
+    localStorage.setItem('values', response.data)
+    if (response) {
+      localStorage.setItem('values', response.data)
+      alert("Welcome back in. Authenticating...");
+      history.push(location);
+      
+       
+    }
+    console.log(response.data)
+/*
     const response = await axios
-      .post("https://localhost:44345/api/Authenticate/login", values)
+      .post("https://localhost:44365/api/Authenticate/login", values, {withCredentials: true}, {
+        headers: {
+         
+          'content-type': 'application/json',
+          'Set-Cookie': 'JWT'
+        }})
+        
+       
+       
       .catch((err) => {
         if (err && err.response) setError(err.response.data.message);
         alert("Failed to Login")
       });
 
     if (response) {
+      localStorage.setItem('values', response.data)
       alert("Welcome back in. Authenticating...");
       history.push(location);
-    }
+      
+       
+    }*/
   };
 
   const formik = useFormik({
