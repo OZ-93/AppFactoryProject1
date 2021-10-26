@@ -5,6 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace RetailAPI.DataAccess.Models
 {
@@ -38,9 +40,13 @@ namespace RetailAPI.DataAccess.Models
 
         [Required]
         public AssessmentBookingDetail ResultDetail { get; set; }
+        public CandidateCV CandidateCV { get; set; }
 
         [Required]
         public string BookingStatus { get; set; }
+
+        [NotMapped]
+        public IFormFile CandidateCVCopy { get; set; }
 
 
     }

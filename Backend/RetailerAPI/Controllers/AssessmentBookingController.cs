@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace RetailerAPI.Controllers
 {
@@ -18,11 +20,14 @@ namespace RetailerAPI.Controllers
         //Bring in the configurtion file
         private readonly IConfiguration _config;
         private readonly ProjectDbContext _context;
+        private IWebHostEnvironment _env;
         //Overload constructor with configuration
-        public AssessmentBookingController(IConfiguration config, ProjectDbContext context)
+        public AssessmentBookingController(IConfiguration config, ProjectDbContext context, IWebHostEnvironment env)
         {
             _config = config;
             _context = context;
+            _env = env;
+
         }
         //Create Http methods aka action methods
 
@@ -30,7 +35,23 @@ namespace RetailerAPI.Controllers
          * This method will get all assessment records
          * Route api/Assessment/GetAllAssessments
          */
+        public string UploadCV(AssessmentBooking model)
+        {
+            string fileName = null;
+            string filePath = null;
 
+            if (model.CandidateCVCopy != null)
+            {
+                string uploadDir = Path.Combine(_env.WebRootPath, "CandidateCV");
+                fileName = $"{model.Candidate.FirstName } {model.Candidate.LastName}'s CV";
+                filePath = Path.Combine(uploadDir, fileName + ".pdf");
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    model.CandidateCVCopy.CopyTo(fileStream);
+                }
+            }
+            return filePath;
+        }
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AssessmentBooking>>> Get()
         {
@@ -54,6 +75,9 @@ namespace RetailerAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<AssessmentBooking>> AddAssessmentBooking(AssessmentBooking assessmentBooking)
         {
+            assessmentBooking.CandidateCV.Name = assessmentBooking.Candidate.FirstName + " " + assessmentBooking.Candidate.LastName;
+            assessmentBooking.CandidateCV.FilePath = UploadCV(assessmentBooking);
+
             _context.AssessmentBookings.Add(assessmentBooking);
             await _context.SaveChangesAsync();
 

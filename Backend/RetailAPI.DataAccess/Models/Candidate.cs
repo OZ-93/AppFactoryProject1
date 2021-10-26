@@ -38,5 +38,9 @@ namespace RetailAPI.DataAccess.Models
         [Column(TypeName = "varchar(100)")]
         public string ShortListedPosition { get; set; }
 
+        [Required]
+        [ForeignKey("CandidateCVID")]
+        public int CandidateCVID { get; set; }
+
     }
 }

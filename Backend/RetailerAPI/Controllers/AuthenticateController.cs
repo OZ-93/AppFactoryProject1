@@ -26,7 +26,7 @@ namespace RetailerAPI.Controllers
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly IConfiguration _configuration;
         private readonly ProjectDbContext _context;
-        internal DbSet<User> _dbSet;
+        //internal DbSet<User> _dbSet;
         public AuthenticateController(UserManager<User> userManager,
             RoleManager<IdentityRole> roleManager, 
             IConfiguration configuration,
@@ -40,13 +40,13 @@ namespace RetailerAPI.Controllers
         }
 
 
-        [HttpPost]
-        [Route("GetUserById")]
-        public User GetUserById(string id)
-        {
-            //User vm = new User();
-            return _dbSet.Find(id);
-        }
+        //[HttpPost]
+        //[Route("GetUserById")]
+        //public User GetUserById(string id)
+        //{
+        //    //User vm = new User();
+        //    return _dbSet.Find(id);
+        //}
 
 
         [HttpPost]
@@ -80,6 +80,8 @@ namespace RetailerAPI.Controllers
                     );
 
 
+                //var Jwt = _jwtService.Generate(user.Id);
+
                 string jwt = new JwtSecurityTokenHandler().WriteToken(token);
                    
 
@@ -104,7 +106,7 @@ namespace RetailerAPI.Controllers
         }
 
 
-        [HttpGet("id")]
+        /*[HttpGet("id")]
         [Route("GetUser")]
         public IActionResult  GetUser(string userID)
         {
@@ -116,14 +118,12 @@ namespace RetailerAPI.Controllers
                 //var user = _context.GetById(userId);
 
                 //return Ok(user);
-                var User = GetUserById("userID");
-                return Ok(User);
             }
             catch (Exception)
             {
                 return Unauthorized();
             }
-        }
+        }*/
 
 
 

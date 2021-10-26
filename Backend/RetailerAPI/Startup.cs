@@ -18,6 +18,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Net.Http.Headers;
 
 namespace RetailerAPI
 {
@@ -34,6 +36,8 @@ namespace RetailerAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();  //adding this for Cookies
+
+            //services.AddScoped<JwtServices>(); ...i will come back for this 
 
             services.AddDbContext<ProjectDbContext>(options =>
             {
@@ -87,6 +91,18 @@ namespace RetailerAPI
                 new DefaultContractResolver()
                 );
 
+            //AM DOING THE FOLLOWING FOR UPLOADING FILE
+            services.AddCors(options =>
+                options.AddPolicy("Policy", builder =>
+                {
+                    builder.WithOrigins("https://localhost:3000")
+                            .WithMethods("POST", "GET", "DELETE", "PUT")
+                            .WithHeaders(HeaderNames.ContentType);
+                }));
+
+
+
+
 
             services.AddControllers();
         }   //end here
@@ -108,6 +124,8 @@ namespace RetailerAPI
                 app.UseDeveloperExceptionPage();
 
             }
+
+            app.UseCors("Policy");
 
             app.UseHttpsRedirection();
 

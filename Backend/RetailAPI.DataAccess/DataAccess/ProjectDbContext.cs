@@ -28,6 +28,9 @@ namespace RetailAPI.DataAccess.DataAccess
         public DbSet<ClientUser> ClientUsers { get; set; }
         public DbSet<AdminUser> AdminUsers { get; set; }
 
+        public DbSet<CandidateCV> candidateCVs { get; set; }
+       
+
         //public DbSet<LoginModel> LoginModels { get; set; }
     }
 }
