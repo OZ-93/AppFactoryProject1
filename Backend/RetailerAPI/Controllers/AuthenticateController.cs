@@ -29,6 +29,7 @@ namespace RetailerAPI.Controllers
         private readonly ProjectDbContext _context;
         private readonly SignInManager<User> _signInManager;
         private readonly ILogger<LoginModel>_logger;
+        private readonly JwtService _jwtService;
         internal DbSet<User> _dbSet;
         //internal DbSet<User> _dbSet;
         public AuthenticateController(UserManager<User> userManager,
@@ -129,24 +130,25 @@ namespace RetailerAPI.Controllers
         }
 
 
-        /*[HttpGet("id")]
+        [HttpGet("id")]
         [Route("GetUser")]
-        public IActionResult  GetUser(string userID)
+        public IActionResult User(string userID)
         {
             try
             {
-                //var jwt = Request.Cookies["jwt"];
+                var jwt = Request.Cookies["jwt"];
+                var token = _jwtService.Verify(jwt);
                 //var token = jwtServiceVerify(jwt);
-                //int userId = int.Parse(token.Issuer);
-                //var user = _context.GetById(userId);
+                int userId = int.Parse(token.Issuer);
+                var user = GetUserById(userID);
 
-                //return Ok(user);
+                return Ok(user);
             }
             catch (Exception)
             {
                 return Unauthorized();
             }
-        }*/
+        }
 
 
 
