@@ -40,6 +40,8 @@ namespace RetailAPI.DataAccess.Models
         [ForeignKey("UserTypeID")]
         public int UserType { get; set; }
 
+
+     
        
 
 

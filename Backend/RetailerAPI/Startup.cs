@@ -112,7 +112,7 @@ namespace RetailerAPI
         {
             // For Cors to uses different methods
             app.UseCors(options => options
-            .WithOrigins(new[] { "https://localhost:3000", "https://localhost:8080", "https://localhost:4200" })
+            .WithOrigins(new[] { "http://localhost:3000", "https://localhost:8080", "https://localhost:4200" })
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials()

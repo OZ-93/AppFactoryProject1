@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.JsonWebTokens;
 using RetailAPI.DataAccess.DataAccess;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace RetailerAPI.Controllers
 {
@@ -26,28 +27,47 @@ namespace RetailerAPI.Controllers
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly IConfiguration _configuration;
         private readonly ProjectDbContext _context;
+        private readonly SignInManager<User> _signInManager;
+        private readonly ILogger<LoginModel>_logger;
+        internal DbSet<User> _dbSet;
         //internal DbSet<User> _dbSet;
         public AuthenticateController(UserManager<User> userManager,
             RoleManager<IdentityRole> roleManager, 
             IConfiguration configuration,
-            ProjectDbContext context)
+            ProjectDbContext context,
+            SignInManager<User> signInManager,
+            ILogger<LoginModel>logger)
         {
             this.userManager = userManager;
             this.roleManager = roleManager;
             _configuration = configuration;
             _context = context;
+            _signInManager = signInManager;
+            _logger = logger;
+
 
         }
 
 
         //[HttpPost]
         //[Route("GetUserById")]
-        //public User GetUserById(string id)
-        //{
-        //    //User vm = new User();
-        //    return _dbSet.Find(id);
-        //}
+        public User GetUserById(string id)
+        {
+            //User vm = new User();
+            return _dbSet.Find(id);
+        }
 
+        //Method
+        //public User GetUserByEmail(string Email)
+        ////{
+        ////    return _context.Users.FirstOrDefaultAsync(U:User => U.Email == Email )
+        ////    //return _context.Users.FirstOrDefault(u:User => u.Email == Email);
+        ////}
+        //[HttpPost("Login")]
+        //public IActionResult Login1(LoginModel model)
+        //{
+        //    v
+        //}
 
         [HttpPost]
         [Route("login")]
@@ -89,11 +109,14 @@ namespace RetailerAPI.Controllers
                 {
                     HttpOnly = true
                 });
-                
-                 return Ok(new 
-                {
-                    Message ="Success"
-                });
+
+                return Ok(user);
+                //{
+                //    //Message ="Success",
+                    
+                    
+
+                //});
                  
                 //used to return these before we create cookies
                /* return Ok(new

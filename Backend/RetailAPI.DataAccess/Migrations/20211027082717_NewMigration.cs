@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RetailAPI.DataAccess.Migrations
 {
-    public partial class Step1 : Migration
+    public partial class NewMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -70,19 +70,6 @@ namespace RetailAPI.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AssessmentBookings",
-                columns: table => new
-                {
-                    BookingID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    AssessmentID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AssessmentBookings", x => x.BookingID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Assessments",
                 columns: table => new
                 {
@@ -106,11 +93,26 @@ namespace RetailAPI.DataAccess.Migrations
                     ContactNo = table.Column<string>(type: "varchar(100)", nullable: false),
                     Email = table.Column<string>(type: "varchar(100)", nullable: false),
                     IdentityNumber = table.Column<string>(type: "varchar(100)", nullable: false),
-                    ShortListedPosition = table.Column<string>(type: "varchar(100)", nullable: false)
+                    ShortListedPosition = table.Column<string>(type: "varchar(100)", nullable: false),
+                    CandidateCVID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Candidates", x => x.CandidateID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "tblCandidateCV",
+                columns: table => new
+                {
+                    CandidateCVID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "varchar(50)", nullable: true),
+                    FilePath = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tblCandidateCV", x => x.CandidateCVID);
                 });
 
             migrationBuilder.CreateTable(
@@ -232,6 +234,51 @@ namespace RetailAPI.DataAccess.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "AssessmentBookings",
+                columns: table => new
+                {
+                    BookingID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AssessmentID = table.Column<int>(type: "int", nullable: false),
+                    CandidateID = table.Column<int>(type: "int", nullable: true),
+                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PrefferedDated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ScheduledDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PaymentDetailDetailID = table.Column<int>(type: "int", nullable: true),
+                    ResultDetailDetailID = table.Column<int>(type: "int", nullable: true),
+                    CandidateCVID = table.Column<int>(type: "int", nullable: true),
+                    BookingStatus = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AssessmentBookings", x => x.BookingID);
+                    table.ForeignKey(
+                        name: "FK_AssessmentBookings_AssessmentBookingDetails_PaymentDetailDetailID",
+                        column: x => x.PaymentDetailDetailID,
+                        principalTable: "AssessmentBookingDetails",
+                        principalColumn: "DetailID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_AssessmentBookings_AssessmentBookingDetails_ResultDetailDetailID",
+                        column: x => x.ResultDetailDetailID,
+                        principalTable: "AssessmentBookingDetails",
+                        principalColumn: "DetailID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_AssessmentBookings_Candidates_CandidateID",
+                        column: x => x.CandidateID,
+                        principalTable: "Candidates",
+                        principalColumn: "CandidateID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_AssessmentBookings_tblCandidateCV_CandidateCVID",
+                        column: x => x.CandidateCVID,
+                        principalTable: "tblCandidateCV",
+                        principalColumn: "CandidateCVID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -270,6 +317,26 @@ namespace RetailAPI.DataAccess.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AssessmentBookings_CandidateCVID",
+                table: "AssessmentBookings",
+                column: "CandidateCVID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AssessmentBookings_CandidateID",
+                table: "AssessmentBookings",
+                column: "CandidateID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AssessmentBookings_PaymentDetailDetailID",
+                table: "AssessmentBookings",
+                column: "PaymentDetailDetailID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AssessmentBookings_ResultDetailDetailID",
+                table: "AssessmentBookings",
+                column: "ResultDetailDetailID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -290,16 +357,10 @@ namespace RetailAPI.DataAccess.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "AssessmentBookingDetails");
-
-            migrationBuilder.DropTable(
                 name: "AssessmentBookings");
 
             migrationBuilder.DropTable(
                 name: "Assessments");
-
-            migrationBuilder.DropTable(
-                name: "Candidates");
 
             migrationBuilder.DropTable(
                 name: "UserTypes");
@@ -309,6 +370,15 @@ namespace RetailAPI.DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "AssessmentBookingDetails");
+
+            migrationBuilder.DropTable(
+                name: "Candidates");
+
+            migrationBuilder.DropTable(
+                name: "tblCandidateCV");
         }
     }
 }

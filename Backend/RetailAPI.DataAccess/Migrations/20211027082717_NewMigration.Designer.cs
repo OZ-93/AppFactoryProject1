@@ -10,8 +10,8 @@ using RetailAPI.DataAccess.DataAccess;
 namespace RetailAPI.DataAccess.Migrations
 {
     [DbContext(typeof(ProjectDbContext))]
-    [Migration("20211020073607_Step1")]
-    partial class Step1
+    [Migration("20211027082717_NewMigration")]
+    partial class NewMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -178,7 +178,40 @@ namespace RetailAPI.DataAccess.Migrations
                     b.Property<int>("AssessmentID")
                         .HasColumnType("int");
 
+                    b.Property<string>("BookingStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("CandidateCVID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CandidateID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("PaymentDetailDetailID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("PrefferedDated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("ResultDetailDetailID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ScheduledDate")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("BookingID");
+
+                    b.HasIndex("CandidateCVID");
+
+                    b.HasIndex("CandidateID");
+
+                    b.HasIndex("PaymentDetailDetailID");
+
+                    b.HasIndex("ResultDetailDetailID");
 
                     b.ToTable("AssessmentBookings");
                 });
@@ -222,6 +255,9 @@ namespace RetailAPI.DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("CandidateCVID")
+                        .HasColumnType("int");
+
                     b.Property<string>("ContactNo")
                         .IsRequired()
                         .HasColumnType("varchar(100)");
@@ -249,6 +285,24 @@ namespace RetailAPI.DataAccess.Migrations
                     b.HasKey("CandidateID");
 
                     b.ToTable("Candidates");
+                });
+
+            modelBuilder.Entity("RetailAPI.DataAccess.Models.CandidateCV", b =>
+                {
+                    b.Property<int>("CandidateCVID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FilePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("varchar(50)");
+
+                    b.HasKey("CandidateCVID");
+
+                    b.ToTable("tblCandidateCV");
                 });
 
             modelBuilder.Entity("RetailAPI.DataAccess.Models.User", b =>
@@ -420,6 +474,33 @@ namespace RetailAPI.DataAccess.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("RetailAPI.DataAccess.Models.AssessmentBooking", b =>
+                {
+                    b.HasOne("RetailAPI.DataAccess.Models.CandidateCV", "CandidateCV")
+                        .WithMany()
+                        .HasForeignKey("CandidateCVID");
+
+                    b.HasOne("RetailAPI.DataAccess.Models.Candidate", "Candidate")
+                        .WithMany()
+                        .HasForeignKey("CandidateID");
+
+                    b.HasOne("RetailAPI.DataAccess.Models.AssessmentBookingDetail", "PaymentDetail")
+                        .WithMany()
+                        .HasForeignKey("PaymentDetailDetailID");
+
+                    b.HasOne("RetailAPI.DataAccess.Models.AssessmentBookingDetail", "ResultDetail")
+                        .WithMany()
+                        .HasForeignKey("ResultDetailDetailID");
+
+                    b.Navigation("Candidate");
+
+                    b.Navigation("CandidateCV");
+
+                    b.Navigation("PaymentDetail");
+
+                    b.Navigation("ResultDetail");
                 });
 #pragma warning restore 612, 618
         }

@@ -180,6 +180,9 @@ namespace RetailAPI.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("CandidateCVID")
+                        .HasColumnType("int");
+
                     b.Property<int?>("CandidateID")
                         .HasColumnType("int");
 
@@ -199,6 +202,8 @@ namespace RetailAPI.DataAccess.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("BookingID");
+
+                    b.HasIndex("CandidateCVID");
 
                     b.HasIndex("CandidateID");
 
@@ -248,6 +253,9 @@ namespace RetailAPI.DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("CandidateCVID")
+                        .HasColumnType("int");
+
                     b.Property<string>("ContactNo")
                         .IsRequired()
                         .HasColumnType("varchar(100)");
@@ -275,6 +283,24 @@ namespace RetailAPI.DataAccess.Migrations
                     b.HasKey("CandidateID");
 
                     b.ToTable("Candidates");
+                });
+
+            modelBuilder.Entity("RetailAPI.DataAccess.Models.CandidateCV", b =>
+                {
+                    b.Property<int>("CandidateCVID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FilePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("varchar(50)");
+
+                    b.HasKey("CandidateCVID");
+
+                    b.ToTable("tblCandidateCV");
                 });
 
             modelBuilder.Entity("RetailAPI.DataAccess.Models.User", b =>
@@ -450,6 +476,10 @@ namespace RetailAPI.DataAccess.Migrations
 
             modelBuilder.Entity("RetailAPI.DataAccess.Models.AssessmentBooking", b =>
                 {
+                    b.HasOne("RetailAPI.DataAccess.Models.CandidateCV", "CandidateCV")
+                        .WithMany()
+                        .HasForeignKey("CandidateCVID");
+
                     b.HasOne("RetailAPI.DataAccess.Models.Candidate", "Candidate")
                         .WithMany()
                         .HasForeignKey("CandidateID");
@@ -463,6 +493,8 @@ namespace RetailAPI.DataAccess.Migrations
                         .HasForeignKey("ResultDetailDetailID");
 
                     b.Navigation("Candidate");
+
+                    b.Navigation("CandidateCV");
 
                     b.Navigation("PaymentDetail");
 
