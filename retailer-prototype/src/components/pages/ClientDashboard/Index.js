@@ -16,7 +16,7 @@ const ClientDashboard=()=>{
             <RouteWithProps exact path={routes.dashboard} component={DashboardMain}/>
             <RouteWithProps exact path={routes.Schedule}  component={ScheduleBooking}/>
             <RouteWithProps exact path={routes.View}  component={ViewReports}/>
-            <RouteWithProps exact path={routes.Update}   component={Updateprofile}/>
+            <RouteWithProps exact path={routes.updateprofile}   component={Updateprofile}/>
         </Switch>
 
     )

@@ -45,7 +45,7 @@ export function LoginForm(props) {
   const onSubmit = async (values) => {
     setError(null);
 
-    const response = await axios.post(
+   /* const response = await axios.post(
       "https://localhost:44365/api/Authenticate/login",
       values, {withCredentials:true}
     );
@@ -60,8 +60,8 @@ export function LoginForm(props) {
       
        
     }
-    console.log(response.data)
-/*
+    console.log(response.data)*/
+
     const response = await axios
       .post("https://localhost:44365/api/Authenticate/login", values, {withCredentials: true}, {
         headers: {
@@ -83,7 +83,7 @@ export function LoginForm(props) {
       history.push(location);
       
        
-    }*/
+    }
   };
 
   const formik = useFormik({

@@ -207,7 +207,7 @@ export default function PersistentDrawerLeft() {
               open={view}
               onClose={handleClose}
             >
-              <ListItemLink href={routes.updateinfo}>
+              <ListItemLink href={routes.updateprofile}>
               <MenuItem >Profile</MenuItem>
               </ListItemLink>
             </Menu>

@@ -7,6 +7,7 @@ import MuiPhoneNumber from "material-ui-phone-number";
 import Box from "@mui/material/Box";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import Grid from '@material-ui/core/Grid';
 import TextField from "@mui/material/TextField";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -55,6 +56,16 @@ export default function RecipeReviewCard() {
   };
 
   return (
+    <Grid
+    container
+    spacing={0}
+    direction="column"
+    alignItems="center"
+    justify="center"
+    style={{ minHeight: '100vh' }}
+   >
+  
+    <Grid item xs={5}>
     <Card className={classes.root}>
       <CardMedia
         className={classes.media}
@@ -166,5 +177,7 @@ export default function RecipeReviewCard() {
         </CardContent>
       </Collapse>
     </Card>
+    </Grid>
+    </Grid>
   );
 }

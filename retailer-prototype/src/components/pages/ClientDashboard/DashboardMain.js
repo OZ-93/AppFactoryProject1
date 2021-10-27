@@ -1,10 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import routes from '../../../routes';
 import "./DashboardMain.css";
-
+import axios from "axios";
 
 const DashboardMain=()=>{
 
+    useEffect( () =>{
+        (
+            async () =>{
+                await axios.get(
+                    "https://localhost:44365/api/Authenticate/GetUserById",
+                     {withCredentials:true}
+                  );
+                  // set the state of the user
+                 
+                  
+            }
+        )();
+    });
 
     return(
         <main>
