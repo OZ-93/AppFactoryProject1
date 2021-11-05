@@ -18,13 +18,14 @@ import InputLabel from '@material-ui/core/InputLabel';
 //import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 //import Fade from '@material-ui/core/Fade';
-//import Button from '@material-ui/core/Button';
+import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { Search } from "@material-ui/icons";
 import Controls from "../../controls/Controls";
 import {Toolbar, InputAdornment } from '@material-ui/core';
 import {CSVLink, CSVDownload} from "react-csv";
+import reactDom from 'react-dom';
 //import Paper from '@mui/material/Paper';
 //import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 //import Button from '@restart/ui/esm/Button';
@@ -71,7 +72,7 @@ function createData(name, retailer, brand, date, position, price) {
 
 function Row(props) {
     const { row } = props
-      alert(JSON.stringify(props));
+     
     const [open, setOpen] = React.useState(false);
     const classes = useRowStyles();
     const [anchorEl, setAnchorEl] = React.useState('');
@@ -84,7 +85,7 @@ function Row(props) {
     const handleChange = (event) =>{
         setAnchorEl(event.target.value);
     };
-  
+    
     const handleClose = () => {
       setAnchorEl(null);
     };
@@ -203,10 +204,15 @@ function Row(props) {
     const [filterFn, setFilterFn] = useState({ fn: rows => { return rows; } })
     const [isLoaded, setIsLoaded] = useState(false);
     const [items,setItems] = useState([]);
-  
     const [error, setError] = useState(null);
 
+    const handleSubmit=(event)=> {
+      alert('Table Report submitted: ' + this.state.value);
+      event.preventDefault();
+    }
+
     useEffect(() => {
+      //if localhost number changes, change it on fetch as well
         fetch("https://localhost:44394/api/AssessmentBookingDetail")
           .then(res => res.json())
           .then(
@@ -314,6 +320,7 @@ function Row(props) {
     
     return (
     <Paper>
+       <form onSubmit={handleSubmit}>
       <TableContainer component={Paper}>
         <Toolbar>
           <Controls.Input
@@ -345,6 +352,11 @@ function Row(props) {
           </TableBody>
         </Table>
       </TableContainer>
+        
+          <Controls.Button
+          type="submit"
+          text="Submit" />
+          </form>
        <CSVLink data={inputJSON}>Download CSV</CSVLink>
       </Paper>
     );
