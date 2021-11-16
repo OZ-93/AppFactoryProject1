@@ -15,7 +15,7 @@ import { Link } from 'react-router-dom';
 const HeroSection=props=> {
   
   
-
+//opening dialog modal
   const [open, setOpen] = React.useState(false);
   
   const handleClickToOpen = () => {
@@ -66,7 +66,7 @@ const HeroSection=props=> {
     
     
       <h2>ASSESSMENT TOOLING APP</h2>
-      <p>gghjgjhgjgjghj</p>
+      <p></p>
       <div className='hero-btns'>
 
       
@@ -83,6 +83,8 @@ const HeroSection=props=> {
           Sign Up <i className='fas fa-user-plus' />
         </Button>
 
+        
+        <Link to= '/SignupLogin'>
         <Button
         
         type=""
@@ -90,10 +92,11 @@ const HeroSection=props=> {
           className='btns'
           buttonStyle='btn--primary'
           buttonSize='btn--large'
-          onClick={routes.Signup_Login}
+          onClick='/SignupLogin'
         >
         Login <i className='fas fa-sign-in-alt' />
       </Button>
+      </Link>
       </div>
     </div>
   );

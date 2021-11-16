@@ -37,7 +37,8 @@ namespace RetailerAPI.Controllers
             IConfiguration configuration,
             ProjectDbContext context,
             SignInManager<User> signInManager,
-            ILogger<LoginModel>logger)
+            ILogger<LoginModel>logger,
+            JwtService jwtService)
         {
             this.userManager = userManager;
             this.roleManager = roleManager;
@@ -45,6 +46,7 @@ namespace RetailerAPI.Controllers
             _context = context;
             _signInManager = signInManager;
             _logger = logger;
+            _jwtService = jwtService;
 
 
         }
@@ -55,7 +57,10 @@ namespace RetailerAPI.Controllers
         public User GetUserById(string id)
         {
             //User vm = new User();
-            return _dbSet.Find(id);
+            //return _dbSet.Find(id);
+
+            return _context.Users.Find(id);
+           
         }
 
         //Method
@@ -102,8 +107,10 @@ namespace RetailerAPI.Controllers
 
 
                 //var Jwt = _jwtService.Generate(user.Id);
+                var Jwt = _jwtService.Generate(user.Id);
 
                 string jwt = new JwtSecurityTokenHandler().WriteToken(token);
+
                    
 
                 Response.Cookies.Append("JWT", jwt, new CookieOptions
@@ -111,20 +118,18 @@ namespace RetailerAPI.Controllers
                     HttpOnly = true
                 });
 
-                return Ok(user);
-                //{
-                //    //Message ="Success",
-                    
-                    
-
-                //});
-                 
-                //used to return these before we create cookies
-               /* return Ok(new
+                return Ok(new
                 {
-                    token = new JwtSecurityTokenHandler().WriteToken(token),
-                    expiration = token.ValidTo
-                });*/
+                    Message ="Success",
+
+                });
+
+                //used to return these before we create cookies
+                /* return Ok(new
+                 {
+                     token = new JwtSecurityTokenHandler().WriteToken(token),
+                     expiration = token.ValidTo
+                 });*/
             }
             return Unauthorized();
         }
@@ -132,15 +137,16 @@ namespace RetailerAPI.Controllers
 
         [HttpGet("id")]
         [Route("GetUser")]
-        public IActionResult User(string userID)
+        public IActionResult Users(string userID)
+          //public IActionResult User()
         {
             try
             {
                 var jwt = Request.Cookies["jwt"];
                 var token = _jwtService.Verify(jwt);
                 //var token = jwtServiceVerify(jwt);
-                int userId = int.Parse(token.Issuer);
-                var user = GetUserById(userID);
+                string userId = token.Issuer;
+                var user = GetUserById(userId);
 
                 return Ok(user);
             }

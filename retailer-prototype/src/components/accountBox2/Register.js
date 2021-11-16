@@ -13,8 +13,9 @@ import {
   SubmitButton,
   FormError,
 } from "./common";
-import { AccountContext } from "../accountBox/accountContext";
+//import { AccountContext } from "../accountBox/accountContext";
 import * as yup from "yup";
+import {AccountContext} from "./accountContext"
 import axios from "axios";
 import { Marginer } from "../marginer";
 //import ContactNoInput, { isSupportedCountry } from 'react-PhoneNumber-number-input';
@@ -70,7 +71,7 @@ const validationSchema = yup.object({
 });
 
 export function Register(props) {
-  
+  const { switchToSignin } = useContext(AccountContext);
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
   const location = {
@@ -96,7 +97,7 @@ export function Register(props) {
     const { confirmPassword, ...data } = values;
 
     const response = await axios
-      .post("https://localhost:44345/api/Authenticate/register/admin", data)
+      .post("http://localhost:51153/api/Authenticate/register/admin", data)
       .catch((err) => {
         if (err && err.response) setError(err.response.data.message);
         alert(err.response.data.message);
@@ -246,7 +247,7 @@ export function Register(props) {
       <Marginer direction="vertical" margin={5} />
       <MutedLink href="#">
         Already have an account?
-        <BoldLink href="#" >
+        <BoldLink href="#" onClick={switchToSignin} >
           sign in
         </BoldLink>
       </MutedLink>

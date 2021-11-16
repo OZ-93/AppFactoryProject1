@@ -20,6 +20,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import axios from "axios";
 import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
@@ -50,10 +51,27 @@ const useStyles = makeStyles((theme) => ({
 export default function RecipeReviewCard() {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
+  const [Name, setName] =React.useState(false);
+  const [surname, setsurname] = React.useState(false);
+  const [number, setnumber] = React.useState(false);
+  const [email, setemail] = React.useState(false);
+  const [retailer, setretailer] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+  React.useEffect( () => 
+{
+    axios.get("http://localhost:51153/api/Authenticate/User").then((response) => {
+      setName(response.data);
+      setsurname(response.data);
+      setnumber(response.data);
+      setemail(response.data);
+      setretailer(response.data);
+    });
+  }, []);
+
+  if (!Name) return null;
 
   return (
     <Grid
@@ -111,13 +129,13 @@ export default function RecipeReviewCard() {
                 required
                 id="Name"
                 label="First Name"
-                defaultValue="Name"
+                defaultValue={Name.firstName}
                 variant="standard"
               />
               <TextField
                 id="Surname"
                 label="Last Name"
-                defaultValue="Surname"
+                defaultValue={surname.lastName}
                 variant="standard"
               />
               <MuiPhoneNumber
@@ -129,13 +147,13 @@ export default function RecipeReviewCard() {
               <TextField
                 id="email"
                 label="Email"
-                defaultValue="user@gmail.com"
+                defaultValue={email.Email}
                 variant="standard"
               />
               <TextField
                 id="retailer"
                 label="Retailer"
-                defaultValue="BMW"
+                defaultValue={retailer.RetailerName}
                 variant="standard"
               />
               <TextField

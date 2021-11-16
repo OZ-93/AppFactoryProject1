@@ -266,18 +266,19 @@ export default function PersistentDrawerLeft() {
           <ListItemText primary="Schedule Booking" />
         </ListItemLink>
 
-        <ListItemLink href={routes.Update}>
+        <ListItemLink href={routes.View}>
         <ListItemIcon>
             <InboxIcon />
           </ListItemIcon>
           <ListItemText primary="Update Booking" />
         </ListItemLink>
 
-        <ListItemLink href={routes.View}>
+        
+        <ListItemLink href={routes.home}>
         <ListItemIcon>
             <InboxIcon />
           </ListItemIcon>
-          <ListItemText primary="View Booking" />
+          <ListItemText primary="Logout" />
         </ListItemLink>
           
         </List>

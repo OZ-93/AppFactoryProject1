@@ -63,15 +63,12 @@ export function LoginForm(props) {
     console.log(response.data)*/
 
     const response = await axios
-      .post("https://localhost:44365/api/Authenticate/login", values, {withCredentials: true}, {
-        headers: {
-         
+      .post("http://localhost:51153/api/Authenticate/login", values, {
+        headers: {   
           'content-type': 'application/json',
           'Set-Cookie': 'JWT'
         }})
-        
-       
-       
+           
       .catch((err) => {
         if (err && err.response) setError(err.response.data.message);
         alert("Failed to Login")
@@ -81,9 +78,21 @@ export function LoginForm(props) {
       localStorage.setItem('values', response.data)
       alert("Welcome back in. Authenticating...");
       history.push(location);
+     /* await axios.get(
+        "https://localhost:44306/api/Authenticate/User",
+         {withCredentials:true}
+      );*/
+      // set the state of the user
       
        
     }
+
+     /* await fetch('https://localhost:44306/api/Authenticate/login', {
+      method:'Post',
+      headers:{'Content-type': 'application/json'},
+      credentials:'include',
+      body: JSON.stringify(values)
+    })*/
   };
 
   const formik = useFormik({

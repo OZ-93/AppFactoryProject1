@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { motion } from "framer-motion";
 import { AccountContext } from "./accountContext";
-
+import { Login } from "./Login";
 import { Register } from "./Register";
 const BoxContainer = styled.div`
   width: 450px;
@@ -112,6 +112,12 @@ export function AccountBox2(props) {
       setActive("Register");
     }, 400);
   };
+  const switchToLogin = () => {
+    playExpandingAnimation();
+    setTimeout(() => {
+      setActive("login");
+    }, 400);
+  };
 
   
 
@@ -127,6 +133,13 @@ export function AccountBox2(props) {
             variants={backdropVariants}
             transition={expandingTransition}
           />
+           {active === "Login" && (
+            <HeaderContainer>
+              <HeaderText>Welcome</HeaderText>
+              <HeaderText>Back</HeaderText>
+              <SmallText>Please sign-in to continue!</SmallText>
+            </HeaderContainer>
+          )}
          
           {active === "Register" && (
             <HeaderContainer>
@@ -140,6 +153,7 @@ export function AccountBox2(props) {
         <InnerContainer>
 
           {active === "Register" && <Register/>}
+          {active === "Login" && <Login/>}
         </InnerContainer>
       </BoxContainer>
     </AccountContext.Provider>

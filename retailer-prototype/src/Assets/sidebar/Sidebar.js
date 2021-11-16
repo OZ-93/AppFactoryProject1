@@ -223,8 +223,10 @@ export default function Sidebar() {
               open={view}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
-              <MenuItem onClick={handleClose}>My account</MenuItem>
+              
+              <ListItemLink href={routes.updateprofile}>
+              <MenuItem >Profile</MenuItem>
+              </ListItemLink>
             </Menu>
           </div>
           <Grid item xs />

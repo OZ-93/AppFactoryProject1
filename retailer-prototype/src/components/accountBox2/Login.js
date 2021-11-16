@@ -18,9 +18,10 @@ import {
 import { AccountContext } from "../accountBox/accountContext";
 import * as yup from "yup";
 import axios from "axios";
-import { Redirect } from "react-router-dom";
-import Main from "../../Assets/main/Main";
-import ForgotForm from "./ForgotForm";
+axios.defaults.withCredentials = true;
+//import { Redirect } from "react-router-dom";
+//import Main from "../../Assets/main/Main";
+//import ForgotForm from "./ForgotForm";
 
 const validationSchema = yup.object({
   UserName: yup.string().required(),
@@ -59,7 +60,7 @@ export function Login(props) {
   const onSubmit = async (values) => {
     setError(null);
     const response = await axios
-      .post("https://localhost:44345/api/Authenticate/login", values)
+      .post("https://localhost:44306/api/Authenticate/login", values)
       .catch((err) => {
         if (err && err.response) setError(err.response.data.message);
         alert("err")
@@ -69,6 +70,13 @@ export function Login(props) {
       alert("Welcome back in. Authenticating...");
       history.push(location);
     }
+
+   /* await fetch('https://localhost:440306/api/Authenticate/login', {
+      method:'Post',
+      headers:{'Content-type': 'application/json'},
+      credentials:'include',
+      body: JSON.stringify(values)
+    })*/
   };
 
   const formik = useFormik({

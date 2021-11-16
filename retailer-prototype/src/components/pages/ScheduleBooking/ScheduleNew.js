@@ -7,17 +7,18 @@ import PageHeader from '../../../controls/PageHeader';
 import PeopleOutlineTwoToneIcon from '@material-ui/icons/PeopleOutlineTwoTone';
 import { Paper,makeStyles } from '@material-ui/core';
 import { Alert } from 'react-st-modal';
+import axios from "axios";
 
 
 
 
 const initialFValues = {
-    id: 0,
-    fullName: '',
-    Surname:'',
-    IdNumber:'',
-    Email: '',
-    mobile: '',
+    id : 0,
+    firstName : '',
+    lastName :'',
+    IdNumber :'',
+    Email : '',
+    contactNo: '',
     RetailerName: '',
     ShortListedPosition: '',
     BranchName:'',
@@ -26,25 +27,25 @@ const initialFValues = {
     AssessmentType:'',
     IMobile:'',
     IEmail:'',
-    IDesignation:'',
     RName:'',
     RMobile:'',
-    REmail:'',
-    RDesignation:''
+    REmail:''
+   
+   
 }
 
 export default function ScheduleBooking() {
 
     const validate = (fieldValues = values) => {
         let temp = { ...errors }
-        if ('fullName' in fieldValues)
-            temp.fullName = fieldValues.fullName ? "" : "This field is required."
-        if ('Surname' in fieldValues)
-            temp.Surname = fieldValues.Surname ? "" : "This field is required."
+        if ('firstName' in fieldValues)
+            temp.firstName = fieldValues.firstName ? "" : "This field is required."
+        if ('lastName' in fieldValues)
+            temp.lastName = fieldValues.lastName ? "" : "This field is required."
         if ('Email' in fieldValues)
             temp.Email = (/$^|.+@.+..+/).test(fieldValues.Email) ? "" : "Email is not valid."
-        if ('mobile' in fieldValues)
-            temp.mobile = fieldValues.mobile.length > 9 ? "" : "Minimum 10 numbers required."
+        if ('conatactN' in fieldValues)
+            temp.contactNo = fieldValues.contactNo.length > 9 ? "" : "Minimum 10 numbers required."
         if ('IdNumber' in fieldValues)
             temp.IdNumber = fieldValues.IdNumber.length >=13 ? "" : "invalid Id."
         if ('RetailerName' in fieldValues)
@@ -59,18 +60,19 @@ export default function ScheduleBooking() {
             temp.IName = fieldValues.IName? "" : "This field is required."
         if ('IMobile' in fieldValues)
             temp.IMobile = fieldValues.IMobile? "" : "This field is required."
-         if ('IEmail' in fieldValues)
+        if ('IEmail' in fieldValues)
             temp.IEmail = fieldValues.IEmail? "" : "This field is required."
-         if ('IDesignation' in fieldValues)
-            temp.IDesignation = fieldValues.IDesignation? "" : "This field is required."
-         if ('RName' in fieldValues)
+        
+        
+        if ('RName' in fieldValues)
             temp.RName = fieldValues.RName? "" : "This field is required."
-         if ('RMobile' in fieldValues)
-            temp.RMobile = fieldValues.RMobile? "" : "This field is required."
-        if ('REmail' in fieldValues)
-            temp.REmail = fieldValues.REmail? "" : "This field is required."
-            if ('RDesignation' in fieldValues)
-            temp.RDesignation = fieldValues.RDesignation? "" : "This field is required."
+        if ('RetailerDesignation' in fieldValues)
+            temp.RetailerDesignation = fieldValues.RetailerDesignation? "" : "this field is required."
+        
+        if ('RMobile' in fieldValues)
+            temp.RMobile = fieldValues.RMobile.length > 9 ? "" : "Minimum 10 numbers required."
+        
+        
         setErrors({
             ...temp
         })
@@ -91,10 +93,27 @@ export default function ScheduleBooking() {
     const handleSubmit = e => {
         e.preventDefault()
         if (validate()){
-            Alert('Successfully Captured');
+           
+           
+            const response =  axios
+             .post("https://localhost:44306/api/AssessmentBooking/AddAssessment", values)
+            .catch((err) => {
+                if (err && err.response) setErrors(err.response.data.message);
+            alert("err")
+      });
+
+      if (response) {
+        
+        Alert('Successfully Captured');
+      }
             employeeService.insertEmployee(values)
             resetForm()
+        }else
+        {
+            Alert('error!!!!!!!')
+
         }
+
     }
 
     const useStyles = makeStyles(theme => ({
@@ -116,18 +135,18 @@ export default function ScheduleBooking() {
             <Grid container>
                 <Grid item xs={6}>
                     <Controls.Input
-                        name="fullName"
+                        name="firstName"
                         label="Full Name"
-                        value={values.fullName}
+                        value={values.firstName}
                         onChange={handleInputChange}
-                        error={errors.fullName}
+                        error={errors.firstName}
                     />
                      <Controls.Input
-                        name="Surname"
-                        label="Enter Surname"
-                        value={values.Surname}
+                        name="lastName"
+                        label="Enter lastName"
+                        value={values.lastName}
                         onChange={handleInputChange}
-                        error={errors.Surname}
+                        error={errors.lastName}
                     />
                     <Controls.Input
                         label="Identity Number"
@@ -144,11 +163,11 @@ export default function ScheduleBooking() {
                         error={errors.Email}
                     />
                     <Controls.Input
-                        label="Mobile"
-                        name="mobile"
-                        value={values.mobile}
+                        label="contactNo"
+                        name="contactNo"
+                        value={values.contactNo}
                         onChange={handleInputChange }
-                        error={errors.mobile}
+                        error={errors.contactNo}
                     />
                     <Controls.Input
                         label="Retailer Name"
@@ -242,19 +261,15 @@ export default function ScheduleBooking() {
                         onChange={handleInputChange}
                         error={errors.IMobile}
                     />
-                    <Controls.Input
-                        label="Designation"
-                        name="IDesgnation"
-                        value={values.IDesignation}
-                        onChange={handleInputChange}
-                        error={errors.IDesignation}
-                    />
+            
+                    
+                    
 
                 </Grid>
                 <Grid item xs={6}>
                     <PageHeader
             title="Schedule"
-            subTitle="Schedule New Booking"
+            subTitle="Recieving Results"
              icon={<PeopleOutlineTwoToneIcon fontSize="large" />}/>
                     <Controls.Input
                         name="RName"
@@ -278,14 +293,8 @@ export default function ScheduleBooking() {
                         onChange={handleInputChange}
                         error={errors.RMobile}
                     />
-                    <Controls.Input
-                        label="Designation"
-                        name="RDesgnation"
-                        value={values.RDesignation}
-                        onChange={handleInputChange}
-                        error={errors.RDesignation}
-                    />
-                  
+                    
+                    
 
                     <div>
                         <Controls.Button

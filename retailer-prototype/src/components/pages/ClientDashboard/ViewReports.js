@@ -28,7 +28,6 @@ const headCells = [
     { id: 'Email', label: 'Email Address (Personal)' },
     { id: 'mobile', label: 'Mobile Number' },
     { id: 'RetailerName', label: 'Retailer Name'},
-    { id: 'gender', label: 'Gender'},
     { id: 'PositionId', label: 'Candidate Position', disableSorting: true },
     { id: 'CandidateBrand', label: 'Candidate Brand', disableSorting: true },
     { id: 'hireDate', label:'Date'},
@@ -88,15 +87,14 @@ export default function Employees() {
                         {
                             recordsAfterPagingAndSorting().map(item =>
                                 (<TableRow key={item.id}>
-                                    <TableCell>{item.fullName}</TableCell>
-                                    <TableCell>{item.Surname}</TableCell>
+                                    <TableCell>{item.firstName}</TableCell>
+                                    <TableCell>{item.lastName}</TableCell>
                                     <TableCell>{item.IdNumber}</TableCell>
                                     <TableCell>{item.Email}</TableCell>
-                                    <TableCell>{item.mobile}</TableCell>
+                                    <TableCell>{item.contactNo}</TableCell>
                                     <TableCell>{item.RetailerName}</TableCell>
-                                    <TableCell>{item.gender}</TableCell>
-                                    <TableCell>{item.PositionId}</TableCell>
-                                    <TableCell>{item.CandidateBrand}</TableCell>
+                                    <TableCell>{item.ShotrtListedPosition}</TableCell>
+                                    <TableCell>{item.BranchName}</TableCell>
                                     <TableCell>{item.hireDate}</TableCell>
                                 </TableRow>)
                             )

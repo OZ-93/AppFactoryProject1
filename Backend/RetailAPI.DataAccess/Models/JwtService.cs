@@ -10,12 +10,13 @@ namespace RetailAPI.DataAccess.Models
 {
     public class JwtService
     {
-        private string secureKey = "JWT:Secret";
+        //private string secureKey = "JWT:Secret";
+        private string secureKey = "ByYM000OLlMQG6VVVp1OH7Xzyr7gHuw1qvUC5dcGt3SNM";
 
-        public string Generate(int id)
+        public string Generate(string id)
         {
             var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secureKey));
-            var credentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.EcdsaSha256Signature);
+            var credentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
             var header = new JwtHeader(credentials);
             var payload = new JwtPayload(issuer: id.ToString(), audience: null, claims: null, notBefore: null, expires: DateTime.Now.AddHours(3));
             var securityToken = new JwtSecurityToken(header, payload);

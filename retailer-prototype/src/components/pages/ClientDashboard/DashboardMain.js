@@ -1,23 +1,41 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import routes from '../../../routes';
 import "./DashboardMain.css";
 import axios from "axios";
+axios.defaults.withCredentials=true
 
 const DashboardMain=()=>{
 
-    useEffect( () =>{
+    
+const [name,setName] = useState()
+   
+
+useEffect( () => 
+{
+    axios.get("http://localhost:51153/api/Authenticate/User").then((response) => {
+      setName(response.data);
+    });
+  }, []);
+
+  if (!name) return null;
+
+/*{
         (
             async () =>{
-                await axios.get(
-                    "https://localhost:44365/api/Authenticate/GetUserById",
-                     {withCredentials:true}
-                  );
+               await axios.get(
+                    "http://localhost:51153/api/Authenticate/User",{
+                    headers: {   
+                        'content-type': 'application/json',
+                        'Set-Cookie': 'JWT'
+                      }}
+                     
+                  ).then((response) => {
+                        setName(response.data);
+                  });
                   // set the state of the user
-                 
-                  
-            }
+                 }
         )();
-    });
+    });*/
 
     return(
         <main>
@@ -25,9 +43,12 @@ const DashboardMain=()=>{
                 <div className = "main__title">
 
                     <div className = "main__greeting">
-                        <h1>Welcome To The Assessment Tooling Application </h1>
+                        <h1>Welcome {name.FirstName} To The Assessment Tooling Application </h1>
                         <h1>Schedule a Booking</h1>
                     </div>
+                    <div>
+                    
+                        </div>
 
                 </div>
             </div>
