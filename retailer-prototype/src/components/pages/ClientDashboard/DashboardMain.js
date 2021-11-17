@@ -43,8 +43,8 @@ useEffect( () =>
                 <div className = "main__title">
 
                     <div className = "main__greeting">
-                        <h1>Welcome {name.FirstName} To The Assessment Tooling Application </h1>
-                        <h1>Schedule a Booking</h1>
+                        <h1>Welcome {name.FirstName} To The Assessment Tooling Application. </h1>
+                        <h3>Schedule a Booking</h3>
                     </div>
                     <div>
                     

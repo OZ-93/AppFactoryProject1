@@ -270,7 +270,7 @@ export default function PersistentDrawerLeft() {
         <ListItemIcon>
             <InboxIcon />
           </ListItemIcon>
-          <ListItemText primary="Update Booking" />
+          <ListItemText primary="View Booking" />
         </ListItemLink>
 
         

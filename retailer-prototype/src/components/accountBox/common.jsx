@@ -63,8 +63,8 @@ export const SubmitButton = styled.button`
   border-radius: 100px 100px 100px 100px;
   cursor: pointer;
   transition: all, 240ms ease-in-out;
-  background:  rgb(159, 205, 231);
-  background:  rgb(159, 205, 231);
+  background:  rgb(15, 97, 98);
+  background:  rgb(15, 97, 98);
   );
   &:focus {
     outline: none;

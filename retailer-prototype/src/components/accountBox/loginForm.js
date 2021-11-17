@@ -16,6 +16,7 @@ import {
   Input2
 } from "./common";
 import { AccountContext } from "../accountBox/accountContext";
+import { Alert } from 'react-st-modal';
 import * as yup from "yup";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
@@ -76,7 +77,7 @@ export function LoginForm(props) {
 
     if (response) {
       localStorage.setItem('values', response.data)
-      alert("Welcome back in. Authenticating...");
+      Alert("Welcome back in. Authenticating...");
       history.push(location);
      /* await axios.get(
         "https://localhost:44306/api/Authenticate/User",

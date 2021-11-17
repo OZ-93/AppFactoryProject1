@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { AccountContext } from "./accountContext";
 import { SignupForm } from "./SignupForm";
 import { ForgotForm }  from "./ForgotForm";
+import {Resetform} from "./Resetform";
 
 const BoxContainer = styled.div`
   width: 450px;
@@ -30,7 +31,7 @@ const TopContainer = styled.div`
 
 const BackDrop = styled(motion.div)`
   width: 210%;
-  height: 350px;
+  height: 360px;
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -38,7 +39,7 @@ const BackDrop = styled(motion.div)`
   transform: rotate(60deg);
   top: -390px;
   left: -200px;
-  background:  rgb(159, 205, 231);
+  background:  rgb(15, 97, 98);
   );
 `;
 
@@ -51,7 +52,7 @@ const HeaderContainer = styled.div`
 const HeaderText = styled.h2`
   font-size: 30px;
   font-weight: 600;
-  line-height: 1.24;
+  line-height: 1.00;
   color: #fff;
   z-index: 10;
   margin: 0;
@@ -60,10 +61,11 @@ const HeaderText = styled.h2`
 const SmallText = styled.h5`
   color: #fff;
   font-weight: 500;
+  line-height: 5.24;
   font-size: 11px;
   z-index: 10;
   margin: 0;
-  margin-top: 7px;
+  margin-top: 20px;
 `;
 
 const InnerContainer = styled.div`
@@ -126,7 +128,14 @@ export function AccountBox(props) {
     }, 400);
   };
 
-  const contextValue = { switchToSignup, switchToSignin, switchToForgot };
+  const switchToreset = () => {
+    playExpandingAnimation();
+    setTimeout(() => {
+      setActive("reset");
+    }, 400);
+  };
+
+  const contextValue = { switchToSignup, switchToSignin, switchToForgot, switchToreset };
 
   return (
     <AccountContext.Provider value={contextValue}>
@@ -159,11 +168,19 @@ export function AccountBox(props) {
               <SmallText>Please enter email to reset Password!</SmallText>
             </HeaderContainer>
           )}
+           {active === "reset" && (
+            <HeaderContainer>
+              <HeaderText>Reset</HeaderText>
+              <HeaderText>Password</HeaderText>
+              <SmallText>Please enter new Password!</SmallText>
+            </HeaderContainer>
+          )}
         </TopContainer>
         <InnerContainer>
           {active === "signin" && <LoginForm />}
           {active === "signup" && <SignupForm />}
           {active === "forgot" && <ForgotForm />}
+          {active === "reset"  && <Resetform/>}
         </InnerContainer>
       </BoxContainer>
     </AccountContext.Provider>

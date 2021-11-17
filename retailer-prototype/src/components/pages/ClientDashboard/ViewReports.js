@@ -22,15 +22,15 @@ const useStyles = makeStyles(theme => ({
 
 
 const headCells = [
-    { id: 'fullName', label: 'Full Name' },
-    { id: 'Surname', label: 'Surname' },
+    { id: 'firstName', label: 'Full Name' },
+    { id: 'lastName', label: 'Surname' },
     { id: 'IdNumber', label: 'ID Number' },
     { id: 'Email', label: 'Email Address (Personal)' },
-    { id: 'mobile', label: 'Mobile Number' },
+    { id: 'contactNo', label: 'Mobile Number' },
     { id: 'RetailerName', label: 'Retailer Name'},
-    { id: 'PositionId', label: 'Candidate Position', disableSorting: true },
-    { id: 'CandidateBrand', label: 'Candidate Brand', disableSorting: true },
-    { id: 'hireDate', label:'Date'},
+    { id: 'ShortListedPosition', label: 'Candidate Position', disableSorting: true },
+    { id: 'BranchName', label: 'Candidate Brand', disableSorting: true },
+    { id: 'PreferredDate', label:'Date'},
 ]
 
 export default function Employees() {
@@ -63,8 +63,8 @@ export default function Employees() {
         <div>
             
             <PageHeader
-                title="New Employee"
-                subTitle="Form design with validation"
+                title="Candidates"
+                subTitle="Records Of All Booked Candidates"
                 icon={<PeopleOutlineTwoToneIcon fontSize="large" />}
             />
             <Paper className={classes.pageContent}>
@@ -93,9 +93,9 @@ export default function Employees() {
                                     <TableCell>{item.Email}</TableCell>
                                     <TableCell>{item.contactNo}</TableCell>
                                     <TableCell>{item.RetailerName}</TableCell>
-                                    <TableCell>{item.ShotrtListedPosition}</TableCell>
+                                    <TableCell>{item.ShortListedPosition}</TableCell>
                                     <TableCell>{item.BranchName}</TableCell>
-                                    <TableCell>{item.hireDate}</TableCell>
+                                    <TableCell>{item.PreferredDate}</TableCell>
                                 </TableRow>)
                             )
                         }

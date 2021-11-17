@@ -37,35 +37,35 @@ const HeroSection=props=> {
       
      
       <Dialog open={open} onClose={handleToClose}>
-        <DialogTitle>{"User Type"}</DialogTitle>
+        <DialogTitle>{""}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            You are Registering as?
+            Would you like to Register as?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
         <Link to=  '/SignupLogin/Adminsignup'>
         <Button onClick={routes.AdminSignup} 
-                  color="primary" autoFocus>
-            Admin
+           style={{textTransform: 'none'}}   color="primary" autoFocus>
+            Administrator
           </Button>
           </Link>
           <Link to= '/SignupLogin'>
           <Button onClick={routes.AdminSignup} 
-                  color="primary" autoFocus>
+          style={{textTransform: 'none'}}         color="primary" autoFocus>
             Retailer
           </Button>
           </Link>
           <Button onClick={handleToClose} 
                   color="primary" autoFocus>
-            Close
+            Cancel
           </Button>
         </DialogActions>
       </Dialog>
     </div>
     
     
-      <h2>ASSESSMENT TOOLING APP</h2>
+      <h2  style={{ color: '#FFF'}}>ASSESSMENT TOOLING APP</h2>
       <p></p>
       <div className='hero-btns'>
 
@@ -79,6 +79,7 @@ const HeroSection=props=> {
             buttonStyle='btn--primary'
             buttonSize='btn--large'
             onClick={handleClickToOpen}
+            style={{ color: '#FFF'}}
           >
           Sign Up <i className='fas fa-user-plus' />
         </Button>
@@ -86,7 +87,7 @@ const HeroSection=props=> {
         
         <Link to= '/SignupLogin'>
         <Button
-        
+        style={{ color: '#FFF'}}
         type=""
         children=""
           className='btns'

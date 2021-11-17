@@ -30,6 +30,7 @@ const validationSchema = yup.object({
 export function ForgotForm(props) {
 
   const { switchToSignin } = useContext(AccountContext);
+  const {switchToreset} = useContext(AccountContext);
   const [error, setError] = useState(null);
   const location = {
     pathname: '/dashboard',
@@ -41,7 +42,7 @@ export function ForgotForm(props) {
   
 
   const onSubmit =  (values) => {
-    history.push(location);
+   
     //props.history.push(routes.dashboard);
   };
  /* const response = await axios
@@ -86,7 +87,7 @@ export function ForgotForm(props) {
         
         
         <Marginer direction="vertical" margin="1em" />
-        <SubmitButton type="submit" href="#" onClick={ switchToSignin} disabled={!formik.isValid}>
+        <SubmitButton type="submit" href="#" onClick={ switchToreset} disabled={!formik.isValid}>
           Reset
         </SubmitButton>
       </FormContainer>

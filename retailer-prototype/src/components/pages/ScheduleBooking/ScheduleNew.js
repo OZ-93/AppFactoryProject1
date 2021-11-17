@@ -36,6 +36,7 @@ const initialFValues = {
 
 export default function ScheduleBooking() {
 
+    const number_reged = /^[0][6-8][0-9]{8}$/im;
     const validate = (fieldValues = values) => {
         let temp = { ...errors }
         if ('firstName' in fieldValues)
@@ -44,8 +45,8 @@ export default function ScheduleBooking() {
             temp.lastName = fieldValues.lastName ? "" : "This field is required."
         if ('Email' in fieldValues)
             temp.Email = (/$^|.+@.+..+/).test(fieldValues.Email) ? "" : "Email is not valid."
-        if ('conatactN' in fieldValues)
-            temp.contactNo = fieldValues.contactNo.length > 9 ? "" : "Minimum 10 numbers required."
+        if ('contactNo' in fieldValues)
+            temp.contactNo = number_reged.test(fieldValues.contactNo) ? "" : "Minimum 10 numbers required."
         if ('IdNumber' in fieldValues)
             temp.IdNumber = fieldValues.IdNumber.length >=13 ? "" : "invalid Id."
         if ('RetailerName' in fieldValues)
@@ -59,10 +60,9 @@ export default function ScheduleBooking() {
         if ('IName' in fieldValues)
             temp.IName = fieldValues.IName? "" : "This field is required."
         if ('IMobile' in fieldValues)
-            temp.IMobile = fieldValues.IMobile? "" : "This field is required."
+            temp.IMobile = number_reged.test(fieldValues.IMobile)? "" : "This field is required."
         if ('IEmail' in fieldValues)
             temp.IEmail = fieldValues.IEmail? "" : "This field is required."
-        
         
         if ('RName' in fieldValues)
             temp.RName = fieldValues.RName? "" : "This field is required."
@@ -70,7 +70,7 @@ export default function ScheduleBooking() {
             temp.RetailerDesignation = fieldValues.RetailerDesignation? "" : "this field is required."
         
         if ('RMobile' in fieldValues)
-            temp.RMobile = fieldValues.RMobile.length > 9 ? "" : "Minimum 10 numbers required."
+            temp.RMobile = number_reged.test(fieldValues.RMobile)? "" : "Minimum 10 numbers required."
         
         
         setErrors({
@@ -236,7 +236,7 @@ export default function ScheduleBooking() {
             <Grid container>
                 <Grid item xs={6}>
                 <PageHeader
-        title="Schedule"
+        title=""
         subTitle="Person Responsible for Payment"
         icon={<PeopleOutlineTwoToneIcon fontSize="large" />}/>
                     <Controls.Input
@@ -268,7 +268,7 @@ export default function ScheduleBooking() {
                 </Grid>
                 <Grid item xs={6}>
                     <PageHeader
-            title="Schedule"
+            title=""
             subTitle="Recieving Results"
              icon={<PeopleOutlineTwoToneIcon fontSize="large" />}/>
                     <Controls.Input
