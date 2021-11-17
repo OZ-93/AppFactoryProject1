@@ -6,6 +6,7 @@ export const BoxContainer = styled.div`
   flex-direction: column;
   //align-items: center;
   margin-top: 10px;
+  border-color: black;
 `;
 
 export const FormContainer = styled.form`
@@ -16,7 +17,7 @@ export const FormContainer = styled.form`
 `;
 
 export const MutedLink = styled.a`
-  color: rgba(200, 200, 200, 1);
+  color: black;
   font-size: 11px;
   font-weight: 500;
   margin: 10px 0;
@@ -41,7 +42,7 @@ export const Input = styled.input`
   box-sizing: border-box;
   border-bottom: 1.4px solid transparent;
   &::placeholder {
-    color: rgba(200, 200, 200, 1);
+    color: RGB(96, 96, 96);
   }
   &:not(:last-of-type) {
     border-bottom: 1.4px solid rgba(200, 200, 200, 0.4);
@@ -63,8 +64,8 @@ export const SubmitButton = styled.button`
   border-radius: 100px 100px 100px 100px;
   cursor: pointer;
   transition: all, 240ms ease-in-out;
-  background:  rgb(15, 97, 98);
-  background:  rgb(15, 97, 98);
+  background:   rgb(15, 97, 98);
+  background:   rgb(15, 97, 98);
   );
   &:focus {
     outline: none;
