@@ -51,7 +51,7 @@ useEffect( () =>
                         </div>
 
                 </div>
-            </div>
+            </div> 
 
             <div className="main__cards">
                 <div className="card">
@@ -62,12 +62,6 @@ useEffect( () =>
                     </div>
                 </div>
 
-                <div className="card">
-                    <i className="fa fa-updates fa-2x text-green"></i>
-                    <div className = "card_inner"></div>
-
-                        <p className="text-primary-p" onClick={routes.Update}>Update Requests</p>
-                    </div>
                 </div>
         </main>
     )

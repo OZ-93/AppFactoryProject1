@@ -48,7 +48,7 @@ main
 .card
 {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-around;
     height: 70px;
     padding: 25px;
