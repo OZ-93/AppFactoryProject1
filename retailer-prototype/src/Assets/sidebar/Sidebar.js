@@ -276,11 +276,11 @@ export default function Sidebar() {
           <ListItemText primary="Dashboard" />
         </ListItemLink>
 
-        <ListItemLink href={routes.AdminUpdate}>
+        <ListItemLink href={routes.UpdateRequest}>
         <ListItemIcon>
             <InboxIcon />
           </ListItemIcon>
-          <ListItemText primary="Update Profile" />
+          <ListItemText primary="Update Requests" />
         </ListItemLink>
 
         <ListItemLink href={routes.Report}>

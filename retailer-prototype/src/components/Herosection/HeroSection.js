@@ -25,6 +25,7 @@ const HeroSection=props=> {
   const handleToClose = () => {
     setOpen(false);
   };
+ 
 
   return (
    
@@ -85,7 +86,7 @@ const HeroSection=props=> {
         </Button>
 
         
-        <Link to= '/SignupLogin'>
+        <Link to=  '/SignupLogin'>
         <Button
         style={{ color: '#FFF'}}
         type=""
@@ -93,11 +94,12 @@ const HeroSection=props=> {
           className='btns'
           buttonStyle='btn--primary'
           buttonSize='btn--large'
-          onClick='/SignupLogin'
+          onClick={Signup_Login}
         >
         Login <i className='fas fa-sign-in-alt' />
       </Button>
       </Link>
+     
       </div>
     </div>
   );

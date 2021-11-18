@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Grid, } from '@material-ui/core';
 import Controls from "../../../controls/Controls";
-import { useForm, Form } from './useForm';
+import { useForm, Form } from '../../../controls/useForm';
 import * as employeeService from "../ClientDashboard/BookingService";
 import PageHeader from '../../../controls/PageHeader';
 import PeopleOutlineTwoToneIcon from '@material-ui/icons/PeopleOutlineTwoTone';
@@ -30,12 +30,10 @@ const initialFValues = {
     RName:'',
     RMobile:'',
     REmail:''
-   
-   
 }
 
-export default function ScheduleBooking() {
-
+export default function ScheduleBooking(props) {
+    const {addOrEdit, recordForEdit} = props
     const number_reged = /^[0][6-8][0-9]{8}$/im;
     const validate = (fieldValues = values) => {
         let temp = { ...errors }
@@ -94,7 +92,7 @@ export default function ScheduleBooking() {
         e.preventDefault()
         if (validate()){
            
-           
+            addOrEdit(values, resetForm);
             const response =  axios
              .post("https://localhost:44306/api/AssessmentBooking/AddAssessment", values)
             .catch((err) => {
@@ -116,6 +114,13 @@ export default function ScheduleBooking() {
 
     }
 
+    useEffect(() => {
+        if (recordForEdit != null)
+            setValues({
+                ...recordForEdit
+            })
+    }, [recordForEdit])
+
     const useStyles = makeStyles(theme => ({
         pageContent: {
             margin: theme.spacing(5),
@@ -130,20 +135,20 @@ export default function ScheduleBooking() {
        <Form onSubmit={handleSubmit}>
            <PageHeader
         title="Schedule"
-        subTitle="Schedule New Booking"
+        subTitle="Provide Candidate Details"
         icon={<PeopleOutlineTwoToneIcon fontSize="large" />}/>
             <Grid container>
                 <Grid item xs={6}>
                     <Controls.Input
                         name="firstName"
-                        label="Full Name"
+                        label="FirstName"
                         value={values.firstName}
                         onChange={handleInputChange}
                         error={errors.firstName}
                     />
                      <Controls.Input
                         name="lastName"
-                        label="Enter lastName"
+                        label="LastName"
                         value={values.lastName}
                         onChange={handleInputChange}
                         error={errors.lastName}
@@ -236,8 +241,8 @@ export default function ScheduleBooking() {
             <Grid container>
                 <Grid item xs={6}>
                 <PageHeader
-        title=""
-        subTitle="Person Responsible for Payment"
+        title="Person Responsible for Payment"
+        subTitle=""
         icon={<PeopleOutlineTwoToneIcon fontSize="large" />}/>
                     <Controls.Input
                         name="IName"
@@ -268,8 +273,8 @@ export default function ScheduleBooking() {
                 </Grid>
                 <Grid item xs={6}>
                     <PageHeader
-            title=""
-            subTitle="Recieving Results"
+            title="Recieving Results"
+            subTitle=""
              icon={<PeopleOutlineTwoToneIcon fontSize="large" />}/>
                     <Controls.Input
                         name="RName"
@@ -301,7 +306,7 @@ export default function ScheduleBooking() {
                             type="submit"
                             text="Submit" />
                         <Controls.Button
-                            text="Reset"
+                            text="Cancel"
                             color="default"
                             onClick={resetForm} />
                     </div>

@@ -346,6 +346,11 @@ export default function RecipeReviewCard() {
           <SubmitButton type="submit" disabled={!formik.isValid}>
           update
         </SubmitButton>
+        </Typography>
+        <Typography>
+        <SubmitButton type="submit" >
+          Cancel
+        </SubmitButton>
           </Typography>
         </CardContent>
       </Collapse>
