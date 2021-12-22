@@ -7,6 +7,7 @@ import Reports from '../Reports'
 import Updateprofile from '../Updateprofile'
 import updateAss from '../updateAss'
 import viewreports from '../ClientDashboard/ViewReports'
+import Admin from './Admin';
 
 
 const AdminDashboard = ()=>{
@@ -14,7 +15,7 @@ const AdminDashboard = ()=>{
     return(
 
         <Switch>
-            <RouteWithProps exact path={routes.main} component={Main}/>
+            <RouteWithProps exact path={routes.main} component={Admin}/>
             
             <RouteWithProps exact path={routes.AdminUpdate} component={Updateprofile}/>
             <RouteWithProps exact path={routes.UpdateRequest} component={updateAss}/>

@@ -8,6 +8,8 @@ import { LoginForm } from './accountBox/loginForm';
 import { SignupForm } from './accountBox/SignupForm';
 import RouteWithProps from '../Shared/routes/RouteWithProps'
 import routes from '../routes';
+import ContactUs from '../components/pages/ContactUs'
+import {Access} from '../components/accountBox/access'
 
 
 
@@ -29,6 +31,8 @@ function Signup_Login() {
        <Switch>
             <RouteWithProps exact path={routes.Signup_Login} component={AccountBox}/>
             <RouteWithProps exact path={routes.AdminSignup} component={AccountBox2}/>
+            <RouteWithProps exact path={routes.ContactUs} component={ContactUs}/>
+            <RouteWithProps exact path={routes.login} component={Access}/>
       
 
         </Switch>

@@ -1,7 +1,7 @@
 import React from 'react';
 import '../App.css';
 import Signup_Login from '../Signup_Login';
-//import { Button } from '../Button';
+import  Button  from '../Button';
 import './HeroSection.css';
 import routes from '../../routes';
 import Dialog from "@material-ui/core/Dialog";
@@ -9,8 +9,9 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-import Button from "@material-ui/core/Button";
+//import Button from "@material-ui/core/Button";
 import { Link } from 'react-router-dom';
+
 
 const HeroSection=props=> {
   
@@ -26,6 +27,7 @@ const HeroSection=props=> {
     setOpen(false);
   };
  
+  
 
   return (
    
@@ -34,13 +36,13 @@ const HeroSection=props=> {
    <div className='hero-container'>
 
 
-<div stlye={{}}>
+    <div stlye={{}}>
       
      
-      <Dialog open={open} onClose={handleToClose}>
-        <DialogTitle>{""}</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
+        <Dialog open={open} onClose={handleToClose}>
+          <DialogTitle>{""}</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
             Would you like to Register as?
           </DialogContentText>
         </DialogContent>
@@ -65,9 +67,12 @@ const HeroSection=props=> {
       </Dialog>
     </div>
     
+    <div class="container">
+      <span class="text1">ASSESSMENT BOOKING </span>
+
+    </div>
     
-      <h2  style={{ color: '#FFF'}}>ASSESSMENT TOOLING APP</h2>
-      <p></p>
+     
       <div className='hero-btns'>
 
       
@@ -80,21 +85,23 @@ const HeroSection=props=> {
             buttonStyle='btn--primary'
             buttonSize='btn--large'
             onClick={handleClickToOpen}
-            style={{ color: '#FFF'}}
+            style={{ color: 'black'}}
+            
           >
+            
           Sign Up <i className='fas fa-user-plus' />
         </Button>
 
         
-        <Link to=  '/SignupLogin'>
+        <Link to=  '/SignupLogin/login'>
         <Button
-        style={{ color: '#FFF'}}
+        style={{ color: 'black'}}
         type=""
         children=""
           className='btns'
           buttonStyle='btn--primary'
           buttonSize='btn--large'
-          onClick={Signup_Login}
+          onClick={routes.login}
         >
         Login <i className='fas fa-sign-in-alt' />
       </Button>

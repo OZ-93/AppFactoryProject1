@@ -6,6 +6,8 @@ export default {
     Signup_Login:"/SignupLogin",
     AdminSignup:"/SignupLogin/Adminsignup",
     dashboard:"/Dashboard",
+    ContactUs:"/SignupLogin/ContactUs",
+    //login:"SignupLogin/login",
     
 
 

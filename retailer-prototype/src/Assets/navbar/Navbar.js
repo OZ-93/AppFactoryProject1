@@ -1,28 +1,3 @@
-/*import React from 'react';
-import React, { useState } from 'react';
-import '../../Assets/navbar/Navbar.css';
-import gijima from '../../components/images/gijima.png';
-import Sidebar from '../sidebar/Sidebar';
-
-
-const navbar=({sidebarOpen, openSidebar})=>{
-  
-    return(
-        <nav className="navbar">
-            <div className="nav_icon" onClick={()=> openSidebar()}>
-                <i className="fa fa-bars"></i>
-            </div>
-           
-            <div className="navbar__right">
-              <img width="125" src={gijima} alt="gijima"/>  
-            </div>
-        </nav>
-        
-    )
-}
-export default navbar; */
-
-
 import React, { useContext, useState } from "react"; //added by paul
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
@@ -46,6 +21,7 @@ import Menu from "@material-ui/core/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
+import axios from "axios";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 import routes from '../../routes'
@@ -168,6 +144,20 @@ export default function PersistentDrawerLeft() {
     }, 400);
   };*/
 
+  const [name,setName] = React.useState(false)
+  const [surname,setSurname] = React.useState(false)
+   
+
+React.useEffect( () => 
+{
+    axios.get("http://localhost:51153/api/Authenticate/User").then((response) => {
+      setName(response.data);
+      setSurname(response.data);
+    });
+  }, []);
+
+  if (!name) return null;
+
   return (
     <div className={classes.root}>
       <AppBar
@@ -214,6 +204,7 @@ export default function PersistentDrawerLeft() {
           </div>
           <Grid item xs />
           <Grid item>
+          {name.FirstName} {surname.LastName}
           <IconButton
               aria-label="account of current user"
               aria-controls="menu-appbar"
@@ -284,14 +275,7 @@ export default function PersistentDrawerLeft() {
         </List>
         <Divider />
       </Drawer>
-      <main
-        className={clsx(classes.content, {
-          [classes.contentShift]: open
-        })}
-      >
-        <div className={classes.drawerHeader} />
-       
-      </main>
+     
     </div>
   );
 }

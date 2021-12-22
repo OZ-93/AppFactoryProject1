@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import ScheduleBooking from '../ScheduleBooking/ScheduleNew';
+import React, { useState, useEffect } from 'react'
+import ScheduleBooking from '../ScheduleBooking/UpdateModal';
 import PageHeader from "../../../controls/PageHeader";
 import PeopleOutlineTwoToneIcon from '@material-ui/icons/PeopleOutlineTwoTone';
 import { Paper, makeStyles, TableBody, TableRow, TableCell, Toolbar, InputAdornment } from '@material-ui/core';
@@ -11,6 +11,10 @@ import AddIcon from '@material-ui/icons/Add';
 import Popup from "../../../controls/Popup";
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import CloseIcon from '@material-ui/icons/Close';
+import axios from "axios";
+axios.defaults.withCredentials=true
+
+
 
 const useStyles = makeStyles(theme => ({
     pageContent: {
@@ -30,7 +34,7 @@ const useStyles = makeStyles(theme => ({
 const headCells = [
     { id: 'firstName', label: 'Employee Name' },
     { id: 'lastName', label: 'Surname'},
-    { id: 'IdNumber', label: 'ID Number' },
+   // { id: 'IdNumber', label: 'ID Number' },
     { id: 'email', label: 'Email Address (Personal)' },
     { id: 'mobile', label: 'Mobile Number' },
     { id: 'RetailerName', label: 'Retailer Name'},
@@ -44,9 +48,18 @@ export default function Employees() {
 
     const classes = useStyles();
     const [recordForEdit, setRecordForEdit] = useState(null)
-    const [records, setRecords] = useState(employeeService.getAllEmployees())
+    //const for holding records from the api
+    const [records, setRecords] = useState([])
     const [filterFn, setFilterFn] = useState({ fn: items => { return items; } })
     const [openPopup, setOpenPopup] = useState(false)
+    const [bookingid,setbookingid ] = useState(null)
+
+    //Api for retrieving data from database
+    useEffect( () => 
+    { //used axios
+        axios.get("http://localhost:51153/api/AssessmentBooking").then(json => 
+        setRecords(json.data)) 
+      }, []);
 
     const {
         TblContainer,
@@ -54,7 +67,8 @@ export default function Employees() {
         TblPagination,
         recordsAfterPagingAndSorting
     } = useTable(records, headCells, filterFn);
-
+        
+    //handling search  method
     const handleSearch = e => {
         let target = e.target;
         setFilterFn({
@@ -62,23 +76,21 @@ export default function Employees() {
                 if (target.value == "")
                     return items;
                 else
-                    return items.filter(x => x.firstName.includes(target.value))
+                    return items.filter(x => x.Email.includes(target.value))
             }
         })
     }
+ 
+//method used to update the user's info
+    function Update(id) {
+     console.log(id)
+     setOpenPopup(true)
+     setbookingid(id);   
+ }
 
-    const addOrEdit = (employee, resetForm) => {
-        if (employee.id == 0)
-            employeeService.insertEmployee(employee)
-        else
-            employeeService.updateEmployee(employee)
-        resetForm()
-        setRecordForEdit(null)
-        setOpenPopup(false)
-        setRecords(employeeService.getAllEmployees())
-    }
-
-    const openInPopup = item => {
+   
+    //method for opening the popup to update info
+    const openInPopup = item => { 
         setRecordForEdit(item)
         setOpenPopup(true)
     }
@@ -94,7 +106,7 @@ export default function Employees() {
 
                 <Toolbar>
                     <Controls.Input
-                        label="Search By Name"
+                        label="Search By Email"
                         className={classes.searchInput}
                         InputProps={{
                             startAdornment: (<InputAdornment position="start">
@@ -103,13 +115,7 @@ export default function Employees() {
                         }}
                         onChange={handleSearch}
                     />
-                    <Controls.Button
-                        text="Add New"
-                        variant="outlined"
-                        startIcon={<AddIcon />}
-                        className={classes.newButton}
-                        onClick={() => { setOpenPopup(true); setRecordForEdit(null); }}
-                    />
+                   
                 </Toolbar>
                 <TblContainer>
                     <TblHead />
@@ -119,7 +125,7 @@ export default function Employees() {
                                 (<TableRow key={item.id}>
                                     <TableCell>{item.firstName}</TableCell>
                                     <TableCell>{item.lastName}</TableCell>
-                                    <TableCell>{item.IdNumber}</TableCell>
+                                    
                                     <TableCell>{item.Email}</TableCell>
                                     <TableCell>{item.contactNo}</TableCell>
                                     <TableCell>{item.RetailerName}</TableCell>
@@ -129,13 +135,10 @@ export default function Employees() {
                                     <TableCell>
                                         <Controls.ActionButton
                                             color="primary"
-                                            onClick={() => { openInPopup(item) }}>
+                                            onClick={() => Update(item.BookingID)}>
                                             <EditOutlinedIcon fontSize="small" />
                                         </Controls.ActionButton>
-                                        <Controls.ActionButton
-                                            color="secondary">
-                                            <CloseIcon fontSize="small" />
-                                        </Controls.ActionButton>
+                                       
                                     </TableCell>
                                 </TableRow>)
                             )
@@ -148,10 +151,13 @@ export default function Employees() {
                 title="Update Details"
                 openPopup={openPopup}
                 setOpenPopup={setOpenPopup}
-            >
+            >  
                 <ScheduleBooking
-                    recordForEdit={recordForEdit}
-                    addOrEdit={addOrEdit} />
+                    bookingid={bookingid}
+                      setOpenPopup={openInPopup}   
+                    />
+                   
+
             </Popup>
         </>
     )

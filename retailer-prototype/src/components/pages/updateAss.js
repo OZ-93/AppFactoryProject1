@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from 'react'
-
+import StatusUpdate from './ScheduleBooking/StatusUpdate';
 import PageHeader from "../../controls/PageHeader";
 import PeopleOutlineTwoToneIcon from '@material-ui/icons/PeopleOutlineTwoTone';
 import { Paper, makeStyles, TableBody, TableRow, TableCell, Toolbar, InputAdornment } from '@material-ui/core';
 import useTable from "../../controls/useTable";
-import * as employeeService from "./ClientDashboard/BookingService";
+
 import Controls from "../../controls/Controls";
 import { Search } from "@material-ui/icons";
 import {CSVLink} from "react-csv";
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import Popup from "../../controls/Popup";
+import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
+import jsPDF from 'jspdf';
+import Button from '@material-ui/core/Button';
+import ExportPdfComponent from '../../controls/ExportPdfComponent';
+import axios from "axios";
+axios.defaults.withCredentials=true
+
+
 const useStyles = makeStyles(theme => ({
     pageContent: {
         margin: theme.spacing(5),
@@ -26,28 +31,30 @@ const useStyles = makeStyles(theme => ({
 
 
 const headCells = [
-    { id: 'fullName', label: 'Full Name' },
+    { id: 'FirstName', label: ' Name' },
     { id: 'Surname', label: 'Surname' },
     { id: 'IdNumber', label: 'ID Number' },
-    { id: 'Email', label: 'Email Address (Personal)' },
-    { id: 'mobile', label: 'Mobile Number' },
+    { id: 'Email', label: 'Email Address ' },
+    { id: 'contactNo', label: 'Mobile Number' },
     { id: 'RetailerName', label: 'Retailer Name'},
-    { id: 'gender', label: 'Gender'},
-    { id: 'PositionId', label: 'Candidate Position', disableSorting: true },
-    { id: 'CandidateBrand', label: 'Candidate Brand', disableSorting: true },
-    { id: 'hireDate', label:'Date'},
+    { id: 'ShortListedPosition', label: 'Candidate Position', disableSorting: true },
+    { id: 'BranchName', label: ' Branch', disableSorting: true },
+    { id: 'PreferredDate', label:'Date'},
     { id: 'status', label: 'Status'},
 ]
 
 export default function Employees() {
 
     const classes = useStyles();
-    const [records, setRecords] = useState(employeeService.getAllEmployees())
+    const [records, setRecords] = useState([])
     const [filterFn, setFilterFn] = useState({ fn: items => { return items; } })
     const [isLoaded, setIsLoaded] = useState(false);
+    const [recordForEdit, setRecordForEdit] = useState(null)
+    const [openPopup, setOpenPopup] = useState(false);
     const [anchorEl, setAnchorEl] = React.useState('');
     const [items,setItems] = useState([]);
     const [error, setError] = useState(null);
+    const [bookingid,setbookingid ] = useState(null)
 
     const {
         TblContainer,
@@ -56,6 +63,14 @@ export default function Employees() {
         recordsAfterPagingAndSorting
     } = useTable(records, headCells, filterFn);
 
+
+    //Api for retrieving data from database
+    useEffect( () => 
+    { //used axios
+        axios.get("http://localhost:51153/api/AssessmentBooking").then(json => 
+        setRecords(json.data)) 
+      }, []);
+
     const handleSearch = e => {
         let target = e.target;
         setFilterFn({
@@ -63,38 +78,36 @@ export default function Employees() {
                 if (target.value == "")
                     return items;
                 else
-                    return items.filter(x => x.fullName.toLowerCase().includes(target.value))
+                    return items.filter(x => x.Email.includes(target.value))
             }
         })
     }
     
-  const handleClick = (event) => {
-      setAnchorEl(event.currentTarget);
-    };
-
-  const handleChange = (event) =>{
-      setAnchorEl(event.target.value);
-  };
-  
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
+    //method used to update the user's info
+    function Update(id) {
+        console.log(id)
+        setOpenPopup(true)
+        setbookingid(id);   
+    }
 
     useEffect(()=>{
+        const generatePDF = resultData =>
+        {
+            //Create an instance of a pdf document
+            const doc = new jsPDF();
         //if localhost number changes, change it on fetch as well
-        fetch("https://localhost:44394/api/AssessmentBookingDetail")
+        fetch("http://localhost:51153/api/AssessmentBooking")
           .then(res => res.json())
           .then(
             result => {
               setIsLoaded(true);
              
               let data=[];
-              data.push(["DetailID","Firstname","Lastname","ContactNo","Email","Designation"])
+              data.push(["BookingID","Firstname","Lastname","IDNumber","Email","ContactNo","Retailame","ShortListedPosition","BranchName","PreferredDate"])
               for(let i=0;i<result.length;i++)
               {
                 let resultData=result[i];
-                data.push([resultData.DetailID,resultData.Firstname,resultData.Lastname,resultData.ContactNo,resultData.Email,resultData.Designation]);
+                data.push([resultData.BookingID,resultData.firstName,resultData.lastName,resultData.IdNumber,resultData.Email,resultData.contactNo,resultData.RetailerName,resultData.ShortListedPosition,resultData.BranchName,resultData.PreferredDate]);
               }
               setItems(data);
               
@@ -106,25 +119,29 @@ export default function Employees() {
               setError(error);
             }
           )
-    },)
+    }})
 
-    const inputJSON = items;
-    console.log("inputJSON",inputJSON);
-
+    const inputJSON = records;
+    console.log("inputJSON",records);
+    const jsPdfGenerator=()=>{
+        var doc = new jsPDF();
+        doc.text="gjhgjhgjh";
+        doc.save("generated.pdf");
+    }
     return (
         <main>
         <div>
             
             <PageHeader
-                title="Logged Bookings"
-                subTitle="Update Candidate Status"
+                title="Active Bookings"
+                subTitle="You can Update Candidate Status"
                 icon={<PeopleOutlineTwoToneIcon fontSize="large" />}
             />
             <Paper className={classes.pageContent}>
                 {/* <EmployeeForm /> */}
                 <Toolbar>
                     <Controls.Input
-                        label="Search Employees"
+                        label="Search by Email"
                         className={classes.searchInput}
                         InputProps={{
                             startAdornment: (<InputAdornment position="start">
@@ -140,47 +157,42 @@ export default function Employees() {
                         {
                             recordsAfterPagingAndSorting().map(item =>
                                 (<TableRow key={item.id}>
-                                    <TableCell>{item.fullName}</TableCell>
-                                    <TableCell>{item.Surname}</TableCell>
+                                    <TableCell>{item.firstName}</TableCell>
+                                    <TableCell>{item.lastName}</TableCell>
                                     <TableCell>{item.IdNumber}</TableCell>
                                     <TableCell>{item.Email}</TableCell>
-                                    <TableCell>{item.mobile}</TableCell>
+                                    <TableCell>{item.contactNo}</TableCell>
                                     <TableCell>{item.RetailerName}</TableCell>
-                                    <TableCell>{item.gender}</TableCell>
-                                    <TableCell>{item.PositionId}</TableCell>
-                                    <TableCell>{item.CandidateBrand}</TableCell>
-                                    <TableCell>{item.hireDate}</TableCell>
-                                    <TableCell>{item.Status}
-                                       <FormControl className={classes.formControl}>
-                                          <InputLabel id="demo-simple-select-helper-label"></InputLabel>
-                                          <Select
-                                            labelId="demo-simple-select-helper-label"
-                                            id="demo-simple-select-helper"
-                                            onChange={handleChange}
-                                            onClose={handleClose}
-                                            anchorEl={anchorEl}
-                                            value={anchorEl}
-                                            
-                                          >
-                                            <MenuItem value="pending">Pending</MenuItem>
-                                            <MenuItem value="approved">Approved</MenuItem>
-                                            <MenuItem value="rejected">Rejected</MenuItem>
-                                          </Select>
-                                        </FormControl>
-                                    </TableCell>
+                                    <TableCell>{item.ShortListedPosition}</TableCell>
+                                    <TableCell>{item.BranchName}</TableCell>
+                                    <TableCell>{item.PreferredDate}</TableCell>
+                                    <TableCell>{item.Status} <Controls.ActionButton
+                                            color="primary"
+                                            onClick={() => Update(item.BookingID)}>
+                                            <EditOutlinedIcon fontSize="small" />
+                                        </Controls.ActionButton></TableCell>
                                 </TableRow>)
                             )
                         }
                     </TableBody>
+                   
                 </TblContainer>
                 <TblPagination />
                 
-                  <Controls.Button
-                  type="submit"
-                  text="Submit" />
-                   <CSVLink data={inputJSON}>Download CSV</CSVLink>
+                <Button onClick={jsPdfGenerator}>Generated Report</Button>
+                   
             </Paper>
+            <Popup
+                title="Update Status"
+                openPopup={openPopup}
+                setOpenPopup={setOpenPopup}
+            >
+                <StatusUpdate
+                 bookingid={bookingid}/>
+                   
+            </Popup>
         </div>
         </main>
     )
+
 }

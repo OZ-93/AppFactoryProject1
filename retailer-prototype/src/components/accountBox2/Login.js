@@ -1,6 +1,7 @@
 import { Field, useFormik } from "formik";
 import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
+import { Alert } from 'react-st-modal';
 import routes from "../../routes";
 import { Marginer } from "../marginer";
 import {
@@ -15,7 +16,7 @@ import {
   SubmitButton,
   Input2
 } from "./common";
-import { AccountContext } from "../accountBox/accountContext";
+import { AccountContext } from "./accountContext";
 import * as yup from "yup";
 import axios from "axios";
 axios.defaults.withCredentials = true;
@@ -24,16 +25,17 @@ axios.defaults.withCredentials = true;
 //import ForgotForm from "./ForgotForm";
 
 const validationSchema = yup.object({
-  UserName: yup.string().required(),
-  Password: yup.string().required(),
+  email: yup.string().required(),
+  password: yup.string().required(),
 });
 
+
 export function Login(props) {
-  const { switchToSignup } = useContext(AccountContext);
+  const { switchToRegister } = useContext(AccountContext);
   const { switchToForgot } = useContext(AccountContext);
   const [error, setError] = useState(null);
   const location = {
-    pathname: '/dashboard',
+    pathname: '/AdminDash',
     state: {fromDashboard: true}
   } 
 
@@ -60,15 +62,28 @@ export function Login(props) {
   const onSubmit = async (values) => {
     setError(null);
     const response = await axios
-      .post("https://localhost:44306/api/Authenticate/login", values)
+      .post("http://localhost:51153/api/Authenticate/login", values, {
+        headers: {   
+          'content-type': 'application/json',
+          'Set-Cookie': 'JWT'
+        }})
+           
       .catch((err) => {
         if (err && err.response) setError(err.response.data.message);
-        alert("err")
+        alert("Failed to Login")
       });
 
     if (response) {
-      alert("Welcome back in. Authenticating...");
+     
+      Alert("Welcome back in. Authenticating...");
       history.push(location);
+     /* await axios.get(
+        "https://localhost:44306/api/Authenticate/User",
+         {withCredentials:true}
+      );*/
+      // set the state of the user
+      
+       
     }
 
    /* await fetch('https://localhost:440306/api/Authenticate/login', {
@@ -80,45 +95,44 @@ export function Login(props) {
   };
 
   const formik = useFormik({
-    initialValues: { UserName: "", Password: "" },
+    initialValues: { email: "", password: "" },
     validateOnBlur: true,
     onSubmit,
     validationSchema: validationSchema,
   });
-
   return (
     <BoxContainer>
       <FormError>{error ? error : ""}</FormError>
       <FormContainer onSubmit={formik.handleSubmit}>
         <FieldContainer>
           <Input
-            name="UserName"
+            name="email"
             placeholder="Email"
-            value={formik.values.UserName}
+            value={formik.values.email}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
           {
             <FieldError>
-              {formik.touched.UserName && formik.errors.UserName
-                ? formik.errors.UserName
+              {formik.touched.email && formik.errors.email
+                ? formik.errors.email
                 : ""}
             </FieldError>
           }
         </FieldContainer>
         <FieldContainer>
           <Input
-            name="Password"
+            name="password"
             type="password"
             placeholder="Password"
-            value={formik.values.Password}
+            value={formik.values.password}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
           {
             <FieldError>
-              {formik.touched.Password && formik.errors.Password
-                ? formik.errors.Password
+              {formik.touched.password && formik.errors.password
+                ? formik.errors.password
                 : ""}
             </FieldError>
           }
@@ -136,7 +150,7 @@ export function Login(props) {
       <Marginer direction="vertical" margin={5} />
       <MutedLink href="#">
         Dont have an Account?
-        <BoldLink href="#" onClick={switchToSignup}>
+        <BoldLink href="#" onClick={switchToRegister}>
           sign up
         </BoldLink>
       </MutedLink>

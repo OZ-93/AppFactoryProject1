@@ -1,6 +1,6 @@
 import React,{useEffect,useState} from 'react'
 import { BrowserRouter, Link } from 'react-router-dom';
-import { Button } from '../Button';
+import Button  from '../Button';
 import '../nav/nav.css';
 import { LoginForm } from '../accountBox/loginForm';
 import avatar from "../../Assets/avatar.jpg"
@@ -51,7 +51,7 @@ function Navbar() {
             
             <li className='nav-item'>
               <Link
-                to='/contact-us'
+                to='/SignupLogin/ContactUs'
                 className='nav-links'
                 onClick={closeMobileMenu}
               >

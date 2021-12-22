@@ -1,46 +1,4 @@
-import React from 'react'
-import Navbar from '../../Assets/navbar/Navbar'
-import Sidebar from '../../components/sidebar/sidebar';
-import { useState } from 'react';
-import routes from '../../routes';
-
-
-    const ClientLayout = props =>{
-
-   
-
-    const [sidebarOpen, setSidebarOpen] = useState(false);
-
-    const openSidebar=() =>
-    {
-      setSidebarOpen(false);
-    }
-  
-    const closeSidebar=()=>
-    {
-      setSidebarOpen(false);
-    }
-
-  return(
-
-<div>
-    
-    
-    <Navbar sidebarOpen={sidebarOpen} openSidebar={openSidebar}/> 
-
-    
-        {props.children}
-    </div>
-  
-
-
-
-  )
-}
-    
-export default ClientLayout;
-
-/*import React from "react";
+import React, { useContext, useState } from "react"; //added by paul
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -49,6 +7,7 @@ import Avatar from "@material-ui/core/Avatar";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
+import gijima from '../../components/images/gijima.png';
 import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
@@ -62,16 +21,23 @@ import Menu from "@material-ui/core/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
+import axios from "axios";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
-import routes from '../../routes';
+import routes from '../../routes'
+import drawerimage from '../../Assets/sidebar-4.jpg';
+//import { AccountContext } from "../accountBox/accountContext";
+//import { useContext } from "react";
+//import { UpdateInfo } from "../../components/accountBox/UpdateInfo";
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex"
-    
+    display: "flex",
+    paper: {
+      background: "blue"
+    }
   },
   appBar: {
     transition: theme.transitions.create(["margin", "width"], {
@@ -98,11 +64,12 @@ const useStyles = makeStyles((theme) => ({
     flexShrink: 0
   },
   drawerPaper: {
-    width: drawerWidth
+    width: drawerWidth,
+    
   
   },
   paper: {
-    background: '#2E3B55'
+    background: drawerimage,
   },
   drawerHeader: {
     display: "flex",
@@ -129,14 +96,18 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 0
   }
 }));
+function ListItemLink(props) {
+    return <ListItem button component="a" {...props} />;
+  }
 
-const ClientLayout = props=> {
-
+export default function ClientLayout(props) {
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const view = Boolean(anchorEl);
+ /* const { switchToUpdate } = useContext(AccountContext);//added swicthToUpdate*/
+
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -153,6 +124,44 @@ const ClientLayout = props=> {
     setOpen(false);
   };
 
+  const expandingTransition = {
+    type: "spring",
+    duration: 2.3,
+    stiffness: 30,
+  };
+
+  /*const [isExpanded, setExpanded] = useState(false);
+  const [active, setActive] = useState("signin");*/
+
+  /* playExpandingAnimation = () => {
+    setExpanded(true);
+    setTimeout(() => {
+      setExpanded(false);
+    }, expandingTransition.duration * 1000 - 1500);
+  };*/
+
+
+  /*const switchToUpdate = () => {
+    playExpandingAnimation();
+    setTimeout(() => {
+      setActive("updateinfo");
+    }, 400);
+  };*/
+
+  const [name,setName] = React.useState(false)
+  const [surname,setSurname] = React.useState(false)
+   
+
+React.useEffect( () => 
+{
+    axios.get("http://localhost:51153/api/Authenticate/User").then((response) => {
+      setName(response.data);
+      setSurname(response.data);
+    });
+  }, []);
+
+  if (!name) return null;
+
   return (
     <div className={classes.root}>
       <AppBar
@@ -160,7 +169,7 @@ const ClientLayout = props=> {
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open
         })}
-        style={{ background: '#2E3B55' }}
+        style={{ background: '#35a4ba' }}
       >
         <Toolbar>
           <IconButton
@@ -173,7 +182,7 @@ const ClientLayout = props=> {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Persistent drawer
+          <img src={gijima}  width="125"/>
           </Typography>
           <div>
             
@@ -192,12 +201,14 @@ const ClientLayout = props=> {
               open={view}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
-              <MenuItem onClick={handleClose}>My account</MenuItem>
+              <ListItemLink href={routes.updateprofile}>
+              <MenuItem >Profile</MenuItem>
+              </ListItemLink>
             </Menu>
           </div>
           <Grid item xs />
           <Grid item>
+          {name.FirstName} {surname.LastName}
           <IconButton
               aria-label="account of current user"
               aria-controls="menu-appbar"
@@ -220,7 +231,7 @@ const ClientLayout = props=> {
         open={open}
         
         classes={{
-          paper: classes.drawerPaper
+          paper: classes.paper
         } 
       }
         
@@ -236,28 +247,46 @@ const ClientLayout = props=> {
         </div>
         <Divider />
         <List>
-          {["Dashboard", "Schedule New", "Updae Record", "View Records"].map(
-            (text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            )
-          )}
+        <ListItemLink href={routes.dashboard}>
+        <ListItemIcon>
+            <InboxIcon />
+          </ListItemIcon>
+          <ListItemText primary="Dashboard" />
+        </ListItemLink>
+
+        <ListItemLink href={routes.Schedule}>
+        <ListItemIcon>
+            <InboxIcon />
+          </ListItemIcon>
+          <ListItemText primary="Schedule Booking" />
+        </ListItemLink>
+
+        <ListItemLink href={routes.View}>
+        <ListItemIcon>
+            <InboxIcon />
+          </ListItemIcon>
+          <ListItemText primary="View Booking" />
+        </ListItemLink>
+
+        
+        <ListItemLink href={routes.home}>
+        <ListItemIcon>
+            <InboxIcon />
+          </ListItemIcon>
+          <ListItemText primary="Logout" />
+        </ListItemLink>
+          
         </List>
         <Divider />
       </Drawer>
-      <main
+      <div
         className={clsx(classes.content, {
           [classes.contentShift]: open
         })}
       >
         <div className={classes.drawerHeader} />
         {props.children}
-      </main>
+      </div>
     </div>
   );
 }
-export default ClientLayout;*/

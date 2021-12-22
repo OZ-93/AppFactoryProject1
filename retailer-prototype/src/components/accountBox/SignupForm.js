@@ -27,6 +27,13 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import { RadioButtonChecked } from "@material-ui/icons";
 import { Alert } from 'react-st-modal';
+import Dialog from "@material-ui/core/Dialog";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import  Button  from '../Button';
+import Checkbox from "../../controls/Checkbox";
 
 
 
@@ -34,20 +41,29 @@ import { Alert } from 'react-st-modal';
 
 
 
-const Password_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
-
+//const Password_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+const Password_REGEX =/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.]).{8,32}$/;
+const number_reged = /^[0][6-8][0-9]{8}$/im;
+const Pwd_number = /^(?=.*[0-9]).$/;
+const Pwd_small =/^(?=.*[a-z]).$/;
+const Pwd_big =/^(?=.*[A-Z]).$/;
+const Pwd_special = /^(?=.*[*.!@#$%^&(){}[]:;<>,.]).{8,32}.$/;
+const Name_Regex = /^(?=.*[a-zA-Z]).{3,}$/;
 const validationSchema = yup.object({
   FirstName: yup
     .string()
     .min(3, "Please enter you real name")
+    .matches(Name_Regex, "Please insert characters only")
     .required("Full name is required!"),
   
   LastName: yup
     .string()
+    .matches(Name_Regex, "Please insert characters only")
     .required("Last Name is required"),
   
   PhoneNumber: yup
     .string()
+    .matches(number_reged, "Please enter correct number. numbers should start from 06..to 08.. ")
     .required("PhoneNumber number is required"),
   
   Email: yup.string().email("Please enter a valid Email address").required(),
@@ -59,7 +75,9 @@ const validationSchema = yup.object({
 
   Password: yup
     .string()
-    .matches(Password_REGEX, "Please enter a strong Password")
+    
+    
+    
     .required(),
   confirmPassword: yup
     .string()
@@ -74,15 +92,25 @@ const validationSchema = yup.object({
 
 export function SignupForm(props) {
   const { switchToSignin } = useContext(AccountContext);
-  const { switchToForgot } = useContext(AccountContext); 
+  const { switchToForgot } = useContext(AccountContext);
+  const { switchToSignup } = useContext(AccountContext); 
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
   const location = {
   switchToSignin
   } 
 
+  const [open, setOpen] = React.useState(true);
+  
+  const handleClickToOpen = () => {
+    setOpen(true);
+  };
+  
+  const handleToClose = () => {
+    setOpen(false);
+  };
+ 
   const history = useHistory();
-
  
 
   
@@ -109,9 +137,10 @@ export function SignupForm(props) {
     if (response && response.data) {
       setError(null);
       setSuccess(response.data.message);
-      Alert('successful')
+      Alert('Registration was successful')
       formik.resetForm();
       history.push(location);
+      history.push(switchToSignin);
 
     }
   };
@@ -136,7 +165,47 @@ export function SignupForm(props) {
   
 
   return (
+
+
+    
+
+
+
+
     <BoxContainer>
+
+<Dialog open={open} onClose={handleToClose}>
+        <DialogTitle>{"POPI ACT DISCLAIMER!!"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+                    You hereby declare and confirm that you, as the
+                    person/entity/body/individual/company whose is providing
+                    information and hereinafter collectively referred to as the
+                    “client”, do hereby irrevocably agree and understand that
+                    any/all information supplied or given to the service provider,
+                    is done so in terms of the below terms and conditions and in
+                    terms of this agreement and consent declaration., according to 
+                    the personal information act no 4 of 2013 of South Africa.
+
+Click to agree if you want to continue or Cancel.
+          </DialogContentText>
+        
+        </DialogContent>
+        <DialogActions>
+        <Link to=  '/'>
+        <Button onClick={handleToClose} 
+                  color="primary" autoFocus>
+            Cancel
+          </Button>
+          </Link>
+          <Button onClick={handleToClose} 
+                  color="primary" autoFocus>
+            AGREE
+          </Button>
+        </DialogActions>
+        
+      </Dialog>
+      
       {!error && <FormSuccess>{success ? success : ""}</FormSuccess>}
       {!success && <FormError>{error ? error : ""}</FormError>}
 
@@ -150,7 +219,7 @@ export function SignupForm(props) {
         <FieldContainer>
           <Input
             name="FirstName"
-            placeholder="Full Name"
+            placeholder="First Name"
             value={formik.values.FirstName}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -179,12 +248,18 @@ export function SignupForm(props) {
         <FieldContainer>
         <Input
             name="PhoneNumber"
-            type="number"
-            placeholder="PhoneNumber"
+            
+            placeholder="Phone Number"
             value={formik.values.PhoneNumber}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
+          <FieldError>
+            {formik.touched.PhoneNumber && formik.errors.PhoneNumber
+              ? formik.errors.PhoneNumber
+              : ""}
+          </FieldError>
+          
         </FieldContainer>
 
         <FieldContainer>

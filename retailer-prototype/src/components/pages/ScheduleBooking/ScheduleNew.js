@@ -4,6 +4,11 @@ import Controls from "../../../controls/Controls";
 import { useForm, Form } from '../../../controls/useForm';
 import * as employeeService from "../ClientDashboard/BookingService";
 import PageHeader from '../../../controls/PageHeader';
+import { styled } from '@mui/material/styles';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import Stack from '@mui/material/Stack'
 import PeopleOutlineTwoToneIcon from '@material-ui/icons/PeopleOutlineTwoTone';
 import { Paper,makeStyles } from '@material-ui/core';
 import { Alert } from 'react-st-modal';
@@ -25,16 +30,25 @@ const initialFValues = {
     PreferredDate: new Date(),
     IName:'',
     AssessmentType:'',
+    Province:'',
     IMobile:'',
     IEmail:'',
     RName:'',
     RMobile:'',
-    REmail:''
+    REmail:'',
+    status:'Pending'
 }
 
 export default function ScheduleBooking(props) {
-    const {addOrEdit, recordForEdit} = props
+
+    const [uploadFile, setUploadFile] = React.useState();
+    const [superHero, setSuperHero] = React.useState();
+
+    
+
     const number_reged = /^[0][6-8][0-9]{8}$/im;
+
+
     const validate = (fieldValues = values) => {
         let temp = { ...errors }
         if ('firstName' in fieldValues)
@@ -45,8 +59,6 @@ export default function ScheduleBooking(props) {
             temp.Email = (/$^|.+@.+..+/).test(fieldValues.Email) ? "" : "Email is not valid."
         if ('contactNo' in fieldValues)
             temp.contactNo = number_reged.test(fieldValues.contactNo) ? "" : "Minimum 10 numbers required."
-        if ('IdNumber' in fieldValues)
-            temp.IdNumber = fieldValues.IdNumber.length >=13 ? "" : "invalid Id."
         if ('RetailerName' in fieldValues)
             temp.RetailerName = fieldValues.RetailerName? "" : "This field is required."
         if ('BranchName' in fieldValues)
@@ -55,13 +67,16 @@ export default function ScheduleBooking(props) {
             temp.ShortListedPosition = fieldValues.ShortListedPosition.length != 0 ? "" : "This field is required."
         if ('AssessmentType' in fieldValues)
             temp.AssessmentType = fieldValues.AssessmentType.length != 0 ? "" : "This field is required."
+        if ('Province' in fieldValues)
+            temp.Province = fieldValues.Province.length != 0 ? "" : "This field is required."
         if ('IName' in fieldValues)
             temp.IName = fieldValues.IName? "" : "This field is required."
         if ('IMobile' in fieldValues)
             temp.IMobile = number_reged.test(fieldValues.IMobile)? "" : "This field is required."
         if ('IEmail' in fieldValues)
             temp.IEmail = fieldValues.IEmail? "" : "This field is required."
-        
+            if ('status' in fieldValues)
+            temp.status = fieldValues.status.length != 0 ? "" : "This field is required."
         if ('RName' in fieldValues)
             temp.RName = fieldValues.RName? "" : "This field is required."
         if ('RetailerDesignation' in fieldValues)
@@ -92,20 +107,23 @@ export default function ScheduleBooking(props) {
         e.preventDefault()
         if (validate()){
            
-            addOrEdit(values, resetForm);
-            const response =  axios
-             .post("https://localhost:44306/api/AssessmentBooking/AddAssessment", values)
-            .catch((err) => {
-                if (err && err.response) setErrors(err.response.data.message);
-            alert("err")
-      });
+    
 
-      if (response) {
-        
-        Alert('Successfully Captured');
+            const response =  axios
+             .post("http://localhost:51153/api/AssessmentBooking/AddAssessment", values)
+
+             .then((response)=>{
+                 Alert("Captured Successfully")
+             })
+            .catch((err) => {
+                if (err && err.response) alert("err");        
+      });
+     if (response) {
+          
+          resetForm()
       }
-            employeeService.insertEmployee(values)
-            resetForm()
+            
+            
         }else
         {
             Alert('error!!!!!!!')
@@ -114,13 +132,10 @@ export default function ScheduleBooking(props) {
 
     }
 
-    useEffect(() => {
-        if (recordForEdit != null)
-            setValues({
-                ...recordForEdit
-            })
-    }, [recordForEdit])
 
+    const Input = styled('input')({
+        display: 'none',
+      });
     const useStyles = makeStyles(theme => ({
         pageContent: {
             margin: theme.spacing(5),
@@ -131,6 +146,7 @@ export default function ScheduleBooking(props) {
     return (
         
        <main>
+           
         <Paper className={classes.pageContent}>
        <Form onSubmit={handleSubmit}>
            <PageHeader
@@ -153,13 +169,7 @@ export default function ScheduleBooking(props) {
                         onChange={handleInputChange}
                         error={errors.lastName}
                     />
-                    <Controls.Input
-                        label="Identity Number"
-                        name="IdNumber"
-                        value={values.IdNumber}
-                        onChange={handleInputChange}
-                        error={errors.IdNumber}
-                    />
+
                     <Controls.Input
                         label="Email"
                         name="Email"
@@ -174,6 +184,20 @@ export default function ScheduleBooking(props) {
                         onChange={handleInputChange }
                         error={errors.contactNo}
                     />
+                    
+                    <Controls.Select
+                        name="Province"
+                        label="Province"
+                        value={values.Province}
+                        onChange={handleInputChange}
+                        options={employeeService.Province()}
+                        error={errors.Province}
+                        items={employeeService}
+                    />
+
+                </Grid>
+                <Grid item xs={6}>
+
                     <Controls.Input
                         label="Retailer Name"
                         name="RetailerName"
@@ -182,9 +206,15 @@ export default function ScheduleBooking(props) {
                         error={errors.RetailerName}
                     />
 
-                </Grid>
-                <Grid item xs={6}>
-                  
+
+                    <Controls.Input
+                        name="BranchName"
+                        label="Brand Name"
+                        value={values.BranchName}
+                        onChange={handleInputChange}
+                        error={errors.BranchName}
+                   
+                    />
                     <Controls.Input
                         name="ShortListedPosition"
                         label="Canditate Position"
@@ -204,14 +234,8 @@ export default function ScheduleBooking(props) {
                         items={employeeService}
                     />
 
-                     <Controls.Input
-                        name="BranchName"
-                        label="Brand Name"
-                        value={values.BranchName}
-                        onChange={handleInputChange}
-                        error={errors.BranchName}
-                   
-                    />
+                    
+                     
                     <Controls.DatePicker
                         name="PreferredDate"
                         label="Preferred Date"
@@ -220,14 +244,22 @@ export default function ScheduleBooking(props) {
                     />
 
                     
-                    <div>
-                        <input 
+<Stack direction="row" alignItems="center" spacing={2}>
 
-                        aria-label="Insert CV"
-                        type="file"
-                        name="File"
-                        />
-                    </div>
+
+
+<input
+          type="text"
+          onChange={(e) => setSuperHero(e.target.value)}
+          placeholder={"Superhero Name"}
+        />
+        <br />
+        <input type="file" accept=".pdf" onChange={(e) => setUploadFile(e.target.files)} />
+        <br />
+        
+		
+     
+    </Stack>
 
             
 

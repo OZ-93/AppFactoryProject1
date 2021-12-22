@@ -1,11 +1,38 @@
+
+import React, { useState, useEffect } from 'react'
+
+
+
 const KEYS ={
     employees:'employees',
-    employeeId:'employeeId'
+    employeeId:'employeeId',
+    candidates:'candidates'
 }
 
 export const Assessment = ()=>([
     { id: 'Development', title: 'Development' },
     { id: 'Recruitment', title: 'Recruitment' },
+    
+])
+
+export const Province = ()=>([
+    { id: 'Gauteng', title: 'Gauteng' },
+    { id: 'Kwa-Zulu Natal', title: 'Kwa-zulu Natal' },
+    { id: 'Eastern Cape', title: 'Eastern Cape' },
+    { id: 'Western Cape', title: 'Western Cape' },
+    { id: 'Northen Cape', title: 'Northern Cape' },
+    { id: 'Noth West', title: 'North West' },
+    { id: 'Free State', title: 'Free State' },
+    { id: 'Limpopo', title: 'Limpopo' },
+    { id: 'Mpumalanga', title: 'Mpumalanga' },
+    
+])
+
+export const Status = ()=>([
+    { id:  'Pending', title:'Pending'},
+    { id: 'Approved', title: 'Approved' },
+    { id: 'Declined', title: 'Declined' },
+    
     
 ])
 
@@ -38,9 +65,11 @@ export function generateEmployeeId() {
     return id;
 }
 
+
+
 export function getAllEmployees() {
     if (localStorage.getItem(KEYS.employees) == null)
-        localStorage.setItem(KEYS.employees, JSON.stringify([]))
+      localStorage.setItem(KEYS.employees, JSON.stringify([]))
     return JSON.parse(localStorage.getItem(KEYS.employees));
 
      //map departmentID to department title

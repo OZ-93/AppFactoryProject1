@@ -78,10 +78,35 @@ export const SubmitButton = styled.button`
   }
 `;
 
+export const Button = styled.button`
+  padding: 11px 40%;
+  width: 100%;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  border-radius: 100px 100px 100px 100px;
+  cursor: pointer;
+  transition: all, 240ms ease-in-out;
+  background:   rgb(15, 97, 98);
+  background:   rgb(15, 97, 98);
+  );
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    filter: brightness(1.03);
+  }
+  &:disabled {
+    filter: contrast(0.7);
+  }
+`;
+
 export const FieldContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  
 `;
 
 export const FieldError = styled.span`

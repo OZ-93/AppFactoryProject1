@@ -39,6 +39,14 @@ export function LoginForm(props) {
     state: {fromDashboard: true}
   } 
 
+  const Adminlocation = {
+    pathname: '/AdminDash',
+    state: {fromDashboard: true}
+  } 
+
+
+
+
   const history = useHistory();
 
   
@@ -73,20 +81,36 @@ export function LoginForm(props) {
       .catch((err) => {
         if (err && err.response) setError(err.response.data.message);
         alert("Failed to Login")
+      }).then((response)=>{
+
+ localStorage.setItem('values', response.data)
+      Alert("Welcome back in. Authenticating...");
+     
+      axios.get(
+        "http://localhost:51153/api/Authenticate/User",{withCredentials:true})
+ setUser(response.data);
+
+history.push(location);
+
+
       });
 
-    if (response) {
-      localStorage.setItem('values', response.data)
-      Alert("Welcome back in. Authenticating...");
-      history.push(location);
-     /* await axios.get(
-        "https://localhost:44306/api/Authenticate/User",
-         {withCredentials:true}
-      );*/
+         
+/*if(User.UserType===1)
+{
+   
+}
+else{
+ 
+  history.push(Adminlocation);
+}*/
+
+        
       // set the state of the user
       
        
-    }
+    
+    
 
      /* await fetch('https://localhost:44306/api/Authenticate/login', {
       method:'Post',

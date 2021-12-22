@@ -1,5 +1,6 @@
 main{
-    background: #f3f4f6;
+   /* background: #f3f4f6;*/
+   background: url(../../../Assets/architecture.jpg);
     grid-area: main;
     overflow: auto;
 }
@@ -22,7 +23,19 @@ main{
     margin: 20px;
 }
 
-.card{
+/*.card{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 350px;
+    padding: 30px;
+    width: 900px;
+    border-radius: 20px;
+    background:  url('../../../Assets/Five-Features-of-a-Good-Monthly-Employee-Work-Schedule-Template-896x518.jpg') center center/cover no-repeat;;
+    box-shadow: 5px 5px 13px #ededed, -5px -5px 13px #ffffff;
+
+}*/
+.card2{
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -41,7 +54,7 @@ main{
     height: 300px;
     padding: 25px;
     border-radius: 5px;
-    background:  url('../../../Assets/schedule.png') center center/cover no-repeat;;
+    background:  url('../../../Assets/update.jpg') center center/cover no-repeat;;
     box-shadow: 5px 5px 13px #ededed, -5px -5px 13px #ffffff;
 
 }
